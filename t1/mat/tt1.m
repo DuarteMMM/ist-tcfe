@@ -54,19 +54,19 @@ filename="ofile.tex";
 fid=fopen(filename,"w");
 
 %%Printing Voltages
-fprintf(fid,"V0 & 0 \\\\ \\hline \n");
-fprintf(fid,"V1 & %E \\\\ \\hline \n",Data2([1]));
-fprintf(fid,"V2 & %E \\\\ \\hline \n",Data2([2]));
-fprintf(fid,"V3 & %E \\\\ \\hline \n",Data2([3]));
-fprintf(fid,"V4 & %E \\\\ \\hline \n",Data2([4]));
-fprintf(fid,"V5 & %E \\\\ \\hline \n",Data2([5]));
-fprintf(fid,"V6 & %E \\\\ \\hline \n",Data2([6]));
-fprintf(fid,"V7 & %E \\\\ \\hline \n",Data2([7]));
+fprintf(fid,"$V_0$ & 0 \\\\ \\hline \n");
+fprintf(fid,"$V_1$=$V_c$ & %E \\\\ \\hline \n",Data2([1]));
+fprintf(fid,"$V_2$ & %E \\\\ \\hline \n",Data2([2]));
+fprintf(fid,"$V_3$ & %E \\\\ \\hline \n",Data2([3]));
+fprintf(fid,"$V_4$ & %E \\\\ \\hline \n",Data2([4]));
+fprintf(fid,"$V_5$ & %E \\\\ \\hline \n",Data2([5]));
+fprintf(fid,"$V_6$ & %E \\\\ \\hline \n",Data2([6]));
+fprintf(fid,"$V_7$ & %E \\\\ \\hline \n",Data2([7]));
 %%Printing Currents
-fprintf(fid,"Ia & %E \\\\ \\hline \n",Data1([1]));
-fprintf(fid,"Ib & %E \\\\ \\hline \n",Data1([2]));
-fprintf(fid,"Ic & %E \\\\ \\hline \n",Data1([3]));
+fprintf(fid,"$I_a$ & %E \\\\ \\hline \n",Data1([1]));
+fprintf(fid,"$I_b$ & %E \\\\ \\hline \n",Data1([2]));
+fprintf(fid,"$I_c$ & %E \\\\ \\hline \n",Data1([3]));
 %%Printing Results
 Vb=Data2([4])-Data2([1]);
-fprintf(fid,"Vb & %E \\\\ \\hline \n",Vb);
+fprintf(fid,"$V_b$=$V_4$-$V_1$ & %E \\\\ \\hline \n",Vb);
 fclose (fid);

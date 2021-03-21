@@ -1,198 +1,184 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed theoretically, determinig the values of voltage and current acording to the mesh method and the node mehtod.
+In this section, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically, by determining the values of voltages and currents, using the mesh and node methods.
 
 \subsection{Mesh Method}
 
-The mesh method is based in the KVL, stating that the current in a elementary mesh is some fixed value. Furthermore, we assume that the current going throw a component is the sum of the currents of the elementary meshes, or  elementary mesh, where the componet is. Then we apply the KVL law where, instead of using the Voltages, we use the current times the resistance because of the Ohm, which states that: 
+The Kirchhoff Voltage Law (KVL) states that the sum of voltages in a circuit loop is zero. In Figure~\ref{fig:TotalMesh}, the chosen directions for the mesh currents $I_a$, $I_b$, $I_c$ and $I_d$ are shown. It is also worth mentioning Ohm's Law, which states the following:
+\par
+
 \begin{equation}
   R=\frac{V}{I} \Leftrightarrow V=R \times I
-  \label{eq:kvl}
+  \label{eq:OhmLaw}
 \end{equation}
 
-Then, we write the equations acording to this format, where R is the resistance of the component, and I is the sum of the currents applied to the resistance:
+Using this information, an equation is written for each of the four meshes represented in Figure~\ref{fig:TotalMesh}. The value of current $I_d$ is known and it was obtained by running \texttt{t1\_datagen.py}. By solving the system that comes from applying KVL, the values of $I_a$, $I_b$ and $I_c$ will be obtained. Knowing all the mesh currents and using the other values given by \texttt{t1\_datagen.py}, it is possible to know all node voltages abd branch currents, using Ohm's Law.
+
+\par
+\vspace{1mm}
+
+By applying KVL and Ohm's Law in mesh 'a', the following equation is obtained:
 
 \begin{equation}
-  \Sigma_iR_iI_i=0
-  \label{eq:kvl}
+  -V_a+R_1I_a+R_3(I_a+I_b)+R_4(I_a+I_c)=0 \Leftrightarrow I_a(R_1+R_3+R_4)+I_b(R_3)+I_c(R_4)=V_a
+  \label{eq:Mesh_a}
 \end{equation}
 
-It's clear that we can only write the equations for the meshes which don't have some voltage source. In order to avoid errors, one shoul previously define the direction of the current going throw each component, as well as the meshes currents directions. If this equations are not enough to solve the problem we write the KVL, or in the most unlikely of possibilities the KCL.
-\par
-KVL states that the sum of the voltages in a mesh is zero, while the KCL states that the sum of the currents going to some point of the circuit is the same as the sum of the currents going out of that same point. Notice that KVL is valid both for elementary and not elementary knots.
-\par
-In order to make each step clear, first the whole system will be shown,with eachof the currents marked, then the equation for each mesh, and then, finally, the matrix to solve.
-\par
-Now, we are going to show the figure of the circuit with the currents in each mesh marked.
+For mesh 'b', we can write down:
+
+\begin{equation}
+  I_b=K_bV_b=K_b(R_3(I_a+I_b)) \Leftrightarrow I_a(K_bR_3)+I_b(K_bR_3-1)=0
+  \label{eq:Mesh_b}
+\end{equation}
+
+The equation for mesh 'c' is:
+
+\begin{equation}
+  -V_c+R_4(I_a+I_c)+I_c(R_6+R_7)=0 \Leftrightarrow I_a(R_4)+I_c(R_4+R_6+R_7-K_c)=0
+  \label{eq:Mesh_c}
+\end{equation}
+
+For mesh 'd', it is clear that the correpondant current is the same as the current source's. Therefore, by inspection, we simply obtain:
+
+\begin{equation}
+  I_d=I_d
+  \label{eq:Mesh_d}
+\end{equation}
+
+Finally, by joining equations~\ref{eq:Mesh_a},~\ref{eq:Mesh_b} and~\ref{eq:Mesh_c} togehter, we get the following system:
+
+\begin{equation}
+  \begin{pmatrix}
+    R_1+R_3+R_4 & R_3 & R_4 \\
+    K_bR_3 & K_bR_3-1 & 0 \\
+    R_4 & 0 & R_4+R_6+R_7-K_c
+  \end{pmatrix}
+  \begin{pmatrix}
+    I_a  \\
+    I_b  \\
+    I_c
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    V_a  \\
+    0  \\
+    0
+  \end{pmatrix}
+  \label{eq:LinearSystem1}
+\end{equation}
+
 \begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{TotalMesh.pdf}
-\caption{Circuit with the currents marked}
-\label{TotalMesh}
+  \includegraphics[width=0.8\linewidth]{TotalMesh.pdf}
+  \caption{Circuit with the respective mesh currents.}
+  \label{fig:TotalMesh}
 \end{figure}
 
-For the mesh d it is clear that the correpondent current is the current of the current source. Therefore we have:
-\begin{equation}
-  Id=I_d
-  \label{meshdfinal}
-\end{equation}
-
-
-For the mesh a, as it has a voltage source, we have to apply the KVL, obtaining:
-\begin{equation}
-  -Va+R_1Ia+R_3(Ia+Ib)+R4(Ia+Ic)=0
-  \label{meshaKVL}
-\end{equation}
-Then we get the final mesh a equation as:
-\begin{equation}
-  Ia(R_1+R_3+R_4)+Ib(R_3)+Ic(R_4)=V_a
-  \label{meshaKVLfinal}
-\end{equation}
-
-
-
-For the mesh b, we could simply write down:
-\begin{equation}
-  Ib=K_bV_b=K_b(R_3(Ia+Ib))
-  \label{meshbKVL}
-\end{equation}
-Then we get the final mesh equation for b as:
-\begin{equation}
-  IaK_bR_3+Ib(K_bR_3-1)=0
-  \label{meshbKVLfinal}
-\end{equation}
-
-
-For the mesh c we apply, again, the KVL, obtaining:
-\begin{equation}
-  -V_c+R_4(Ia+Ic)+Ic(R_6+R_7)=0
-  \label{meshcKVL}
-\end{equation}
-One should substitute the $V_C$ for $K_cIc$, obtainig the final equation as:
-\begin{equation}
-  Ia(R_4)+Ic(R_4+R_6+R_7-K_c)=0
-  \label{meshcKVL}
-\end{equation}
-
-
-Finally, we only have to join the four final equations, obtaining the system:
-\par
-\begin{equation}
-\begin{pmatrix}
-  R_1+R_3+R_4 & R_3 & R_4 \\
-  K_bR_3 & K_bR_3-1 & 0 \\
-  R_4 & 0 & R_4+R_6+R_7-K_c
-\end{pmatrix}
-\begin{pmatrix}
-  Ia  \\
-  Ib  \\
-  Ic
-\end{pmatrix}
-=
-\begin{pmatrix}
-  V_a  \\
-  0  \\
-  0
-\end{pmatrix}
-  \end{equation}
 
 \subsection{Node Method}
-The node method is based in the KCL and it is based in the fact that a node have a determined value of voltage, if we define one as the ground. Basically we say that the voltage in a component is the voltage drop in the direction of the current. Imagining we are looking at the node z. Then the node method simply states that:
-\begin{equation}
-  \Sigma(Vz-Vi)Gi
-\end{equation}
-where i states for the node which connects with z throw a resistance. One notices that if there are nodes which are not connect throw resistances. Therefore, we use the original form of the KCL, in order to keep the differences in mind.
+
+The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. The nodes considered for the following equations are those represented in Figure~\ref{fig:CircuitDraw}. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the voltages at nodes $V_1$ to $V_7$ can be determined. Using these values and equation~\ref{eq:OhmLaw}, currents $I_a$, $I_b$ and $I_c$ could be easily calculated.
+
 \par
-In the figure showed above the ground is already marked, so one can simply name the nodes and start writing the equations. The nodes were labeled as  below:
-\begin{figure}[H] \centering
-\includegraphics[width=0.8\linewidth]{TotalNodes.pdf}
-\caption{Circuit with the nodes marked}
-\label{TotalNodes}
-\end{figure}
+\vspace{1mm}
 
-The value of the node V0 is 0V, because it is connected to the ground.
-We will simply ignore this equation.
+Let us now consider, in the first place, nodes not connected to voltage sources.
 
-For the node V2 we have:
+\par
+
+For node $V_2$, we have that:
 \begin{equation}
-V1(\frac{1}{R_4})+V2(-\frac{1}{R_4}-\frac{1}{R_6})+V4(\frac{1}{R_1})+V5(\frac{1}{R_6})+V6(-\frac{1}{R_1})=0  
+  V_1(G_4)+V_2(-G_4-G_6)+V_4(G_1)+V_5(G_6)+V_6(-G_1)=0
+  \label{eq:Nodes_1}
 \end{equation}
 
-For the node V3 we have:
+The equation for node $V_3$ is the following:
 \begin{equation}
-  V1(-\frac{1}{R_5}-K_b)+V3(\frac{1}{R_5})+V4(K_b)=I_d
-  \end{equation}
-
-
-For the node V4 we have:
-\begin{equation}
-V1(-\frac{1}{R_3})+V4(\frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3})+V6(-\frac{1}{R_1})+V7(-\frac{1}{R_2})=0  
+  V_1(-G_5-K_b)+V_3(G_5)+V_4(K_b)=I_d
+  \label{eq:Nodes_2}
 \end{equation}
 
-For the node V5 we have:
+For node $V_4$:
 \begin{equation}
-  V2(-\frac{1}{R_6})+V5(\frac{1}{R_6}+\frac{1}{R_7})=0
+  V_1(-G_3)+V_4(G_1+G_2+G_3)+V_6(-G_1)+V_7(-G_2)=0
+  \label{eq:Nodes_3}
 \end{equation}
 
-For the node V7 we have:
+The equation for node $V_5$ is:
 \begin{equation}
-  V1(K_b)+V4(-\frac{1}{R_2}-K_b)+V7(\frac{1}{R_2})=0
-  \end{equation}
-
-For the source $V_a$ we have:
-\begin{equation}
-  V6-V2=V_a
+  V_2(-G_6)+V_5(G_6+G_7)=0
+  \label{eq:Nodes_4}
 \end{equation}
 
-For the source $V_c$ we have:
+And finally, for node $V_7$, we have that:
 \begin{equation}
-  V1+V5\frac{K_c}{R_6}+V2(-\frac{K_c}{R_6})=0
-  \end{equation}
+  V_1(K_b)+V_4(-G_2-K_b)+V_7(G_2)=0
+  \label{eq:Nodes_5}
+\end{equation}
 
-Then, joining all the equations above, one gets the following matricial equation:
+Now, additional equations can be obtained for the nodes related by voltage sources ($V_0$, $V_1$, $V_2$ and $V_6$).
+\par
+The value of the voltage in node $V_0$ is $0 V$, because it is connected to GND. Therefore, this equation will not be used in the final matrix.
+\par
+The source $V_a$ can be used to obtain the following equation:
 \begin{equation}
-\begin{pmatrix}
-  -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_1}+\frac{1}{R_3}+\frac{1}{R_2} & 0 & -\frac{1}{R1} & -\frac{1}{R_2} \\
-  0 & -\frac{1}{R_6} & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & 0 & 0 \\
-  0 & -1 & 0 & 0 & 0 & 1 & 0 \\
-  1 & -\frac{K_c}{R_6} & 0 & 0 & \frac{K_c}{R_6} & 0 & 0 \\
-  -\frac{1}{R_5}-K_b & 0 & \frac{1}{R_5} & K_b & 0 & 0 & 0 \\
-  K_b & 0 & 0 & -\frac{1}{R_2}-K_b & 0 & 0 & \frac{1}{R_2} \\
-  \frac{1}{R_4} & -\frac{1}{R_4}-\frac{1}{R_6} & 0 & \frac{1}{R_1} & \frac{1}{R_6} & -\frac{1}{R_1} & 0
-\end{pmatrix}
-\begin{pmatrix}
-  V1  \\
-  V2  \\
-  V3  \\
-  V4  \\
-  V5  \\
-  V6  \\
-  V7  \\
-\end{pmatrix}
-=
-\begin{pmatrix}
-  0   \\
-  0   \\
-  V_a  \\
-  0    \\
-  I_d  \\
-  0    \\
-  0    \\
-\end{pmatrix}
-  \end{equation}
+  V_6-V_2=V_a
+  \label{eq:Nodes_6}
+\end{equation}
+
+Finally, for node $V_1$, we have that $V_1$ - $V_0$ = $V_1$ = $V_c$ = $K_c$ $I_c$. Using Ohm's Law, we can replace $I_c$ by $(V_2-V_5)G_6$. Therefore, the equation obtained is:
+\begin{equation}
+  V_1+V_5(K_cG_6)+V_2(-K_cG_6)=0
+  \label{eq:Nodes_7}
+\end{equation}
+
+Considering equations~\ref{eq:Nodes_1}-\ref{eq:Nodes_7} above, one gets the following linear system:
+
+\begin{equation}
+  \begin{pmatrix}
+    1 & -\frac{K_c}{R_6} & 0 & 0 & \frac{K_c}{R_6} & 0 & 0 \\
+    \frac{1}{R_4} & -\frac{1}{R_4}-\frac{1}{R_6} & 0 & \frac{1}{R_1} & \frac{1}{R_6} & -\frac{1}{R_1} & 0 \\
+    -\frac{1}{R_5}-K_b & 0 & \frac{1}{R_5} & K_b & 0 & 0 & 0 \\
+    -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_1}+\frac{1}{R_3}+\frac{1}{R_2} & 0 & -\frac{1}{R1} & -\frac{1}{R_2} \\
+    0 & -\frac{1}{R_6} & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & 0 & 0 \\
+    0 & -1 & 0 & 0 & 0 & 1 & 0 \\
+    K_b & 0 & 0 & -\frac{1}{R_2}-K_b & 0 & 0 & \frac{1}{R_2}
+  \end{pmatrix}
+  \begin{pmatrix}
+    V_1  \\
+    V_2  \\
+    V_3  \\
+    V_4  \\
+    V_5  \\
+    V_6  \\
+    V_7  \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0   \\
+    0   \\
+    I_d \\
+    0   \\
+    0   \\
+    V_a \\
+    0   \\
+  \end{pmatrix}
+  \label{eq:LinearSystem2}
+\end{equation}
 
 
 \subsection{Results}
-Solving the matricial eqautions above we get the values below:
+By solving the linear systems~\ref{eq:LinearSystem1} and~\ref{eq:LinearSystem2}, the following values are obtained:
+
 \begin{table}[H]
   \centering
-  \begin{tabular}{|l|r|}
+  \begin{tabular}{|c|c|}
     \hline
-     {\bf Name} & {\bf Value [A or V]} \\ \hline
-    \input{ofile.tex}
+        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        \input{ofile.tex}
   \end{tabular}
-  \caption{Values of the variables calculated, currents in A and voltages in V}
-  \label{tab1}
+  \caption{Values of voltages (in volts) and mesh currents (in amperes).}
+  \label{tab:Theoretical}
 \end{table}
 
 
