@@ -66,6 +66,7 @@ fprintf(fid,"V7 & %E \\\\ \\hline \n",Data2([7]));
 fprintf(fid,"Ia & %E \\\\ \\hline \n",Data1([1]));
 fprintf(fid,"Ib & %E \\\\ \\hline \n",Data1([2]));
 fprintf(fid,"Ic & %E \\\\ \\hline \n",Data1([3]));
+fprintf(fid,"Id & %E \\\\ \\hline \n",Id);
 %%Printing Results
 Vb=Data2([4])-Data2([1]);
 fprintf(fid,"Vb & %E \\\\ \\hline \n",Vb);
