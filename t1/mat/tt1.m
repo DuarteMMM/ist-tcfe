@@ -73,6 +73,7 @@ fprintf(fid,"$V_4$ & %E \\\\ \\hline \n",Data2([4]));
 fprintf(fid,"$V_5$ & %E \\\\ \\hline \n",Data2([5]));
 fprintf(fid,"$V_6$ & %E \\\\ \\hline \n",Data2([6]));
 fprintf(fid,"$V_7$ & %E \\\\ \\hline \n",Data2([7]));
+
 %%Printing Results
 %Vb=Data2([4])-Data2([1]);
 %fprintf(fid,"$V_b$=$V_4$-$V_1$ & %E \\\\ \\hline \n",Vb);
