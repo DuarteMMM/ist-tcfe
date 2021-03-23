@@ -77,8 +77,8 @@ echo "********************************************"
 *print v(7)
 
 echo  "op_TAB"
-print @gb[i]
-print @id[current]
+*print @gb[i]
+*print @id[current]
 print @r1[i]
 print @r2[i]
 print @r3[i]
