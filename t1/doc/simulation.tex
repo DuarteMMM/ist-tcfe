@@ -3,20 +3,21 @@
 
 \subsection{Operating Point Analysis}
 
-Table~\ref{tab:op} shows the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw}. Voltages \textit{v(i)} correspond to the respective voltages $V_i$ in Table \ref{tab:Theoretical}. Besides this, currents represented below as \textit{@rj[i]} refer to the currents passing through the respective resistances, $R_j$. Therefore, @r1[i] is the value of $I_a$, @r2[i] is the value of $I_b$ and @r6[i]=@r7[i] is the value of $I_c$. On the other hand, similarly to what is indicated in Table \ref{tab:Theoretical}, v(1)=$V_c$ and v(4)-v(1)=$V_b$.
+Table~\ref{tab:op} shows the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw}. Voltages v$(j)$ correspond to the respective voltages $V_j$ in Table \ref{tab:Theoretical}. Besides this, currents designated below as i$j$ refer to the currents passing through the respective resistances, $R_j$.
+%Therefore, @r1[i] is the value of $I_a$, @r2[i] is the value of $I_b$ and @r6[i]=@r7[i] is the value of $I_c$. On the other hand, similarly to what is indicated in Table \ref{tab:Theoretical}, v(1)=$V_c$ and v(4)-v(1)=$V_b$.
 
-\par
+%\par
 
-It is also worth mentioning that @id[current] is the value of $I_d$ and that @gb[i] is the current $I_b$.
+%It is also worth mentioning that @id[current] is the value of $I_d$ and that @gb[i] is the current $I_b$.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline    
-    {\bf Name} & {\bf Value [A or V]} \\ \hline
+    {\bf Designation} & {\bf Value [A or V]} \\ \hline
     \input{../sim/op_tab.tex}
   \end{tabular}
-  \caption{Operating point analysis table. A variable preceded by @ is a current, in the unit \textit{ampere}; other variables are voltages, in the unit \textit{volt}.}
+  \caption{Operating point analysis table. Currents i$j$ are in amperes; voltages v$(j)$ are in volts.}
   \label{tab:op}
 \end{table}
 
