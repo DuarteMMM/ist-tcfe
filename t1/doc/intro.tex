@@ -12,36 +12,15 @@ By running the Python script \texttt{t1\_datagen.py}, the values of the resistan
   \label{fig:CircuitDraw}
 \end{figure}
 
+
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|c|c|}
-    \hline
-        {\bf Designation} & {\bf Value}  \\
-        \hline
-        $R_1$ & 1.04053890347 k$\Omega$ \\
-        \hline
-        $R_2$ & 2.00185929606 k$\Omega$ \\
-        \hline
-        $R_3$ & 3.06593231919 k$\Omega$ \\
-        \hline
-        $R_4$ & 4.15163583349 k$\Omega$ \\
-        \hline
-        $R_5$ & 3.03409481751 k$\Omega$ \\
-        \hline
-        $R_6$ & 2.05654586148 k$\Omega$ \\
-        \hline
-        $R_7$ & 1.00587575204 k$\Omega$ \\
-        \hline
-        $V_a$ & 5.16821048288 V\\
-        \hline
-        $I_d$ & 1.0127707267 A\\
-        \hline
-        $K_b$ & 7.29055867767 mS\\
-        \hline
-        $K_c$ & 8.22649929708 k$\Omega$ \\
-        \hline
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Designation} & {\bf Value [V, mA, k$\Omega$ or mS]} \\ \hline
+    \input{../sim/PythonInfo.tex}
   \end{tabular}
-  \caption[]{Values obtained by running the file \texttt{t1\_datagen.py}.}
+  \caption{Values obtained by running the file \texttt{t1\_datagen.py}. Resistances $R_i$ and constant $K_c$ are in k$\Omega$, voltage $V_a$ is in volts, current $I_d$ is in miliamperes and constant $K_b$ is in milisiemens.}
   \label{tab:GivenValues}
 \end{table}
 
