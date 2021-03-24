@@ -13,9 +13,9 @@ all: $(FILE).pdf
 
 $(FILE).pdf: $(wildcard *.tex) $(LODFIGS)
 	cp -f ../mat/*.tex .
-	pdflatex  $(FILE).tex
-	pdflatex  $(FILE).tex
-	pdflatex  $(FILE).tex
+	pdflatex  $(FILE).tex >/dev/null
+	pdflatex  $(FILE).tex >/dev/null
+	pdflatex  $(FILE).tex >/dev/null
 
 
 #convert libreoffice draw figures to pdf
