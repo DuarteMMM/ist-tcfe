@@ -1,0 +1,60 @@
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+\subsection{Exercise 1}
+
+In this section, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. The nodes considered for the following equations are those represented in Figure~\ref{fig:CircuitDraw}. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the voltages at nodes $V_1$ to $V_8$ and currents in resistances $R_1$ to $R_7$ can be determined.
+
+\par
+\vspace{1mm}
+
+The following linear system is obtained:
+
+\begin{equation}
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
+    0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & -\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}+\frac{1}{R_5} & -\frac{1}{R_5} & -\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & K_b & 0 & 0 & -\frac{1}{R_5}-K_b & \frac{1}{R_5} & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7} \\
+    0 & 0 & 0 & -\frac{K_d}{R_6} & 1 & 0 & \frac{K_d}{R_6} & -1
+  \end{pmatrix}
+  \begin{pmatrix}
+    V_1  \\
+    V_2  \\
+    V_3  \\
+    V_4  \\
+    V_5  \\
+    V_6  \\
+    V_7  \\
+    V_8  \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    V_s \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+  \end{pmatrix}
+  \label{eq:Exercise1LinearSystem}
+\end{equation}
+
+By solving the linear system~\ref{eq:Exercise1LinearSystem}, the following values for node voltages and branch currents (calculated by using Ohm's Law) are obtained:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        \input{Exercise1.tex}
+  \end{tabular}
+  \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
+  \label{tab:Exercise1Theoretical}
+\end{table}
+
