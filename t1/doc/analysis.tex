@@ -13,7 +13,7 @@ The Kirchhoff Voltage Law (KVL) states that the sum of voltages in a circuit loo
   \label{eq:OhmLaw}
 \end{equation}
 
-Using this information, an equation is written for each of the four meshes represented in Figure~\ref{fig:TotalMesh}. The value of current $I_d$ is known and it was obtained by running \texttt{t1\_datagen.py}. By solving the system that comes from applying KVL, the values of $I_a$, $I_b$ and $I_c$ will be obtained. Knowing all the mesh currents and using the other values given by \texttt{t1\_datagen.py}, it is possible to know all node voltages abd branch currents, using Ohm's Law.
+Using this information, an equation is written for each of the four meshes represented in Figure~\ref{fig:TotalMesh}. The value of current $I_d$ is known and it was obtained by running \texttt{t1\_datagen.py}. By solving the system that comes from applying KVL, the values of $I_a$, $I_b$ and $I_c$ will be obtained. Knowing all the mesh currents and using the other values given by \texttt{t1\_datagen.py}, it is possible to know all node voltages and branch currents, using Ohm's Law.
 
 \par
 \vspace{1mm}
@@ -46,7 +46,7 @@ For mesh 'd', it is clear that the correpondant current is the same as the curre
   \label{eq:Mesh_d}
 \end{equation}
 
-Finally, by joining equations~\ref{eq:Mesh_a},~\ref{eq:Mesh_b} and~\ref{eq:Mesh_c} togehter, we get the following system:
+Finally, by joining equations~\ref{eq:Mesh_a},~\ref{eq:Mesh_b} and~\ref{eq:Mesh_c} together, we get the following system:
 
 \begin{equation}
   \begin{pmatrix}
@@ -168,7 +168,7 @@ Considering equations~\ref{eq:Nodes_1}-\ref{eq:Nodes_7} above, one gets the foll
 
 
 \subsection{Results}
-By solving the linear systems~\ref{eq:LinearSystem1} and~\ref{eq:LinearSystem2}, the following values for node voltages and branch currents (calculated using $I_a$, $I_b$ and $I_c$) are obtained:
+By solving the linear systems~\ref{eq:LinearSystem1} and~\ref{eq:LinearSystem2}, the following values for node voltages, $V_b$ and branch currents (calculated using $I_a$, $I_b$ and $I_c$) are obtained:
 
 \begin{table}[H]
   \centering

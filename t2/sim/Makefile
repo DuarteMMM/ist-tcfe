@@ -3,21 +3,19 @@ all: ngspice.log
 	$(eval NGSFIGPS=$(addsuffix .ps, $(NGSFIGS)))
 	$(foreach i, $(NGSFIGPS), ps2pdf $i;)
 	$(eval NGSTABS=$(shell grep _TAB $< | sed 's/_TAB//g' | sed ':a;N;$!ba;s/\n/ /g'))
-	@sed 's/v(/\$$V\_/g' -i $<
-	@sed 's/)/\$$/g' -i $<
-	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/@r/\$$I\_/g' | sed -re 's/[[]i[]]/\$$/g' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
+	$(foreach i, $(NGSTABS), sed -n '/^$i_TAB/,/^$i_END/{p;/^$i_END/q}' $< | grep -v $i_TAB | grep -v $i_END | grep -v '#' | sed 's/@r/\$$I\_/g' | sed -re 's/@gb[[]i[]]/\$$I\_b\$$/g' | sed -re 's/@c1[[]i[]]/\$$I\_c\$$/g' | sed -re 's/@vs[[]i[]]/\$$I\_{V_s}\$$/g' | sed -re 's/@hc[[]i[]]/\$$I\_{V\_d}\$$/g' | sed -re 's/[[]i[]]/\$$/g' | sed 's/v(/\$$V\_/g' | sed 's/)/\$$/g' | sed 's/\=/\&/g' | sed 's/$$/\\\\ \\hline/g' > $i_tab.tex;)
 	make PythonInfo.tex
 
-ngspice.log: ../sim/t1.net
+ngspice.log: ../sim/Exercise1.net
 	ngspice -b $< -o $@
 
-PythonInfo.tex: ../t1_datagen.py
-	@echo '96503' > StudentNumber.txt
-	@python $< < StudentNumber.txt > $@
+PythonInfo.tex: ../data.txt
+	cp $< $@
 	@sed 's/Please enter the lowest student number in your group: //g' -i $@
-	@sed 's/Units for the values: V, mA, kOhm and mS//g' -i $@
+	@sed 's/Units for the values: V, mA, kOhm, mS and uF//g' -i $@
 	@sed 's/Values:  //g' -i $@
 	@sed "s/R/\$$R\_/g" -i $@
+	@sed "s/C/\$$C/g" -i $@
 	@sed "s/V/\$$V\_/g" -i $@
 	@sed "s/I/\$$I\_/g" -i $@
 	@sed "s/K/\$$K\_/g" -i $@
@@ -27,7 +25,8 @@ PythonInfo.tex: ../t1_datagen.py
 
 clean:
 	@rm -f ngspice.log *.tex *.pdf *.ps *~
-	@rm -rf StudentNumber.txt
 	@rm -rf PythonInfo.tex
+	@rm -rf data.txt
+	@rm -rf dataNgspice.txt
 
 .PHONY: all clean
