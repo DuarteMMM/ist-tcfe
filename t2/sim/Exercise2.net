@@ -3,7 +3,7 @@
 * forces current values to be saved
 .options savecurrents
 
-.INCLUDE dataNgspice.txt
+.INCLUDE dataNgspice2.txt
 
 
 .control
@@ -26,7 +26,7 @@ echo  "Operating point"
 echo "********************************************"
 
 
-echo  "Exercise1_TAB"
+echo  "Exercise2_TAB"
 print @r1[i]
 print @r2[i]
 print @r3[i]
@@ -35,7 +35,7 @@ print @r5[i]
 print @r6[i]
 print @r7[i]
 print @gb[i]
-print @c1[i]
+print @vx[i]
 print @vs[i]
 print @hc[i]
 print v(1)
@@ -45,12 +45,8 @@ print v(5)
 print v(6)
 print v(7)
 print v(8)
-echo  "Exercise1_END"
+echo  "Exercise2_END"
 
-echo  "Data2_DAT"
-print v(6)
-print v(8)
-echo  "Data2_END"
 
 quit
 .endc
