@@ -148,3 +148,18 @@ fprintf(fid21,"$I_{capacitor}$ & %E \\\\ \\hline \n",I5-I2);
 fprintf(fid21,"$R_{eq}$ & %E \\\\ \\hline \n",Vn/(I5-I2));
 
 fclose (fid21);
+
+
+%Exercise3
+Req=Vn/(I5-I2);
+A=Data([6]);
+t=0:2e-6:2e-3;
+vn=A*exp(-t/(Req*C));
+
+hf = figure ("Visible", "off");
+plot (t*1000, vn, "");
+hold on;
+
+xlabel ("t[ms]");
+ylabel ("vn(t) [V]");
+print (hf, "natural.eps", "-depsc");

@@ -121,3 +121,15 @@ Now that we have all this values, we are simply going to calculate the current g
   \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
   \label{tab:Exercise2.1Theoretical}
 \end{table}
+
+\subsection{Exercise 3}
+Using the results from the previous exercise we understand we can simplify the circuit into a circuit with a voltage source, a resistance and and the capacitor. For this case we already have that the natural solution looks like:
+\begin{equation}
+  v_n(t)=A \times e^{-\frac{t}{RC}}
+  \end{equation}
+Where A is the value in $t=0$ acording to the previous exercise, $t$ stands for time, $R$ for the equivalent resistance and $C$ for the capacitance of the capacitor. Plotting the result one gets:
+\begin{figure}[h] \centering
+\includegraphics[width=0.8\linewidth]{natural.eps}
+\caption{Forced sinusoidal response.}
+\label{fig:forced}
+\end{figure}
