@@ -25,8 +25,9 @@ octave.log: createdata.m
 ngspice.log: ../sim/Exercise1.net
 	ngspice -b $< -o $@
 
-ngspice2.log: ../sim/Exercise2.net ../sim/Exercise3.net
+ngspice2.log: ../sim/Exercise2.net ../sim/Exercise3.net ../sim/Exercise4.net
 	ngspice -b $< -o $@
+	ngspice -b $(word 3,$^) >> $@
 	ngspice -b $(word 2,$^) >> $@
 
 PythonInfo.tex: ../data.txt
