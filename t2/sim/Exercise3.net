@@ -3,7 +3,7 @@
 * forces current values to be saved
 .options savecurrents
 
-.INCLUDE dataNgspice.txt
+.INCLUDE dataNgspice3.txt
 
 
 .control
@@ -22,35 +22,14 @@ set editor=emacs
 op
 
 echo "********************************************"
-echo  "Operating point"
+echo  "Transient analisis"
 echo "********************************************"
 
+tran 1e-5 20e-3
 
-echo  "Exercise1_TAB"
-print @r1[i]
-print @r2[i]
-print @r3[i]
-print @r4[i]
-print @r5[i]
-print @r6[i]
-print @r7[i]
-print @gb[i]
-print @c1[i]
-print @vs[i]
-print @hc[i]
-print v(1)
-print v(2)
-print v(3)
-print v(5)
-print v(6)
-print v(7)
-print v(8)
-echo  "Exercise1_END"
+hardcopy trans.ps v(6)
+echo trans_FIG
 
-echo  "Data2_DAT"
-print v(6)
-print v(8)
-echo  "Data2_END"
 
 quit
 .endc
