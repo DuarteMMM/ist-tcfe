@@ -3,6 +3,7 @@ clear all
 pkg load symbolic
 pkg load miscellaneous 
 
+%Exercise1
 file1 = fopen("data.txt","r");
 format = "%f";
 
@@ -80,3 +81,70 @@ fprintf(fid,"$V_8$ & %E \\\\ \\hline \n",Data([8]));
 
 fclose (fid);
 
+
+%Exercise2
+Vn=Data([8])-Data([6])
+%Defining matriix
+MN1=[1,0,0,-1,0,0,0,0];
+MN2=[-1/R1,1/R1+1/R2+1/R3,-1/R2,0,-1/R3,0,0,0];
+MN3=[0,-Kb-1/R2,1/R2,0,Kb,0,0,0];
+MN4=[0,0,0,1,0,0,0,0];
+MN5=[0,Kb-1/R3,0,-1/R4,1/R3+1/R4-Kb,0,-1/R7,1/R7];
+MN6=[0,0,0,-Kd/R6,-1,1,Kd/R6,0];
+MN7=[0,0,0,-1/R6,0,0,1/R6+1/R7,-1/R7];
+MN8=[0,0,0,0,0,-1,0,1];
+
+MN=[MN1;MN2;MN3;MN4;MN5;MN6;MN7;MN8];
+
+Sol=[0;0;0;0;0;Vn;0;Vn];
+
+Data=MN\Sol;
+
+%Currents
+I1=(Data([2])-Data([1]))/R1;
+I2=(Data([3])-Data([2]))/R2;
+I3=(Data([2])-Data([5]))/R3;
+I4=(Data([4])-Data([5]))/R4;
+I5=(Data([5])-Data([6]))/R5;
+I6=(Data([7])-Data([4]))/R6;
+I7=(Data([8])-Data([7]))/R7;
+
+filename="Exercise2.tex";
+fid2=fopen(filename,"w");
+
+%%Printing
+fprintf(fid2,"$I_1$ & %E \\\\ \\hline \n",I1);
+fprintf(fid2,"$I_2$ & %E \\\\ \\hline \n",I2);
+fprintf(fid2,"$I_3$ & %E \\\\ \\hline \n",I3);
+fprintf(fid2,"$I_4$ & %E \\\\ \\hline \n",I4);
+fprintf(fid2,"$I_5$ & %E \\\\ \\hline \n",I5);
+fprintf(fid2,"$I_6$ & %E \\\\ \\hline \n",I6);
+fprintf(fid2,"$I_7$ & %E \\\\ \\hline \n",I7);
+fprintf(fid2,"$I_b$ & %E \\\\ \\hline \n",I2);
+fprintf(fid2,"$I_c$ & %E \\\\ \\hline \n",I5-I2);
+fprintf(fid2,"$I_{V_s}$ & %E \\\\ \\hline \n",I1);
+fprintf(fid2,"$I_{V_d}$ & %E \\\\ \\hline \n",I4+I3-I5);
+
+fprintf(fid2,"$V_1$ & %E \\\\ \\hline \n",Data([1]));
+fprintf(fid2,"$V_2$ & %E \\\\ \\hline \n",Data([2]));
+fprintf(fid2,"$V_3$ & %E \\\\ \\hline \n",Data([3]));
+%fprintf(fid,"$V_4$ & %E \\\\ \\hline \n",Data([4]));
+fprintf(fid2,"$V_5$ & %E \\\\ \\hline \n",Data([5]));
+fprintf(fid2,"$V_6$ & %E \\\\ \\hline \n",Data([6]));
+fprintf(fid2,"$V_7$ & %E \\\\ \\hline \n",Data([7]));
+fprintf(fid2,"$V_8$ & %E \\\\ \\hline \n",Data([8]));
+
+fclose (fid2);
+
+
+
+filename="Exercise2.1.tex";
+fid21=fopen(filename,"w");
+
+%%Printing
+fprintf(fid21,"$I_b$ & %E \\\\ \\hline \n",I2);
+fprintf(fid21,"$I_5$ & %E \\\\ \\hline \n",I5);
+fprintf(fid21,"$I_{capacitor}$ & %E \\\\ \\hline \n",I5-I2);
+fprintf(fid21,"$R_{eq}$ & %E \\\\ \\hline \n",Vn/(I5-I2));
+
+fclose (fid21);
