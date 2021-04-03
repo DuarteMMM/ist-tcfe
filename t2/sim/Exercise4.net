@@ -5,7 +5,7 @@
 
 * Supply voltage
 
-Vs 1 0 sin(0 1 1k)
+Vs 1 0 0. ac 1. sin(0 1 1k)
 
 .INCLUDE dataNgspice3.txt
 

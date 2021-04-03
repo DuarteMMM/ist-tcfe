@@ -7,13 +7,13 @@ all: ngspice.log
 	make PythonInfo.tex
 
 ngspice.log:
-	@ngspice -b ../sim/Exercise1.net -o > $@
+	@ngspice -b ../sim/Exercise1.net -o $@
 	@sed 's/.*\=/Vx 6 8/g' -i Ex1_value.txt
-	@ngspice -b ../sim/Exercise2.net -o >> $@
+	@ngspice -b ../sim/Exercise2.net >> $@
 	@sed 's/.*\= //g' -i Ex2_value.txt
 	@cat Ex2_value.txt >> dataNgspice3.txt
-	@ngspice -b ../sim/Exercise3.net -o >> $@
-	@ngspice -b ../sim/Exercise4.net -o >> $@
+	@ngspice -b ../sim/Exercise3.net >> $@
+	@ngspice -b ../sim/Exercise4.net >> $@
 
 
 PythonInfo.tex: ../data.txt
