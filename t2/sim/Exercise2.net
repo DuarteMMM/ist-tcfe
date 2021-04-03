@@ -3,11 +3,13 @@
 * forces current values to be saved
 .options savecurrents
 
-.INCLUDE dataNgspice1.txt
+* Voltage sources
+
+
+.INCLUDE Ex1_value.txt
+.INCLUDE dataNgspice2.txt
 
 .control
-
-set numdgt=9
 
 *makes plots in color
 set hcopypscolor=0
@@ -25,7 +27,7 @@ echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
 
-echo  "Exercise1_TAB"
+echo  "Exercise2_TAB"
 print @r1[i]
 print @r2[i]
 print @r3[i]
@@ -34,7 +36,7 @@ print @r5[i]
 print @r6[i]
 print @r7[i]
 print @gb[i]
-print @c1[i]
+print @vc[i]
 print @vs[i]
 print @hc[i]
 print v(1)
@@ -44,9 +46,9 @@ print v(5)
 print v(6)
 print v(7)
 print v(8)
-echo  "Exercise1_END"
+echo  "Exercise2_END"
 
-print v(6) - v(8) > Ex1_value.txt
+print v(6) - v(8) > Ex2_value.txt
 
 quit
 .endc

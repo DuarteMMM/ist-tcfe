@@ -17,3 +17,45 @@ Table~\ref{tab:Exercise1Simulation} shows the simulated operating point results 
 \end{table}
 
 Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1Theoretical} and the results in Table \ref{tab:Exercise1Simulation}, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.
+
+\subsection{Exercise 2}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Designation} & {\bf Value [A or V]} \\ \hline
+    \input{../sim/Exercise2_tab.tex}
+  \end{tabular}
+  \caption{Operating point analysis table. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
+  \label{tab:Exercise2Simulation}
+\end{table}
+
+
+\subsection{Exercise 3}
+
+Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{../sim/ex3_image.pdf}
+  \caption{Value of $v_6(t)$ in the time interval [0,20] ms.}
+  \label{fig:Ex3_Image}
+\end{figure}
+
+\subsection{Exercise 4}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{../sim/ex4_imagestimulus.pdf}
+  \caption{Stimulus voltage in time interval [0,20] ms.}
+  \label{fig:Ex4_Image_Stimulus}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{../sim/ex4_imageforcedresponse.pdf}
+  \caption{Forced response on node 6 in time interval [0,20] ms.}
+  \label{fig:Ex4_Image_ForcedResponse}
+\end{figure}
