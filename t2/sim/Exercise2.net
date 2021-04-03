@@ -48,7 +48,7 @@ print v(7)
 print v(8)
 echo  "Exercise2_END"
 
-print v(6) - v(8) > Ex2_value.txt
+print v(6) v(8) > Ex2_values.txt
 
 quit
 .endc
