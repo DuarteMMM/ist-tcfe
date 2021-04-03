@@ -90,20 +90,20 @@ fprintf(file4,"* Resistances\n\nR1 2 1 %.11fk\nR2 3 2 %.11fk\nR3 2 5 %.11fk\nR4 
 fclose (file4);
 
 %Exercise2
-Vn=Data([8])-Data([6])
-%Defining matriix
+Vx=Data([6])-Data([8]);
+
 MN1=[1,0,0,-1,0,0,0,0];
 MN2=[-1/R1,1/R1+1/R2+1/R3,-1/R2,0,-1/R3,0,0,0];
 MN3=[0,-Kb-1/R2,1/R2,0,Kb,0,0,0];
 MN4=[0,0,0,1,0,0,0,0];
-MN5=[0,Kb-1/R3,0,-1/R4,1/R3+1/R4-Kb,0,-1/R7,1/R7];
-MN6=[0,0,0,-Kd/R6,-1,1,Kd/R6,0];
-MN7=[0,0,0,-1/R6,0,0,1/R6+1/R7,-1/R7];
-MN8=[0,0,0,0,0,-1,0,1];
+MN5=[0,Kb-1/R3,0,0,1/R3+1/R4-Kb,0,-1/R7,1/R7];
+MN6=[0,0,0,0,0,1,0,-1];
+MN7=[0,0,0,0,0,0,1/R6+1/R7,-1/R7];
+MN8=[0,0,0,0,1,0,-Kd/R6,-1];
 
 MN=[MN1;MN2;MN3;MN4;MN5;MN6;MN7;MN8];
 
-Sol=[0;0;0;0;0;Vn;0;Vn];
+Sol=[0;0;0;0;0;Vx;0;0];
 
 Data=MN\Sol;
 
@@ -120,26 +120,26 @@ filename="Exercise2.tex";
 fid2=fopen(filename,"w");
 
 %%Printing
-fprintf(fid2,"$I_1$ & %E \\\\ \\hline \n",I1);
-fprintf(fid2,"$I_2$ & %E \\\\ \\hline \n",I2);
-fprintf(fid2,"$I_3$ & %E \\\\ \\hline \n",I3);
-fprintf(fid2,"$I_4$ & %E \\\\ \\hline \n",I4);
-fprintf(fid2,"$I_5$ & %E \\\\ \\hline \n",I5);
-fprintf(fid2,"$I_6$ & %E \\\\ \\hline \n",I6);
-fprintf(fid2,"$I_7$ & %E \\\\ \\hline \n",I7);
-fprintf(fid2,"$I_b$ & %E \\\\ \\hline \n",I2);
-fprintf(fid2,"$I_c$ & %E \\\\ \\hline \n",I5-I2);
-fprintf(fid2,"$I_{V_s}$ & %E \\\\ \\hline \n",I1);
-fprintf(fid2,"$I_{V_d}$ & %E \\\\ \\hline \n",I4+I3-I5);
+fprintf(fid2,"$I_1$ & %.8E \\\\ \\hline \n",I1);
+fprintf(fid2,"$I_2$ & %.8E \\\\ \\hline \n",I2);
+fprintf(fid2,"$I_3$ & %.8E \\\\ \\hline \n",I3);
+fprintf(fid2,"$I_4$ & %.8E \\\\ \\hline \n",I4);
+fprintf(fid2,"$I_5$ & %.8E \\\\ \\hline \n",I5);
+fprintf(fid2,"$I_6$ & %.8E \\\\ \\hline \n",I6);
+fprintf(fid2,"$I_7$ & %.8E \\\\ \\hline \n",I7);
+fprintf(fid2,"$I_b$ & %.8E \\\\ \\hline \n",I2);
+fprintf(fid2,"$I_x$ & %.8E \\\\ \\hline \n",I5-I2);
+fprintf(fid2,"$I_{V_s}$ & %.8E \\\\ \\hline \n",I1);
+fprintf(fid2,"$I_{V_d}$ & %.8E \\\\ \\hline \n",I4+I3-I5);
 
-fprintf(fid2,"$V_1$ & %E \\\\ \\hline \n",Data([1]));
-fprintf(fid2,"$V_2$ & %E \\\\ \\hline \n",Data([2]));
-fprintf(fid2,"$V_3$ & %E \\\\ \\hline \n",Data([3]));
-%fprintf(fid,"$V_4$ & %E \\\\ \\hline \n",Data([4]));
-fprintf(fid2,"$V_5$ & %E \\\\ \\hline \n",Data([5]));
-fprintf(fid2,"$V_6$ & %E \\\\ \\hline \n",Data([6]));
-fprintf(fid2,"$V_7$ & %E \\\\ \\hline \n",Data([7]));
-fprintf(fid2,"$V_8$ & %E \\\\ \\hline \n",Data([8]));
+fprintf(fid2,"$V_1$ & %.8E \\\\ \\hline \n",Data([1]));
+fprintf(fid2,"$V_2$ & %.8E \\\\ \\hline \n",Data([2]));
+fprintf(fid2,"$V_3$ & %.8E \\\\ \\hline \n",Data([3]));
+%fprintf(fid,"$V_4$ & %.8E \\\\ \\hline \n",Data([4]));
+fprintf(fid2,"$V_5$ & %.8E \\\\ \\hline \n",Data([5]));
+fprintf(fid2,"$V_6$ & %.8E \\\\ \\hline \n",Data([6]));
+fprintf(fid2,"$V_7$ & %.8E \\\\ \\hline \n",Data([7]));
+fprintf(fid2,"$V_8$ & %.8E \\\\ \\hline \n",Data([8]));
 
 fclose (fid2);
 
@@ -147,16 +147,16 @@ filename="Exercise2.1.tex";
 fid21=fopen(filename,"w");
 
 %%Printing
-fprintf(fid21,"$I_b$ & %E \\\\ \\hline \n",I2);
-fprintf(fid21,"$I_5$ & %E \\\\ \\hline \n",I5);
-fprintf(fid21,"$I_{capacitor}$ & %E \\\\ \\hline \n",I5-I2);
-fprintf(fid21,"$R_{eq}$ & %E \\\\ \\hline \n",Vn/(I5-I2));
+fprintf(fid21,"$I_b$ & %.8E \\\\ \\hline \n",I2);
+fprintf(fid21,"$I_5$ & %.8E \\\\ \\hline \n",I5);
+fprintf(fid21,"$I_x$ & %.8E \\\\ \\hline \n",I5-I2);
+fprintf(fid21,"$R_{eq}$ & %.8E \\\\ \\hline \n",Vx/(I5-I2));
 
 fclose (fid21);
 
 
 %Exercise3
-Req=Vn/(I5-I2);
+Req=Vx/(I5-I2);
 A=Data([6]);
 t=0:2e-6:2e-3;
 vn=A*exp(-t/(Req*C));
