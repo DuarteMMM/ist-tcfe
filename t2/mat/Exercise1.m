@@ -90,7 +90,7 @@ fprintf(file4,"* Resistances\n\nR1 2 1 %.11fk\nR2 3 2 %.11fk\nR3 2 5 %.11fk\nR4 
 fclose (file4);
 
 %Exercise2
-Vn=Data([8])-Data([6])
+Vn=Data([6])-Data([8])
 %Defining matriix
 MN1=[1,0,0,-1,0,0,0,0];
 MN2=[-1/R1,1/R1+1/R2+1/R3,-1/R2,0,-1/R3,0,0,0];
@@ -99,7 +99,7 @@ MN4=[0,0,0,1,0,0,0,0];
 MN5=[0,Kb-1/R3,0,-1/R4,1/R3+1/R4-Kb,0,-1/R7,1/R7];
 MN6=[0,0,0,-Kd/R6,-1,1,Kd/R6,0];
 MN7=[0,0,0,-1/R6,0,0,1/R6+1/R7,-1/R7];
-MN8=[0,0,0,0,0,-1,0,1];
+MN8=[0,0,0,0,0,1,0,-1];
 
 MN=[MN1;MN2;MN3;MN4;MN5;MN6;MN7;MN8];
 
