@@ -16,9 +16,8 @@ Table~\ref{tab:Exercise1Simulation} shows the simulated operating point results 
   \label{tab:Exercise1Simulation}
 \end{table}
 
-Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1Theoretical} and the results in Table \ref{tab:Exercise1Simulation}, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.
-
-\subsection{Exercise 2}
+Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1Theoretical} and the results in Table \ref{tab:Exercise1Simulation}, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.\par
+Now we ca approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from \ref{tab:Exercise1Simulation}.
 
 \begin{table}[H]
   \centering
@@ -31,31 +30,19 @@ Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1
   \label{tab:Exercise2Simulation}
 \end{table}
 
+\subsection{Transient analisis}
 
-\subsection{Exercise 3}
+Now we do a transient analisis of the values.
 
-Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex3_image.pdf}
-  \caption{Value of $v_6(t)$ in the time interval [0,20] ms.}
-  \label{fig:Ex3_Image}
-\end{figure}
-
-\subsection{Exercise 4}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex4_imagestimulus.pdf}
-  \caption{Stimulus voltage in time interval [0,20] ms.}
-  \label{fig:Ex4_Image_Stimulus}
+\begin{figure}[h] \centering
+\includegraphics[width=0.8\linewidth]{../sim/trans.pdf}
+\caption{Natural response.}
+\label{fig:forced}
 \end{figure}
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex4_imageforcedresponse.pdf}
-  \caption{Forced response on node 6 in time interval [0,20] ms.}
-  \label{fig:Ex4_Image_ForcedResponse}
+\begin{figure}[h] \centering
+\includegraphics[width=0.8\linewidth]{../sim/trans1.pdf}
+\caption{Forced sinusoidal response and stimulus.}
+\label{fig:forced}
 \end{figure}

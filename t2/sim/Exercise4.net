@@ -3,14 +3,9 @@
 * forces current values to be saved
 .options savecurrents
 
-* Supply voltage
+.INCLUDE dataNgspice4.txt
 
-Vs 1 0 sin(0 1 1k)
 
-.INCLUDE dataNgspice3.txt
-
-.op
-.end
 .control
 
 *makes plots in color
@@ -22,22 +17,21 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
+set editor=emacs
 
-
+op
 
 echo "********************************************"
-echo  "Transient analysis"
+echo  "Transient analisis"
 echo "********************************************"
-tran 1e-5 20e-3 uic
 
-hardcopy ex4_imagestimulus.ps v(1)
-echo ex4_imagestimulus_FIG
+tran 1e-5 20e-3
 
-hardcopy ex4_imageforcedresponse.ps v(6)
-echo ex4_imageforcedresponse_FIG
+hardcopy trans1.ps v(6) v(1)
+echo trans1_FIG
 
 
-
+quit
 .endc
 
-
+.end

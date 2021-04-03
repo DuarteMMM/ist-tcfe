@@ -58,3 +58,78 @@ By solving the linear system~\ref{eq:Exercise1LinearSystem}, the following value
   \label{tab:Exercise1Theoretical}
 \end{table}
 
+
+\subsection{Exercise 2}
+In this exercise we are going to analise the system also using the node method, as explained before. In this case our goal is to the get the $R_{eq}$, which means, to find the value of the resistance for the Norton and Thévenin equivalents. In order to calculate the resistance one must turn off all the constant sources, so, as we want to find the equivalent seen from the capacitor, we must have $V_S=0$. That's the reason, why we do that. Now we are going to use the nodal method to determine the current going to the capacitor if we put a current source wi3th its voltage in its place and then, as we know the current and the voltage, one can simply use the Ohm's law:
+\begin{equation}
+  R=\frac{V}{I}
+\end{equation}
+We can use almost all the matrix in the previous exercise. The only differences are the ones stated in the previous paragraph. As we have already determined the voltages in the nodes before, we obtain the matrix above to get the voltages in the nodes,definig $V_n$ as the value of $V_8-V_6$:
+\begin{equation}
+  \begin{pmatrix}
+    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
+    0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & K_b-\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}-K_b & 0 & -\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & 0 & 0 & -\frac{K_d}{R_6} & -1 & 1 & \frac{K_d}{R_6} & 0 \\
+    0 & 0 & 0 & -\frac{1}{R_6} & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7} \\
+    0 & 0 & 0 & 0 & 0 & -1 & 0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+    V_1  \\
+    V_2  \\
+    V_3  \\
+    V_4  \\
+    V_5  \\
+    V_6  \\
+    V_7  \\
+    V_8  \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+     \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+    V_n  \\
+    0   \\
+    V_n   \\
+  \end{pmatrix}
+  \label{eq:Exercise1LinearSystem}
+\end{equation}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        \input{Exercise2.tex}
+  \end{tabular}
+  \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
+  \label{tab:Exercise2Theoretical}
+\end{table}
+Now that we have all this values, we are simply going to calculate the current going throw the capacitor/voltage source as the different between the current going throw $R_5$ and the current $I_b$, finally getting the result we want. We get:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        \input{Exercise2.1.tex}
+  \end{tabular}
+  \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
+  \label{tab:Exercise2.1Theoretical}
+\end{table}
+
+\subsection{Exercise 3}
+Using the results from the previous exercise we understand we can simplify the circuit into a circuit with a voltage source, a resistance and and the capacitor. For this case we already have that the natural solution looks like:
+\begin{equation}
+  v_n(t)=A \times e^{-\frac{t}{RC}}
+  \end{equation}
+Where A is the value in $t=0$ acording to the previous exercise, $t$ stands for time, $R$ for the equivalent resistance and $C$ for the capacitance of the capacitor. Plotting the result one gets:
+\begin{figure}[h] \centering
+\includegraphics[width=0.8\linewidth]{natural.eps}
+\caption{Forced sinusoidal response.}
+\label{fig:forced}
+\end{figure}

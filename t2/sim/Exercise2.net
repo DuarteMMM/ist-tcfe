@@ -3,11 +3,8 @@
 * forces current values to be saved
 .options savecurrents
 
-* Voltage sources
-
-
-.INCLUDE Ex1_value.txt
 .INCLUDE dataNgspice2.txt
+
 
 .control
 
@@ -20,12 +17,14 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
+set editor=emacs
 
 op
 
 echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
+
 
 echo  "Exercise2_TAB"
 print @r1[i]
@@ -36,7 +35,7 @@ print @r5[i]
 print @r6[i]
 print @r7[i]
 print @gb[i]
-print @vc[i]
+print @vx[i]
 print @vs[i]
 print @hc[i]
 print v(1)
@@ -48,7 +47,6 @@ print v(7)
 print v(8)
 echo  "Exercise2_END"
 
-print v(6) - v(8) > Ex2_value.txt
 
 quit
 .endc
