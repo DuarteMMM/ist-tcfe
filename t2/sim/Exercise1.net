@@ -3,8 +3,7 @@
 * forces current values to be saved
 .options savecurrents
 
-.INCLUDE dataNgspice.txt
-
+.INCLUDE dataNgspice1.txt
 
 .control
 
@@ -17,14 +16,12 @@ set color3=blue
 set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
-set editor=emacs
 
 op
 
 echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
-
 
 echo  "Exercise1_TAB"
 print @r1[i]
@@ -47,10 +44,7 @@ print v(7)
 print v(8)
 echo  "Exercise1_END"
 
-echo  "Data2_DAT"
-print v(6)
-print v(8)
-echo  "Data2_END"
+print v(6) - v(8) > Ex1_value.txt
 
 quit
 .endc
