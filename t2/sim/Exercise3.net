@@ -32,4 +32,5 @@ tran 1e-5 20e-3 uic
 hardcopy ex3_image.ps v(6)
 echo ex3_image_FIG
 
+
 .endc

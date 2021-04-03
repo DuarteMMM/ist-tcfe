@@ -33,6 +33,17 @@ tran 1e-5 20e-3 uic
 hardcopy ex4_image.ps v(6) v(1)
 echo ex4_image_FIG
 
+echo "********************************************"
+echo  "Frequency analysis"
+echo "********************************************"
 
+ac dec 10 0.1 1MEG
+
+hardcopy ex5_image_magnitude.ps db(v(6)) db(v(1)) db(v(6) - v(8))
+echo ex5_image_magnitude_FIG
+
+set units=degrees
+hardcopy ex5_image_phase.ps vp(6) vp(1) phase(v(6) - v(8))
+echo ex5_image_phase_FIG
 
 .endc
