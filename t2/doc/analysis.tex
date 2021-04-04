@@ -133,3 +133,66 @@ Where A is the value in $t=0$ acording to the previous exercise, $t$ stands for 
 \caption{Natural response}
 \label{fig:natural}
 \end{figure}
+
+
+\subsection{Exercise 4}
+Corrigir a matriz neste EXERCICIO
+In this exercise we are going to determine the forced solution of the equation, in order to get the final solution ading the natural solution tot he forced solution. We first define $V_s$ as 1. As the whole system is linear, so the response should be. Therefore if we aplly the voltage $V_s=1$ we get the response of the system for one Volt, then we only have to multiply the voltages by the real $V_s$ in order to get the real voltages.
+Then we get the matrix:
+\begin{equation}
+  \begin{pmatrix}
+    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
+    0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & K_b-\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}-K_b & 0 & -\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} \\
+    0 & 0 & 0 & 0 & 0 & 1 & 0 & -\frac{K_d}{R_6} \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    V_1  \\
+    V_2  \\
+    V_3  \\
+    V_4  \\
+    V_5  \\
+    V_6  \\
+    V_7  \\
+    V_8  \\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+     \\
+    0   \\
+    0   \\
+    0   \\
+    0   \\
+    V_x  \\
+    0   \\
+    0   \\
+  \end{pmatrix}
+  \label{eq:Exercise4LinearSystem}
+\end{equation}
+
+And results are:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        \input{Exercise4.tex}
+  \end{tabular}
+  \caption{Values of node complex amplitude (in volts).}
+  \label{tab:Exercise2Theoretical}
+\end{table}
+
+\subsection{Exercise 5}
+In this exercise we are going to plot the sum of the results of the 2 previous exercises. We obtain the following plot:
+\begin{figure}[h] \centering
+\includegraphics[width=0.8\linewidth]{finaloct.eps}
+\caption{Final solution}
+\label{fig:finaloct}
+\end{figure}
+
+\subsection{Exercise 6}

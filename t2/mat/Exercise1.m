@@ -170,3 +170,74 @@ hold on;
 xlabel ("t[ms]");
 ylabel ("vn(t) [V]");
 print (hf, "natural.eps", "-depsc");
+
+
+%Exercise4
+
+f=1000;
+Vs=1;
+
+M1=[1,0,0,0,0,0,0,0];
+M2=[-1/R1,1/R1+1/R2+1/R3,-1/R2,0,-1/R3,0,0,0];
+M3=[0,-1/R2-Kb,1/R2,0,Kb,0,0,0];
+M4=[0,0,0,1,0,0,0,0];
+M5=[0,-1/R3,0,-1/R4-1/R6,1/R3+1/R4+1/R5,-1/R5-j*2*pi*f*C,1/R6,j*2*pi*f*C];
+M6=[0,Kb,0,0,-1/R5-Kb,1/R5+j*2*pi*f*C,0,-j*2*pi*f*C];
+M7=[0,0,0,-1/R6,0,0,1/R6+1/R7,-1/R7];
+M8=[0,-1/R3,0,-1/R4,1/R4+1/R3+1/R5,-1/R5-j*2*pi*f*C,-1/R7,1/R7+j*2*pi*f*C];
+
+M=[M1;M2;M3;M4;M5;M6;M7;M8];
+
+Sol=[Vs;0;0;0;0;0;0;0];
+
+Data=M\Sol;
+
+%Currents
+I1=(Data([2])-Data([1]))/R1;
+I2=(Data([3])-Data([2]))/R2;
+I3=(Data([2])-Data([5]))/R3;
+I4=(Data([4])-Data([5]))/R4;
+I5=(Data([5])-Data([6]))/R5;
+I6=(Data([7])-Data([4]))/R6;
+I7=(Data([8])-Data([7]))/R7;
+
+filename="Exercise4.tex";
+fid4=fopen(filename,"w");
+
+%%Printing
+%fprintf(fid4,"$I_1$ & %.8E \\\\ \\hline \n",I1);
+%fprintf(fid4,"$I_2$ & %.8E \\\\ \\hline \n",I2);
+%fprintf(fid4,"$I_3$ & %.8E \\\\ \\hline \n",I3);
+%fprintf(fid4,"$I_4$ & %.8E \\\\ \\hline \n",I4);
+%fprintf(fid4,"$I_5$ & %.8E \\\\ \\hline \n",I5);
+%fprintf(fid4,"$I_6$ & %.8E \\\\ \\hline \n",I6);
+%fprintf(fid4,"$I_7$ & %.8E \\\\ \\hline \n",I7);
+%fprintf(fid4,"$I_b$ & %.8E \\\\ \\hline \n",I2);
+%fprintf(fid4,"$I_x$ & %.8E \\\\ \\hline \n",I5-I2);
+%fprintf(fid4,"$I_{V_s}$ & %.8E \\\\ \\hline \n",I1);
+%fprintf(fid4,"$I_{V_d}$ & %.8E \\\\ \\hline \n",I4+I3-I5);
+
+
+fprintf(fid4,"$V_1$ & %.8E+%.8Ei \\\\ \\hline \n",real(Data([1])),imag(Data([1])));
+fprintf(fid4,"$V_2$ & %.8E%.8Ei \\\\ \\hline \n",real(Data([2])),imag(Data([2])));
+fprintf(fid4,"$V_3$ & %.8E%.8Ei \\\\ \\hline \n",real(Data([3])),imag(Data([3])));
+fprintf(fid4,"$V_4$ & %.8E+%.8Ei \\\\ \\hline \n",real(Data([4])),imag(Data([4])));
+fprintf(fid4,"$V_5$ & %.8E%.8Ei \\\\ \\hline \n",real(Data([5])),imag(Data([5])));
+fprintf(fid4,"$V_6$ & %.8E%.8Ei \\\\ \\hline \n",real(Data([6])),imag(Data([6])));
+fprintf(fid4,"$V_7$ & %.8E+%.8Ei \\\\ \\hline \n",real(Data([7])),imag(Data([7])));
+fprintf(fid4,"$V_8$ & %.8E+%.8Ei \\\\ \\hline \n",real(Data([8])),imag(Data([8])));
+
+fclose (fid4);
+
+
+%Exercise5
+vt=vn+Data([6])*sin(2*pi*f*t-pi\2);
+vs=sin(2*pi*f*t);
+hf2 = figure ("Visible", "off");
+plot (t*1000, vt, "");
+hold on;
+plot (t*1000,vs, "");
+
+xlabel ("t[ms]");
+ylabel ("vt(t) [V]");
+print (hf2, "finaloct.eps", "-depsc");
