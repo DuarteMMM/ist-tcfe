@@ -136,19 +136,18 @@ Where A is the value in $t=0$ acording to the previous exercise, $t$ stands for 
 
 
 \subsection{Exercise 4}
-Corrigir a matriz neste EXERCICIO
 In this exercise we are going to determine the forced solution of the equation, in order to get the final solution ading the natural solution tot he forced solution. We first define $V_s$ as 1. As the whole system is linear, so the response should be. Therefore if we aplly the voltage $V_s=1$ we get the response of the system for one Volt, then we only have to multiply the voltages by the real $V_s$ in order to get the real voltages.
 Then we get the matrix:
 \begin{equation}
   \begin{pmatrix}
-    1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
     -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
     0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
     0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-    0 & K_b-\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}-K_b & 0 & -\frac{1}{R_7} & \frac{1}{R_7} \\
-    0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} \\
-    0 & 0 & 0 & 0 & 0 & 1 & 0 & -\frac{K_d}{R_6} \\
+    0 & -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_3}+\frac{1}{R_4}-\frac{1}{R_5}  & -\frac{1}{R_5}-jwC & -\frac{1}{R_7}n & \frac{1}{R_7}+jwC \\
+    0 & K_b & 0 & 0 & -K_b-\frac{1}{R_5} & \frac{1}{R_5}+jwC & 0 & -jwC \\
+    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7} \\
+    0 & 0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1 \\
   \end{pmatrix}
   \begin{pmatrix}
     V_1  \\
@@ -162,12 +161,12 @@ Then we get the matrix:
   \end{pmatrix}
   =
   \begin{pmatrix}
-     \\
+    Vs  \\
     0   \\
     0   \\
     0   \\
     0   \\
-    V_x  \\
+    0  \\
     0   \\
     0   \\
   \end{pmatrix}
