@@ -245,4 +245,13 @@ print (hf2, "finaloct.eps", "-depsc");
 
 
 %Exercise6
-%Phase
+
+
+f=logspace(-1, 6, 7*5)
+Vs=0;
+fases=pi/2/pi*180;
+f2=f.^2;
+Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f2);
+Vl=Vl.^(-1);
+VC=20*log10(Vl);
+faseC=atan(2*pi*f*Req*C)/pi*180+fases;
