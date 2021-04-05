@@ -28,6 +28,7 @@ clean:
 	@rm -rf Exercise1.tex
 	@rm -rf Exercise2.tex
 	@rm -rf Exercise2.1.tex
+	@rm -rf Exercise4.tex
 
 .PHONY: all clean
 

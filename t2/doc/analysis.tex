@@ -3,7 +3,10 @@
 
 \subsection{Exercise 1}
 
-In this section, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. The nodes considered for the following equations are those represented in Figure~\ref{fig:CircuitDraw}. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the voltages at nodes $V_1$ to $V_8$ and currents in resistances $R_1$ to $R_7$ can be determined.
+In this section, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically for $t<0$, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. The nodes considered for the following equations are those represented in Figure~\ref{fig:CircuitDraw}. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the voltages at nodes $V_1$ to $V_8$ and currents in resistances $R_1$ to $R_7$ can be determined.
+
+\par
+It is worth mentioning that 
 
 \par
 \vspace{1mm}
@@ -45,7 +48,7 @@ The following linear system is obtained:
   \label{eq:Exercise1LinearSystem}
 \end{equation}
 
-By solving the linear system~\ref{eq:Exercise1LinearSystem}, the following values for node voltages and branch currents (calculated by using Ohm's Law) are obtained:
+By solving the linear system~\ref{eq:Exercise1LinearSystem}, the values for node voltages and branch currents (calculated by using Ohm's Law) are obtained. These values, as well as the currents passing through voltage sources and currents $I_c$ and $I_b$, are shown in Table \ref{tab:Exercise1Theoretical}.
 
 \begin{table}[H]
   \centering
@@ -54,7 +57,7 @@ By solving the linear system~\ref{eq:Exercise1LinearSystem}, the following value
         {\bf Designation} & {\bf Value [A or V]} \\ \hline
         \input{Exercise1.tex}
   \end{tabular}
-  \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
+  \caption{Values of node voltages (in volts) and currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
   \label{tab:Exercise1Theoretical}
 \end{table}
 
