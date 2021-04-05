@@ -278,18 +278,17 @@ faseC=atan(2*pi*f*Req*C)/pi*180+fases;
 
 %Voltage and phase in V6 (solved before to get expression)
 f=logspace(-1, 6, 7*5);
-Vz=f.*j
+fz=f./f;
 V666=(-j*Kd*R4+j*Kb*Kd*R3*R4+j*Kb*Kd*R3*R5-j*Kb*R3*R4*R5+j*R4*R6-
-      j*Kb*R3*R4*R6-j*Kb*R3*R5*R6-2*C*f*pi*R4*R5*R6+ 
-     2*C*f*Kb*pi*R3*R4*R5*R6+j*R4*R7-j*Kb*R3*R4*R7-j*Kb*R3*R5*R7-2*C*f*pi*R4*R5*R7+ 
-     2*C*f*Kb*pi*R3*R4*R5*R7)/((-j+2*C*f*pi*R5)*(Kd*R1+
+      j*Kb*R3*R4*R6-j*Kb*R3*R5*R6-2*C*f.*pi*R4*R5*R6+ 
+     2*C*f*Kb*pi*R3*R4*R5*R6+j*R4*R7-j*Kb*R3*R4*R7-j*Kb*R3*R5*R7-2*C*f.*pi*R4*R5*R7+ 
+     2*C*f.*Kb*pi*R3*R4*R5*R7)./((-j+2*C*f.*pi*R5)*(Kd*R1+
       Kd*R3-Kb*Kd*R1*R3+Kd*R4-R1*R4-R3*R4-Kb*Kd*R3*R4+ 
      Kb*R1*R3*R4-R1*R6-R3*R6+Kb*R1*R3*R6-R4*R6+Kb*R3*R4*R6-
-      R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7))
-      
-VM=abs(V666);   
+      R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7))  
+VM=abs(V666);  
 V6M=20*log10(VM);
-fase6=atan(imag(V666)/real(V666))/pi*180;
+fase6=atan(imag(V666)./real(V666))/pi*180
 
 %Calibration of phases
 fases=fases-90;
