@@ -268,13 +268,13 @@ f=logspace(-1, 6, 7*5);
 
 %Voltage and phase in source
 Vs=f.*0;
-fases=pi/2/pi*180*f./f;
+fases=f.*0;
 
 %Voltage and phase in capacitor
 Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
-faseC=atan(2*pi*f*Req*C)/pi*180+fases;
+faseC=-atan(2*pi*f*Req*C)/pi*180;
 
 %Voltage and phase in V6 (solved before to get expression)
 f=logspace(-1, 6, 7*5);
@@ -288,14 +288,8 @@ V666=(-j*Kd*R4+j*Kb*Kd*R3*R4+j*Kb*Kd*R3*R5-j*Kb*R3*R4*R5+j*R4*R6-
       R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7))  
 VM=abs(V666);  
 V6M=20*log10(VM);
-fase6=atan(imag(V666)./real(V666))/pi*180
+fase6=angle(V666)/pi*180
 
-%Calibration of phases
-fases=fases-90;
-faseC=faseC-90;
-%6 não precisa de calibração
-
-%Calibration of frequency
  
 %Magnitude
 hf3 = figure ("Visible", "off");
