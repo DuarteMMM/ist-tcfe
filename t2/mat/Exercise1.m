@@ -259,20 +259,42 @@ ylabel ("vs(t),v6(t) [V]");
 print (hf20, "finaloct2.eps", "-depsc");
 
 %Exercise6
+%In order to get he voltage in 6 is easier to solve as symbolic
+%in order to f, but as it is very difficult to convert symbolic to a function
+%we solved the expression before and simply applied it
 
-
+%Frequency
 f=logspace(-1, 6, 7*5);
-fl=log10(f);
-Vs=fl.*0;
+
+%Voltage and phase in source
+Vs=f.*0;
 fases=pi/2/pi*180*f./f;
+
+%Voltage and phase in capacitor
 Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
 faseC=atan(2*pi*f*Req*C)/pi*180+fases;
 
+%Voltage and phase in V6 (solved before to get expression)
+f=logspace(-1, 6, 7*5);
+Vz=f.*j
+V666=(-j*Kd*R4+j*Kb*Kd*R3*R4+j*Kb*Kd*R3*R5-j*Kb*R3*R4*R5+j*R4*R6-
+      j*Kb*R3*R4*R6-j*Kb*R3*R5*R6-2*C*f*pi*R4*R5*R6+ 
+     2*C*f*Kb*pi*R3*R4*R5*R6+j*R4*R7-j*Kb*R3*R4*R7-j*Kb*R3*R5*R7-2*C*f*pi*R4*R5*R7+ 
+     2*C*f*Kb*pi*R3*R4*R5*R7)/((-j+2*C*f*pi*R5)*(Kd*R1+
+      Kd*R3-Kb*Kd*R1*R3+Kd*R4-R1*R4-R3*R4-Kb*Kd*R3*R4+ 
+     Kb*R1*R3*R4-R1*R6-R3*R6+Kb*R1*R3*R6-R4*R6+Kb*R3*R4*R6-
+      R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7))
+      
+VM=abs(V666);   
+V6M=20*log10(VM);
+fase6=atan(imag(V666)/real(V666))/pi*180;
+
 %Calibration of phases
 fases=fases-90;
 faseC=faseC-90;
+%6 não precisa de calibração
 
 %Calibration of frequency
  
@@ -281,9 +303,11 @@ hf3 = figure ("Visible", "off");
 semilogx (f*36, Vs, "");
 hold on;
 semilogx (f*36,VC, "");
+hold on;
+semilogx (f*36,V6M, "");
 
 xlabel ("f[HZ]");
-ylabel ("Vs,Vc [dB]");
+ylabel ("Vs,Vc,V6 [dB]");
 print (hf3, "dBoct.eps", "-depsc");
 
 
@@ -292,6 +316,9 @@ hf4 = figure ("Visible", "off");
 semilogx (f*36, fases, "");
 hold on;
 semilogx (f*36,faseC, "");
+hold on;
+semilogx (f*36,fase6, "");
+
 
 xlabel ("f[HZ]");
 ylabel ("Vs,Vc [Degrees]");
