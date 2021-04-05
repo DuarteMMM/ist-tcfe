@@ -245,9 +245,9 @@ xlabel ("t[ms]");
 ylabel ("vs(t),v6(t) [V]");
 print (hf2, "finaloct.eps", "-depsc");
 
-f=-5.1:1:-0.1
-vsr=vssave*f./f
-vtr=vtsave*f./f
+f=-5.1:1:-0.1;
+vsr=vssave*f./f;
+vtr=vtsave*f./f;
 
 hf20 = figure ("Visible", "off");
 plot (f, vsr, "");
@@ -262,10 +262,10 @@ print (hf20, "finaloct2.eps", "-depsc");
 
 
 f=logspace(-1, 6, 7*5);
-Vs=f.*0;
+fl=log10(f);
+Vs=fl.*0;
 fases=pi/2/pi*180*f./f;
-f2=f.^2;
-Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f2);
+Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
 faseC=atan(2*pi*f*Req*C)/pi*180+fases;
@@ -274,11 +274,13 @@ faseC=atan(2*pi*f*Req*C)/pi*180+fases;
 fases=fases-90;
 faseC=faseC-90;
 
+%Calibration of frequency
+ 
 %Magnitude
 hf3 = figure ("Visible", "off");
-plot (f*36, Vs, "");
+semilogx (f*36, Vs, "");
 hold on;
-plot (f*36,VC, "");
+semilogx (f*36,VC, "");
 
 xlabel ("f[HZ]");
 ylabel ("Vs,Vc [dB]");
@@ -287,9 +289,9 @@ print (hf3, "dBoct.eps", "-depsc");
 
 %phase
 hf4 = figure ("Visible", "off");
-plot (f*36, fases, "");
+semilogx (f*36, fases, "");
 hold on;
-plot (f*36,faseC, "");
+semilogx (f*36,faseC, "");
 
 xlabel ("f[HZ]");
 ylabel ("Vs,Vc [Degrees]");
