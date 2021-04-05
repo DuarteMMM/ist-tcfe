@@ -22,6 +22,8 @@ C=A([9])*0.000001;
 Kb=A([10])*0.001;
 Kd=A([11])*1000;
 
+vssave=Vs;
+
 file2 = fopen("../sim/dataNgspice1.txt","w");
 fprintf(file2,"* supply voltage\n\nVs 1 0 %.11f\n\n* Resistances\n\nR1 2 1 %.11fk\nR2 3 2 %.11fk\nR3 2 5 %.11fk\nR4 0 5 %.11fk\nR5 5 6 %.11fk\nR6 7 0aux %.11fk\nR7 8 7 %.11fk\n\n*Linearly dependent sources\n\nGb 6 3 (2,5) %.11fm\nHc 5 8 vaux %.11fk\n\nvaux 0 0aux DC 0\n\n*Capacitor\n\nc1 6 8 %.11fuF\n\n", A([8]), A([1]), A([2]), A([3]), A([4]), A([5]), A([6]), A([7]), A([10]), A([11]), A([9]));
 fclose (file2);
@@ -77,7 +79,7 @@ fprintf(fid,"$V_5$ & %.8E \\\\ \\hline \n",Data([5]));
 fprintf(fid,"$V_6$ & %.8E \\\\ \\hline \n",Data([6]));
 fprintf(fid,"$V_7$ & %.8E \\\\ \\hline \n",Data([7]));
 fprintf(fid,"$V_8$ & %.8E \\\\ \\hline \n",Data([8]));
-
+vtsave=Data([6]);
 fclose (fid);
 
 file3 = fopen("../sim/dataNgspice2.txt","w");
@@ -231,6 +233,7 @@ fclose (fid4);
 
 
 %Exercise5
+%[0;20]ms
 vt=vn+Data([6])*sin(2*pi*f*t-pi\2);
 vs=sin(2*pi*f*t);
 hf2 = figure ("Visible", "off");
@@ -239,19 +242,55 @@ hold on;
 plot (t*1000,vs, "");
 
 xlabel ("t[ms]");
-ylabel ("vt(t),vt(t) [V]");
+ylabel ("vs(t),v6(t) [V]");
 print (hf2, "finaloct.eps", "-depsc");
 
+f=-5.1:1:-0.1
+vsr=vssave*f./f
+vtr=vtsave*f./f
 
+hf20 = figure ("Visible", "off");
+plot (f, vsr, "");
+hold on;
+plot (f,vtr, "");
+
+xlabel ("t[ms]");
+ylabel ("vs(t),v6(t) [V]");
+print (hf20, "finaloct2.eps", "-depsc");
 
 %Exercise6
 
 
-f=logspace(-1, 6, 7*5)
-Vs=0;
-fases=pi/2/pi*180;
+f=logspace(-1, 6, 7*5);
+Vs=f.*0;
+fases=pi/2/pi*180*f./f;
 f2=f.^2;
 Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
 faseC=atan(2*pi*f*Req*C)/pi*180+fases;
+
+%Calibration of phases
+fases=fases-90;
+faseC=faseC-90;
+
+%Magnitude
+hf3 = figure ("Visible", "off");
+plot (f*36, Vs, "");
+hold on;
+plot (f*36,VC, "");
+
+xlabel ("f[HZ]");
+ylabel ("Vs,Vc [dB]");
+print (hf3, "dBoct.eps", "-depsc");
+
+
+%phase
+hf4 = figure ("Visible", "off");
+plot (f*36, fases, "");
+hold on;
+plot (f*36,faseC, "");
+
+xlabel ("f[HZ]");
+ylabel ("Vs,Vc [Degrees]");
+print (hf4, "phaseoct.eps", "-depsc");
