@@ -144,7 +144,7 @@ fprintf(fid2,"$I_{V_d}$ & %.10E \\\\ \\hline \n",I4+I3-I5);
 fprintf(fid2,"$V_1$ & %.10E \\\\ \\hline \n",Data([1]));
 fprintf(fid2,"$V_2$ & %.10E \\\\ \\hline \n",Data([2]));
 fprintf(fid2,"$V_3$ & %.10E \\\\ \\hline \n",Data([3]));
-fprintf(fid2,"$V_4$ & %.10E \\\\ \\hline \n",Data([4]));
+%fprintf(fid2,"$V_4$ & %.10E \\\\ \\hline \n",Data([4]));
 fprintf(fid2,"$V_5$ & %.10E \\\\ \\hline \n",Data([5]));
 fprintf(fid2,"$V_6$ & %.10E \\\\ \\hline \n",Data([6]));
 fprintf(fid2,"$V_7$ & %.10E \\\\ \\hline \n",Data([7]));
