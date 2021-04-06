@@ -21,9 +21,12 @@ Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1
 \subsection{Exercise 2}
 
 Now we can approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from \ref{tab:Exercise1Simulation}.
+% ALT_J
+We use this method since we want to start by determining the natural solution of the system.
 
 \begin{table}[H]
   \centering
+  \small
   \begin{tabular}{|c|c|}
     \hline    
     {\bf Designation} & {\bf Value [A or V]} \\ \hline
@@ -33,19 +36,26 @@ Now we can approach the second point of our simulation where we see how the syst
   \label{tab:Exercise2Simulation}
 \end{table}
 
+From Table~\ref{tab:Exercise2Simulation} we want the values of potential in nodes v6 and v8 which are their values when t=0. This means that we now have everything we need (initial conditions) to determine the natural solution of the system for $t>0$, which is what we will do next.
+
 \subsection{Exercise 3}
 
-Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6.
-
+Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6, when $V_s$ is still at 0V. This represents the discharge of the condenser threw the system, meaning the natural solution.
+\vspace{-30mm}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{../sim/ex3_image.pdf}
-  \caption{Natural response - value of $v_6(t$ in the time interval [0,20] ms.}
+  \small
+  \includegraphics[width=0.5\linewidth]{../sim/ex3_image.pdf}
+  \caption{Natural response - value of $v_6(t)$ in the time interval [0,20] ms.}
   \label{fig:Ex3_Image}
 \end{figure}
 
+As we can see the solution is an exponential as theory tells us and very similar to the solution in the Theoretical section. We can also clearly see the inicial voltage in the beggining of the graph, which is the one calculated in Exercise 2 confirming that simulation is indeed correct. 
+\vspace{-30mm}
 \subsection{Exercise 4}
-
+Having known the inicial conditions and how the system behaves naturally we now add the equation $v_s(t)=sin(2 \pi f t)$ (true for $t>0$) for $v_s$. We now analise the circuit exactly as represented in Figure~\ref{fig:CircuitDraw}, having the natural solution added to the forced solution.\par
+In Figure~\ref{fig:Ex4_Image} we can see two nodes represented. Node 6 where we observe the natural and forced solutions together and how that afects it's potential over time ( the response) and the stimulus in node 1 since $V_s$ is the one responsible for the forced solution. For this particular analisis f=1kHz and all the other values used where taken from the previous sections. 
+\vspace{-30mm}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\linewidth]{../sim/ex4_image.pdf}
@@ -53,18 +63,24 @@ Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows t
   \label{fig:Ex4_Image}
 \end{figure}
 
+As expected the graph obtained is the sum of an exponential and ans cos() function which correlates with theoretical results and the graph obtained in 
+Figure~\ref{fig:finaloct} as they are identical.
 \subsection{Exercise 5}
+ 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex5_image_magnitude.pdf}
+  \includegraphics[width=0.5\linewidth]{../sim/ex5_image_magnitude.pdf}
   \caption{Frequency analysis - magnitudes of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in dB.}
   \label{fig:Ex5_Image_Magnitude}
 \end{figure}
 
+
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex5_image_phase.pdf}
+  \includegraphics[width=0.5\linewidth]{../sim/ex5_image_phase.pdf}
   \caption{Frequency analysis - phases of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in degrees.}
   \label{fig:Ex5_Image_Phase}
 \end{figure}
+
