@@ -1,12 +1,12 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-\subsection{Exercise 1}
+\subsection{Exercise 1} \label{sec:Ex1Theo}
 
-In this section, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically for $t<0$, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. The nodes considered for the following equations are those represented in Figure~\ref{fig:CircuitDraw}. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the voltages at nodes $V_1$ to $V_8$ and currents in resistances $R_1$ to $R_7$ can be determined.
+In this exercise, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically for $t<0$, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the node voltages $V_1$ to $V_8$ are obtained. Using these values and Ohm's Law, the currents in all branches can be determined.
 
 \par
-It is worth mentioning that 
+It is worth mentioning that the current passing through the capacitor is given by $i_C=C\frac{dv_c}{dt}$. However, it is assumed that the voltages in the capacitor's terminals have already achieved static values  a long time ago, thus $i_c=0$A. 
 
 \par
 \vspace{1mm}
@@ -19,10 +19,10 @@ The following linear system is obtained:
     -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
     0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
     0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-    0 & -\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}+\frac{1}{R_5} & -\frac{1}{R_5} & -\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_3}+\frac{1}{R_4}+\frac{1}{R_5} & -\frac{1}{R_5} & -\frac{1}{R_7} & \frac{1}{R_7} \\
     0 & K_b & 0 & 0 & -\frac{1}{R_5}-K_b & \frac{1}{R_5} & 0 & 0 \\
     0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7} \\
-    0 & 0 & 0 & -\frac{K_d}{R_6} & 1 & 0 & \frac{K_d}{R_6} & -1
+    0 & 0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1
   \end{pmatrix}
   \begin{pmatrix}
     V_1  \\
@@ -48,7 +48,7 @@ The following linear system is obtained:
   \label{eq:Exercise1LinearSystem}
 \end{equation}
 
-By solving the linear system~\ref{eq:Exercise1LinearSystem}, the values for node voltages and branch currents (calculated by using Ohm's Law) are obtained. These values, as well as the currents passing through voltage sources and currents $I_c$ and $I_b$, are shown in Table \ref{tab:Exercise1Theoretical}.
+The matrix shown above isn't symmetrical because of the presence of dependent sources in this circuit. The values obtained by solving the linear system above, using Octave, are shown in Table \ref{tab:Exercise1Theoretical}.
 
 \begin{table}[H]
   \centering
@@ -62,22 +62,20 @@ By solving the linear system~\ref{eq:Exercise1LinearSystem}, the values for node
 \end{table}
 
 
-\subsection{Exercise 2}
-In this exercise we are going to analise the system also using the node method, as explained before. In this case our goal is to the get the $R_{eq}$, which means, to find the value of the resistance for the Norton and Thévenin equivalents. In order to calculate the resistance one must turn off all the constant sources, so, as we want to find the equivalent seen from the capacitor, we must have $V_S=0$. That's the reason, why we do that. Now we are going to use the nodal method to determine the current going to the capacitor if we put a current source wi3th its voltage in its place and then, as we know the current and the voltage, one can simply use the Ohm's law:
-\begin{equation}
-  R=\frac{V}{I}
-\end{equation}
-We can use almost all the matrix in the previous exercise. The only differences are the ones stated in the previous paragraph. As we have already determined the voltages in the nodes before, we obtain the matrix above to get the voltages in the nodes,definig $V_x$ as the value of $V_6-V_8$,and knowing that $V_4=0$, we already symplified a little in order to make the implementation easier:
+\subsection{Exercise 2} \label{sec:Ex2Theo}
+
+In this exercise, the goal is to obtain $R_{eq}$, the value of the equivalent resistance as seen from the capacitor's terminals. According to Thévenin's Theorem, it is possible to replace the linear sub-circuit connected to the capacitor's terminals by a voltage source connected with the resistor. In order to calculate $R_{eq}$ by Thévenin's Theorem, we must have $V_s=0$ (all independent sources of the sub-circuit connected to the capacitor's terminals must be switched off). By replacing the capacitor with a voltage source $V_x=V_6-V_8$, where $V_6$ and $V_8$ are the voltages determined in Section \ref{sec:Ex1Theo}, the current $I_x$ supplied by $V_x$ can be calculated by applying the node method to this new circuit - using Ohm's Law, the equivalent resistance is computed as $R_x=\frac{V_x}{I_x}$. The linear system and the node voltages and branch currents in this case are the following:
+
 \begin{equation}
   \begin{pmatrix}
     1 & 0 & 0 & -1 & 0 & 0 & 0 & 0 \\
     -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
     0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
     0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-    0 & K_b-\frac{1}{R_3} & 0 & -\frac{1}{R_4} & \frac{1}{R_3}+\frac{1}{R_4}-K_b & 0 & -\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & K_b-\frac{1}{R_3} & 0 & 0 & \frac{1}{R_3}+\frac{1}{R_4}-K_b & 0 & -\frac{1}{R_7} & \frac{1}{R_7} \\
     0 & 0 & 0 & 0 & 0 & 1 & 0 & -1 \\
-    0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} \\
-    0 & 0 & 0 & 0 & 0 & 1 & 0 & -\frac{K_d}{R_6} \\
+    0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & \frac{1}{R_7} \\
+    0 & 0 & 0 & 0 & 1 & 0 & -\frac{K_d}{R_6} & -1 \\
   \end{pmatrix}
   \begin{pmatrix}
     V_1  \\
@@ -91,16 +89,16 @@ We can use almost all the matrix in the previous exercise. The only differences 
   \end{pmatrix}
   =
   \begin{pmatrix}
-     \\
-    0   \\
-    0   \\
-    0   \\
-    0   \\
-    V_x  \\
-    0   \\
-    0   \\
+    0 \\
+    0 \\
+    0 \\
+    0 \\
+    0 \\
+    V_x \\
+    0 \\
+    0 \\
   \end{pmatrix}
-  \label{eq:Exercise1LinearSystem}
+  \label{eq:Exercise2LinearSystem}
 \end{equation}
 
 \begin{table}[H]
@@ -113,41 +111,55 @@ We can use almost all the matrix in the previous exercise. The only differences 
   \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
   \label{tab:Exercise2Theoretical}
 \end{table}
-Now that we have all this values, we are simply going to calculate the current going throw the capacitor/voltage source as the different between the current going throw $R_5$ and the current $I_b$, finally getting the result we want. We state that the current is flowing in the oposite direction of what it was suppose to flow, so, the equivalent resistance is the symetric of the result:
+
+Now, the current going through the equivalent resistor can be calculated as $I_x=I_b-I_5=-I_{V_x}$ (KCL in node 6). It must be stated that the current going through $R_{eq}$ (i.e., from + to - in $R_{eq}$) is flowing in the oposite direction of the current ``passing through'' voltage source $V_x$, i.e., the current going from + to - in $V_x$, thus the equation shown before.
+\par
+Finally, one can compute the time constant as $\tau=R_xC$. The final results are shown in Table \ref{tab:Exercise2_1Theoretical}.
+
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline
-        {\bf Designation} & {\bf Value [A or V]} \\ \hline
-        \input{Exercise2.1.tex}
+        {\bf Designation} & {\bf Value [A or V or $\Omega$ or s]} \\ \hline
+        \input{Exercise2_1.tex}
   \end{tabular}
-  \caption{Values of node voltages (in volts) and branch currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
-  \label{tab:Exercise2.1Theoretical}
+  \caption{Values determined for $V_x$ [V], $I_x$ [A], $R_{eq}$ [$\Omega$] and $\tau$ [s].}
+  \label{tab:Exercise2_1Theoretical}
 \end{table}
 
-\subsection{Exercise 3}
-Using the results from the previous exercise we understand we can simplify the circuit into a circuit with a voltage source, a resistance and and the capacitor. For this case we already have that the natural solution looks like:
-\begin{equation}
-  v_n(t)=A \times e^{-\frac{t}{RC}}
-  \end{equation}
-Where A is the value in $t=0$ acording to the previous exercise, $t$ stands for time, $R$ for the equivalent resistance and $C$ for the capacitance of the capacitor. Plotting the result one gets:
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{natural.eps}
-\caption{Natural response}
-\label{fig:natural}
+This procedure must be done in order to determine $R_{eq}$, which is used to obtain the time constant. This static analysis also allows us to obtain the initial conditions $v_6(0)$ and $v_8(0)$, which will also be used to compute the natural and final solutions, because we may consider that, for $t=0$, $v_s=0$ and $V_6-V_8=V_x$. It is worth noting that, according to the expression for $v_s(t)$ given in Figure \ref{fig:CircuitDraw}, $v_s(0)=V_s$, so the change in value for $v_s$ would occur instantaneously afterwards, in an instant $t=\delta$; however, it is valid to consider it to be happening at $t=0$, because it doesn't change the overall solution.
+
+\subsection{Exercise 3} \label{sec:Ex3Theo}
+
+Using the results from the previous exercise, we can infer that the circuit shown in Figure \ref{fig:CircuitDraw} can be simplified into a circuit with the independent voltage source, a resistance $R_{eq}$ and the capacitor. Thus, the general form for the wanted natural solution, as learnt in class, is given by
+
+\begin{equation} \label{eq:NaturalSolution}
+  v_{6n}(t)=A \times e^{-\frac{t}{RC}}
+\end{equation}
+
+Where $A=v_6(0)$ (obtained in Section \ref{sec:Ex2Theo}), $t$ stands for time and $R$ for the (equivalent) resistance. The graph shown below is obtained by plotting Eq.\ref{eq:NaturalSolution} in Octave.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{natural.eps}
+  \caption{Natural solution $v_{6n}(t)$ in the time interval [0,20] ms.}
+  \label{fig:NaturalSolutionGraph}
 \end{figure}
 
 
-\subsection{Exercise 4}
-In this exercise we are going to determine the forced solution of the equation, in order to get the final solution ading the natural solution tot he forced solution. We first define $V_s$ as 1. As the whole system is linear, so the response should be. Therefore if we aplly the voltage $V_s=1$ we get the response of the system for one Volt, then we only have to multiply the voltages by the real $V_s$ in order to get the real voltages.
-Then we get the matrix:
+\subsection{Exercise 4} \label{sec:Ex4Theo}
+
+In this exercise, the forced solution for the voltage in node 6, $v_{6f}(t)$, will be determined for the time interval [0,20] ms. Because we are dealing with a forced solution with sinusoidal excitation, given by $v_s(t)=sin(2\pi ft)$, with $f=1$kHz, it becomes much more efficient to use phasors. As suggested, a phasor voltage source $V_s=1$ will be used. The correspondant phase is $\phi_{V_s}=0$; therefore, in this forced solution analysis, the voltages will be considered as given by $sin$ functions, as opposed to $cos$ functions, as was learnt in class. This won't change the overall results, but will be important to take into account when analysing the phases plotted in Sections \ref{sec:Ex6Theo} and \ref{sec:Ex5Sim}. In addition to this, $C$ is replaced by its impedance, $Z_C$. This impedance is given by $Z_C=\frac{1}{j\omega C}$, with $j$ being the imaginary unit and $\omega=2\pi f$.
+\par
+By running nodal analysis as in the previous sections, the following linear system is obtained: 
+
 \begin{equation}
   \begin{pmatrix}
     1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
     -\frac{1}{R_1} & \frac{1}{R_1}+\frac{1}{R_2}+\frac{1}{R_3} & -\frac{1}{R_2} & 0 & -\frac{1}{R_3} & 0 & 0 & 0 \\
     0 & -K_b-\frac{1}{R_2} & \frac{1}{R_2} & 0 & K_b & 0 & 0 & 0 \\
     0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-    0 & -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_3}+\frac{1}{R_4}-\frac{1}{R_5}  & -\frac{1}{R_5}-jwC & -\frac{1}{R_7}n & \frac{1}{R_7}+jwC \\
+    0 & -\frac{1}{R_3} & 0 & 0 & \frac{1}{R_3}+\frac{1}{R_4}+\frac{1}{R_5}  & -\frac{1}{R_5}-jwC & -\frac{1}{R_7} & \frac{1}{R_7}+jwC \\
     0 & K_b & 0 & 0 & -K_b-\frac{1}{R_5} & \frac{1}{R_5}+jwC & 0 & -jwC \\
     0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{R_6}+\frac{1}{R_7} & -\frac{1}{R_7} \\
     0 & 0 & 0 & 0 & 1 & 0 & \frac{K_d}{R_6} & -1 \\
@@ -176,48 +188,56 @@ Then we get the matrix:
   \label{eq:Exercise4LinearSystem}
 \end{equation}
 
-And results are:
+
+The complex amplitudes (phasors) in the nodes, obtained by solving the linear system above, are shown below.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline
-        {\bf Designation} & {\bf Value [A or V]} \\ \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
         \input{Exercise4.tex}
   \end{tabular}
-  \caption{Values of node complex amplitude (in volts).}
-  \label{tab:Exercise2Theoretical}
+  \caption{Complex values of the phasors in the nodes (in volts).}
+  \label{tab:Exercise4Theoretical}
 \end{table}
 
-\subsection{Exercise 5}
-In this exercise we are going to plot the sum of the results of the 2 previous exercises. We obtain the following plot:
+Having the value of the phasor $V_6$, it is possible to determine the amplitude and the phase of the correspondant sine wave, which are given by $Amplitude=\sqrt{Re(V_6)^2+Im(V_6)^2}$ and $\phi_{V_6}=atan(Im(V_6)/Re(V_6))$, respectively. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
 
-
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{finaloct2.eps}
-\caption{Final solution[-5;0]ms}
-\label{fig:finaloct}
-\end{figure}
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{finaloct.eps}
-\caption{Final solution[0;20]ms}
-\label{fig:finaloct}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{forced.eps}
+  \caption{Forced solution $v_{6f}(t)$ in the time interval [0,20] ms. To be noted that $V_6$ written above refers to the amplitude of the phasor, not the phasor itself.}
+  \label{fig:ForcedSolutionGraph}
 \end{figure}
 
-We see that $V_6$ is not a continuous function, but it should not be, as the voltage source doesn't have a continuous function for the source. Yet, we notice that the voltage in the capacitor is continuous, which is, in fact, the only thing that matters to make our system possible.
+\subsection{Exercise 5} \label{sec:Ex5Theo}
+
+In Figure \ref{fig:final}, the final solutions for $v_6 (t)=v_{6n}(t)+v_{6f}(t)$ (obtained by superimposing the natural and forced solutions, previously determined), is plotted alongside $v_s(t)$, which is given by the branch function presented in Figure \ref{fig:CircuitDraw}.
 
 
-\subsection{Exercise 6}
-In this exercise as we only want to compare the magnitudes and the phases of $V_s$,$V_6$ and $V_c$ for each of the different frequencies. The results are shown in the plots below:
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{dBoct.eps}
-\caption{Magnitude of nodes}
-\label{fig:finaloct}
+\begin{figure}[H] \centering
+  \includegraphics[width=0.8\linewidth]{final.eps}
+  \caption{Final solution $v_6(t)$ and $v_s(t)$ in time interval [-5, 20] ms.}
+  \label{fig:final}
 \end{figure}
 
-\begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{phaseoct.eps}
-\caption{Phase of nodes}
-\label{fig:finaloct}
+We can notice that neither $v_6$ nor $v_s$ are continuous functions. (escrever mais...)
+
+
+\subsection{Exercise 6} \label{sec:Ex6Theo}
+
+In this case, the magnitudes and the phases of the frequency responses $v_c(f)=v_6(f)-v_8(f)$, $v_6(f)$ and $v_s(f)$ will be plotted.
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.8\linewidth]{dBoct.eps}
+  \caption{Magnitude of $v_s$, $v_c$ and $v_8$, in dB.}
+  \label{fig:finaloct}
+\end{figure}
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.8\linewidth]{phaseoct.eps}
+  \caption{Phase of $v_s$, $v_c$ and $v_8$, in degrees.}
+  \label{fig:finaloct}
 \end{figure}
 

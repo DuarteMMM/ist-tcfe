@@ -23,6 +23,8 @@ echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
 
+set numdgt=10
+
 echo  "Exercise1_TAB"
 print @r1[i]
 print @r2[i]

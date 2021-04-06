@@ -1,4 +1,4 @@
-octave.log: Exercise1.m
+octave.log: OctaveFile.m
 	make data.txt
 	octave $< > $@
 

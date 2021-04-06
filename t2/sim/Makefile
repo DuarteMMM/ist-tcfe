@@ -15,7 +15,7 @@ ngspice.log:
 	@sed 's/v/ v/g' -i Ex2_values_new.txt
 	@cat Ex2_values_new.txt >> dataNgspice3.txt
 	@ngspice -b ../sim/Exercise3.net >> $@
-	@ngspice -b ../sim/Exercise4.net >> $@
+	@ngspice -b ../sim/Exercises4_5.net >> $@
 
 
 PythonInfo.tex: ../data.txt

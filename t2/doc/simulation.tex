@@ -1,39 +1,64 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
 
-\subsection{Exercise 1}
+\subsection{Exercise 1} \label{sec:Ex1Sim}
 
-Table~\ref{tab:Exercise1Simulation} shows the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw}. Again, currents designated below as $I_i$ refer to the currents passing through the respective resistances, $R_i$.
+Table \ref{tab:Exercise1Both} shows the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw}. Again, currents designated below as $I_i$ refer to the currents passing through the respective resistances, $R_i$.
+
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|}
-    \hline    
-    {\bf Designation} & {\bf Value [A or V]} \\ \hline
-    \input{../sim/Exercise1_tab.tex}
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [A or V]} \\ \hline
+          \input{Exercise1.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [A or V]} \\ \hline
+          \input{../sim/Exercise1_tab.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Operating point analysis table. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
-  \label{tab:Exercise1Simulation}
+  \caption{Exercise 1 - comparison between theoretical analysis and operating point analysis's results. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
+  \label{tab:Exercise1Both}
 \end{table}
 
-Comparing the theoretical analysis results presented in Table \ref{tab:Exercise1Theoretical} and the results in Table \ref{tab:Exercise1Simulation}, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.
+Comparing the results, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.
 
-\subsection{Exercise 2}
+\subsection{Exercise 2} \label{sec:Ex2Sim}
 
 Now we can approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from \ref{tab:Exercise1Simulation}.
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|}
-    \hline    
-    {\bf Designation} & {\bf Value [A or V]} \\ \hline
-    \input{../sim/Exercise2_tab.tex}
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [A or V]} \\ \hline
+          \input{Exercise2.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [A or V]} \\ \hline
+          \input{../sim/Exercise2_tab.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Operating point analysis table. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
-  \label{tab:Exercise2Simulation}
+  \caption{Exercise 2 comparison. Operating point analysis table. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
+  \label{tab:Exercise2Both}
 \end{table}
 
-\subsection{Exercise 3}
+\subsection{Exercise 3} \label{sec:Ex3Sim}
 
 Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6.
 
@@ -44,7 +69,7 @@ Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows t
   \label{fig:Ex3_Image}
 \end{figure}
 
-\subsection{Exercise 4}
+\subsection{Exercise 4} \label{sec:Ex4Sim}
 
 \begin{figure}[H]
   \centering
@@ -53,7 +78,7 @@ Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows t
   \label{fig:Ex4_Image}
 \end{figure}
 
-\subsection{Exercise 5}
+\subsection{Exercise 5} \label{sec:Ex5Sim}
 
 \begin{figure}[H]
   \centering
