@@ -242,11 +242,14 @@ fclose (fid4);
 
 %Plot the forced solution in time interval [0,20]ms
 
-Amplitude_v6 = sqrt(real(Data([6]))*real(Data([6]))+imag(Data([6]))*imag(Data([6]))) 
-Phase_v6 = atan(imag(Data([6]))/real(Data([6])))
+%Amplitude_v6 = sqrt(real(Data([6]))*real(Data([6]))+imag(Data([6]))*imag(Data([6]))) ;
+%Phase_v6 = atan(imag(Data([6]))/real(Data([6])));
+Amplitude_v6 = abs(Data([6]));
+Phase_v6 = angle(Data([6]));
 
+  
 %t1=0:2e-5:20e-3;
-vf=-Amplitude_v6*sin(2*pi*f*t-Phase_v6);
+vf=Amplitude_v6*sin(2*pi*f*t-Phase_v6);
 
 hf1 = figure ("Visible", "off");
 plot (t*1000, vf, "");
@@ -335,7 +338,8 @@ hold on;
 semilogx (f*36,VC, "");
 
 xlabel ("f [HZ]");
-ylabel ("V_s, V_c, V_6 [dB]");
+ylabel ("V_s, V_6, V_c [dB]");
+hleg1=legend("V_s","V_6","V_c","Location","southwest");
 print (hf3, "dBoct.eps", "-depsc");
 
 
@@ -347,7 +351,10 @@ semilogx (f*36,fase6, "");
 hold on;
 semilogx (f*36,faseC, "");
 
-
+hleg2=legend("\\phi_{v_s}","\\phi_{v_6}","\\phi_{v_c}","Location","southwest");
+set(hleg2, "FontSize", 14);
 xlabel ("f [HZ]");
-ylabel ("\\phi_{V_s}, \\phi_{V_c} [Degrees]");
+ylabel ("\\phi_{v_s}, \\phi_{v_6}, \\phi_{v_c} [Degrees]");
 print (hf4, "phaseoct.eps", "-depsc");
+
+close all;

@@ -202,7 +202,7 @@ The complex amplitudes (phasors) in the nodes, obtained by solving the linear sy
   \label{tab:Exercise4Theoretical}
 \end{table}
 
-Having the value of the phasor $V_6$, it is possible to determine the amplitude and the phase of the correspondant sine wave, which are given by $Amplitude=\sqrt{Re(V_6)^2+Im(V_6)^2}$ and $\phi_{V_6}=atan(Im(V_6)/Re(V_6))$, respectively. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
+Having the value of the phasor $V_6$, the respective sine function is easily obtained with Octave. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
 
 \begin{figure}[H]
   \centering
@@ -222,7 +222,7 @@ In Figure \ref{fig:final}, the final solutions for $v_6 (t)=v_{6n}(t)+v_{6f}(t)$
   \label{fig:final}
 \end{figure}
 
-We can notice that neither $v_6$ nor $v_s$ are continuous functions. (escrever mais...)
+We can notice that neither $v_6$ nor $v_s$ are continuous functions. What must be continuous is $v_c$, the voltage drop in the capacitor's terminals; the voltages in the nodes may have discontinuities in order to make sure this stays true. A capacitor cannot be discharged instantaneously: it does it through its equivalent resistor according to the time constant $\tau$.
 
 
 \subsection{Exercise 6} \label{sec:Ex6Theo}
@@ -231,13 +231,13 @@ In this case, the magnitudes and the phases of the frequency responses $v_c(f)=v
 
 \begin{figure}[H] \centering
   \includegraphics[width=0.8\linewidth]{dBoct.eps}
-  \caption{Magnitude of $v_s$, $v_c$ and $v_8$, in dB.}
+  \caption{Magnitude of $v_s$, $v_6$ and $v_c$, in dB.}
   \label{fig:finaloct}
 \end{figure}
 
 \begin{figure}[H] \centering
   \includegraphics[width=0.8\linewidth]{phaseoct.eps}
-  \caption{Phase of $v_s$, $v_c$ and $v_8$, in degrees.}
+  \caption{Phase of $v_s$, $v_6$ and $v_c$, in degrees.}
   \label{fig:finaloct}
 \end{figure}
 
