@@ -33,7 +33,7 @@ Comparing the results, we can notice almost no differences. This was to be expec
 
 \subsection{Exercise 2} \label{sec:Ex2Sim}
 
-Now we can approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from \ref{tab:Exercise1Simulation}.
+Now we can approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from the simulation column of Table~\ref{tab:Exercise1Both}.
 % ALT_J
 We use this method since we want to start by determining the natural solution of the system.
 
@@ -91,24 +91,28 @@ In Figure \ref{fig:Ex4_Image} we can see two nodes represented. Node 6 where we 
 \end{figure}
 
 
-As expected the graph obtained is the sum of an exponential and ans cos() function which correlates with theoretical results and the graph obtained in Figure~\ref{fig:finaloct} as they are identical.
+As expected the graph obtained is the sum of an exponential and ans cos() function which correlates with theoretical results and the graph obtained in Figure~\ref{fig:final} as they are identical.
 
 \subsection{Exercise 5} \label{sec:Ex5Sim}
- 
-
-\begin{figure}[H]
+ \begin{figure}[H]
+ \footnotesize
+\begin{subfigure}{.49\linewidth}
+ \footnotesize
   \centering
-  \includegraphics[width=0.5\linewidth]{../sim/ex5_image_magnitude.pdf}
-  \caption{Frequency analysis - magnitudes of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in dB.}
-  \label{fig:Ex5_Image_Magnitude}
-\end{figure}
-
-
-
-\begin{figure}[H]
+  % include first image
+  \includegraphics[width=1.\linewidth]{../sim/ex5_image_magnitude.pdf}
+   \footnotesize
+\caption{Frequency analysis - magnitudes of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in dB.}
+\label{fig:Ex5_Image_Magnitude}
+\end{subfigure}
+\hspace{5mm}
+\begin{subfigure}{.49\linewidth}
   \centering
-  \includegraphics[width=0.5\linewidth]{../sim/ex5_image_phase.pdf}
-  \caption{Frequency analysis - phases of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in degrees.}
-  \label{fig:Ex5_Image_Phase}
-\end{figure}
+  % include second image
+  \includegraphics[width=1.\linewidth]{../sim/ex5_image_phase.pdf}  
+\caption{Frequency analysis - phases of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in degrees.}
+\label{fig:Ex5_Image_Phase}
+\end{subfigure}
+\end{figure} 
+
 
