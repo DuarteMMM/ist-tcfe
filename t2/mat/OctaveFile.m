@@ -309,9 +309,9 @@ fases=f.*0;
 
 %Voltage and phase in capacitor
 
-Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
-Vl=Vl.^(-1);
-VC=20*log10(Vl);
+%Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
+%Vl=Vl.^(-1);
+%VC=20*log10(Vl);
 
 faseC=-atan(2*pi*f*Req*C)/pi*180;
 
@@ -323,11 +323,25 @@ V666=(-j*Kd*R4+j*Kb*Kd*R3*R4+j*Kb*Kd*R3*R5-j*Kb*R3*R4*R5+j*R4*R6-
      2*C*f.*Kb*pi*R3*R4*R5*R7)./((-j+2*C*f.*pi*R5)*(Kd*R1+
       Kd*R3-Kb*Kd*R1*R3+Kd*R4-R1*R4-R3*R4-Kb*Kd*R3*R4+ 
      Kb*R1*R3*R4-R1*R6-R3*R6+Kb*R1*R3*R6-R4*R6+Kb*R3*R4*R6-
-      R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7))  
+      R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7));  
 VM=abs(V666);  
 V6M=20*log10(VM);
-fase6=angle(V666)/pi*180
+fase6=angle(V666)/pi*180;
 
+%Voltage and phase in capacitor
+%Voltage in 8
+V8=((-1+Kb*R3)*R4*(R6+R7))/(
+Kd*R1+Kd*R3-Kb*Kd*R1*R3+Kd*R4-R1*R4-R3*R4-Kb*Kd*R3*R4+ 
+ Kb*R1*R3*R4-R1*R6-R3*R6+Kb*R1*R3*R6-R4*R6+Kb*R3*R4*R6- 
+ R1*R7-R3*R7+Kb*R1*R3*R7-R4*R7+Kb*R3*R4*R7);
+Vl=V666.-V8;
+Vlz=abs(Vl);
+VC=20*log10(Vlz);
+
+faseC=angle(Vl)/pi*180;
+ 
+ 
+ 
  
 %Magnitude plots
 hf3 = figure ("Visible", "off");
