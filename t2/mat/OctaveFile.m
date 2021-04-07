@@ -26,6 +26,9 @@ C=A([9])*0.000001;
 Kb=A([10])*0.001;
 Kd=A([11])*1000;
 
+%To be used in Exercise 5
+Vs_initial_value=Vs;
+
 %Text for Exercise1.net
 file1 = fopen("../sim/dataNgspice1.txt","w");
 fprintf(file1,"* supply voltage\n\nVs 1 0 %.11f\n\n* Resistances\n\nR1 2 1 %.11fk\nR2 3 2 %.11fk\nR3 2 5 %.11fk\nR4 0 5 %.11fk\nR5 5 6 %.11fk\nR6 7 0aux %.11fk\nR7 8 7 %.11fk\n\n*Linearly dependent sources\n\nGb 6 3 (2,5) %.11fm\nHc 5 8 vaux %.11fk\n\nvaux 0 0aux DC 0\n\n*Capacitor\n\nc1 6 8 %.11fuF\n\n", A([8]), A([1]), A([2]), A([3]), A([4]), A([5]), A([6]), A([7]), A([10]), A([11]), A([9]));
@@ -273,7 +276,7 @@ vs = sin(2*pi*f*t);
 
 %Time for t<=0
 t3=-5e-3:2e-5:0;
-vs_initial=Vs*t3./t3;
+vs_initial=Vs_initial_value*t3./t3;
 v6_initial=V6_initial_value*t3./t3;
 
 hf2 = figure ("Visible", "off");
