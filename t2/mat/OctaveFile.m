@@ -252,7 +252,7 @@ Phase_v6 = angle(Data([6]));
 
   
 %t1=0:2e-5:20e-3;
-vf=Amplitude_v6*sin(2*pi*f*t-Phase_v6);
+vf=Amplitude_v6*sin(2*pi*f*t+Phase_v6);
 
 hf1 = figure ("Visible", "off");
 plot (t*1000, vf, "");
@@ -315,7 +315,6 @@ Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
 
-%PORQUÊ o sinal menos?????
 faseC=-atan(2*pi*f*Req*C)/pi*180;
 
 %Voltage and phase in V6 (solved before to get expression)
