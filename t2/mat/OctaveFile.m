@@ -155,6 +155,9 @@ fprintf(fid2,"$V_8$ & %.10E \\\\ \\hline \n",Data([8]));
 
 fclose (fid2);
 
+%Value to be used in Exercise 5
+V6middle=Data([6]);
+
 %Values used to calculate the equivalent resistance
 filename="Exercise2_1.tex";
 fid21=fopen(filename,"w");
@@ -243,10 +246,8 @@ fprintf(fid4,"$V_8$ & %.10E + (%.10E) i \\\\ \\hline \n",real(Data([8])),imag(Da
 
 fclose (fid4);
 
-%Plot the forced solution in time interval [0,20]ms
+%Plot the forced solution in time interval [0,20] ms
 
-%Amplitude_v6 = sqrt(real(Data([6]))*real(Data([6]))+imag(Data([6]))*imag(Data([6]))) ;
-%Phase_v6 = atan(imag(Data([6]))/real(Data([6])));
 Amplitude_v6 = abs(Data([6]));
 Phase_v6 = angle(Data([6]));
 
@@ -284,6 +285,7 @@ plot (t3*1000, v6_initial, "r", t*1000, vt, "r");
 hold on;
 plot (t3*1000, vs_initial, "b", t*1000, vs, "b");
 hold on;
+plot(0,V6middle,".r");
 
 %Draw dashed line in t=0
 y = ylim;
@@ -301,7 +303,8 @@ print (hf2, "final.eps", "-depsc");
 %Theoretical: Exercise 6
 
 %Frequencies
-f=logspace(-1, 6, 7*5);
+%f=logspace(-1, 6, 7*5);
+f=logspace(log10(0.1),log10(1000000),35);
 
 %Voltage and phase in source
 Vs=f.*0;
@@ -339,18 +342,17 @@ Vlz=abs(Vl);
 VC=20*log10(Vlz);
 
 faseC=angle(Vl)/pi*180;
- 
- 
- 
+
  
 %Magnitude plots
 hf3 = figure ("Visible", "off");
-semilogx (f*36, Vs, "");
+semilogx (f, Vs, "");
 hold on;
-semilogx (f*36,V6M, "");
+semilogx (f,V6M, "");
 hold on;
-semilogx (f*36,VC, "");
+semilogx (f,VC, "");
 
+%xlim([0.1 1000000]);
 xlabel ("f [HZ]");
 ylabel ("V_s, V_6, V_c [dB]");
 hleg1=legend("V_s","V_6","V_c","Location","southwest");
@@ -360,14 +362,15 @@ print (hf3, "dBoct.eps", "-depsc");
 
 %Phase plots
 hf4 = figure ("Visible", "off");
-semilogx (f*36, fases, "");
+semilogx (f, fases, "");
 hold on;
-semilogx (f*36,fase6, "");
+semilogx (f,fase6, "");
 hold on;
-semilogx (f*36,faseC, "");
+semilogx (f,faseC, "");
 
 hleg2=legend("\\phi_{v_s}","\\phi_{v_6}","\\phi_{v_c}","Location","southwest");
 set(hleg2, "FontSize", 14);
+%xlim([0.1 1000000]);
 xlabel ("f [HZ]");
 ylabel ("\\phi_{v_s}, \\phi_{v_6}, \\phi_{v_c} [Degrees]");
 print (hf4, "phaseoct.eps", "-depsc");

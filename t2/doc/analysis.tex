@@ -6,7 +6,7 @@
 In this exercise, the circuit shown in Figure~\ref{fig:CircuitDraw} is analysed theoretically for $t<0$, by using the node method. The Kirchhoff Current Law (KCL) states that the sum of the currents converging or diverging in a node is null. Using KCL and Ohm's Law (which can also be written as $I=VG$) in nodes not connected to voltage sources and additional equations for nodes related by voltage sources, it is possible to obtain a linear system from which the node voltages $V_1$ to $V_8$ are obtained. Using these values and Ohm's Law, the currents in all branches can be determined.
 
 \par
-It is worth mentioning that the current passing through the capacitor is given by $i_C=C\frac{dv_c}{dt}$. However, it is assumed that the voltages in the capacitor's terminals have already achieved static values  a long time ago, thus $i_c=0$A. 
+It is worth mentioning that the current passing through the capacitor is given by $i_c=C\frac{dv_c}{dt}$. However, it is assumed that the voltages in the capacitor's terminals have already achieved static values  a long time ago, thus $i_c=0$. 
 
 \par
 \vspace{1mm}
@@ -57,7 +57,7 @@ The matrix shown above isn't symmetrical because of the presence of dependent so
         {\bf Designation} & {\bf Value [A or V]} \\ \hline
         \input{Exercise1.tex}
   \end{tabular}
-  \caption{Values of node voltages (in volts) and currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$.}
+  \caption{Values of node voltages (in volts) and currents (in amperes). Current $I_i$ corresponds to the current passing through resistance $R_i$. Node 4 is connected to GND, thus it isn't necessary to show its voltage value ($V_4=0$) above.} 
   \label{tab:Exercise1Theoretical}
 \end{table}
 
@@ -127,14 +127,14 @@ Finally, one can compute the time constant as $\tau=R_xC$. The final results are
   \label{tab:Exercise2_1Theoretical}
 \end{table}
 
-This procedure must be done in order to determine $R_{eq}$, which is used to obtain the time constant. This static analysis also allows us to obtain the initial conditions $v_6(0)$ and $v_8(0)$, which will also be used to compute the natural and final solutions, because we may consider that, for $t=0$, $v_s=0$ and $V_6-V_8=V_x$. It is worth noting that, according to the expression for $v_s(t)$ given in Figure \ref{fig:CircuitDraw}, $v_s(0)=V_s$, so the change in value for $v_s$ would occur instantaneously afterwards, in an instant $t=\delta$; however, it is valid to consider it to be happening at $t=0$, because it doesn't change the overall solution.
+This procedure must be done in order to determine $R_{eq}$, which is used to obtain the time constant. This static analysis also allows us to obtain the initial condition $v_6(0)$, which will also be used to compute the natural and final solutions, because we may consider that, for $t=0$, $v_s=0$ and $V_6-V_8=V_x$. It is worth noting that, according to the expression for $v_s(t)$ given in Figure \ref{fig:CircuitDraw}, $v_s(0)=V_s$, so the change in value for $v_s$ would occur instantaneously afterwards, in an instant $t=\delta$; however, it is valid to consider it to be happening at $t=0$, because it doesn't change the overall solution.
 
 \subsection{Exercise 3} \label{sec:Ex3Theo}
 
 Using the results from the previous exercise, we can infer that the circuit shown in Figure \ref{fig:CircuitDraw} can be simplified into a circuit with the independent voltage source, a resistance $R_{eq}$ and the capacitor. We also have that $v_{6n}(+\infty)=0$, because, as seen in Table \ref{tab:Exercise2Theoretical}, $v_8=0$, and it will continue to be that way, and the capacitor will eventually completely discharge. Thus, the general form for the wanted natural solution, as learnt in class, is given by
 
 \begin{equation} \label{eq:NaturalSolution}
-  v_{6n}(t)=v_{6n}(0)e^{-\frac{t}{RC}}
+  v_{6n}(t)=v_{6n}(+\infty)+[v_{6n}(0)-v_{6n}(+\infty)] e^{-\frac{t}{RC}}=v_{6n}(0) e^{-\frac{t}{RC}}
 \end{equation}
 
 Where $t$ stands for time and $R$ for the (equivalent) resistance. The graph shown below is obtained by plotting Eq. \ref{eq:NaturalSolution} in Octave.
@@ -202,18 +202,18 @@ The complex amplitudes (phasors) in the nodes, obtained by solving the linear sy
   \label{tab:Exercise4Theoretical}
 \end{table}
 
-Having the value of the phasor $V_6$, the respective sine function is easily obtained with Octave. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
+Having the value of the phasor $V_6$, the respective sine function is easily obtained with Octave. It has the same frequency as the voltage source's and its phase and amplitude are given by the phasor shown in Table \ref{tab:Exercise4Theoretical}. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\linewidth]{forced.eps}
-  \caption{Forced solution $v_{6f}(t)$ in the time interval [0,20] ms. To be noted that $V_6$ written above refers to the amplitude of the phasor, not the phasor itself.}
+  \includegraphics[width=0.65\linewidth]{forced.eps}
+  \caption{Forced solution $v_{6f}(t)$ in the time interval [0,20] ms. To be noted that $V_6$ written above refers to the absolute value of the phasor, not the phasor itself. The phase $\phi$ is the symmetric of the phasor's argument.}
   \label{fig:ForcedSolutionGraph}
 \end{figure}
 
 \subsection{Exercise 5} \label{sec:Ex5Theo}
 
-In Figure \ref{fig:final}, the final solutions for $v_6 (t)=v_{6n}(t)+v_{6f}(t)$ (obtained by superimposing the natural and forced solutions, previously determined), is plotted alongside $v_s(t)$, which is given by the branch function presented in Figure \ref{fig:CircuitDraw}.
+In Figure \ref{fig:final}, the final solution for $v_6 (t)$ is plotted alongside $v_s(t)$, which is given by the branch function presented in Figure \ref{fig:CircuitDraw}. The value of $v_6(t)$ is given by $v_{6n}(t)+v_{6f}(t)$ for $t>0$ (obtained by superimposing the natural and forced solutions, previously determined), by the value obtained in Section \ref{sec:Ex1Theo} for $t<0$ and by the value obtained in Section \ref{sec:Ex2Theo} for $t=0$.
 
 
 \begin{figure}[H] \centering
@@ -227,32 +227,29 @@ We can notice that neither $v_6$ nor $v_s$ are continuous functions. What must b
 
 \subsection{Exercise 6} \label{sec:Ex6Theo}
 
-In this case, the magnitudes and the phases of the frequency responses $v_c(f)=v_6(f)-v_8(f)$, $v_6(f)$ and $v_s(f)$ will be plotted.
+Finally, the magnitudes and the phases of the frequency responses $v_c(f)=v_6(f)-v_8(f)$, $v_6(f)$ and $v_s(f)$ will be plotted for the frequency range 0.1 Hz to 1 MHz. The magnitude and phase of $v_c(f)$ are easily inferred by its respective branch function, given in Figure \ref{fig:CircuitDraw}. In its turn, using Octave and the linear system given in Section \ref{sec:Ex4Theo}, it was possible to get expressions for $v_6$ and $v_8$ in terms of frequency, from which the wanted plots were obtained.
 
- \begin{figure}[H]
- \footnotesize
-\begin{subfigure}{.49\linewidth}
- \footnotesize
-  \centering
-  % include first image
-  \includegraphics[width=1.\linewidth]{dBoct.eps}
-   \footnotesize
-\caption{Magnitude of nodes}
-\label{fig:final_magnitude}
-\end{subfigure}
-\begin{subfigure}{.49\linewidth}
-  \centering
-  % include second image
-  \includegraphics[width=1.\linewidth]{phaseoct.eps}  
-\caption{Phase of nodes}
-\label{fig:final_phase}
-\end{subfigure}
- \end{figure}
- The results above were predictable.
- \par
- About this results we state that the voltage $V_8$ its always the same for a given value of $V_s$ and does not depend on the frequency, and also that the impedance of a capacitor decreases with the frequency, so, if the frequency is big enough, the voltage in the capacitor will be zero, and $V_6=V_8$.
- \par
- This also means that, for a frequency big enough, the voltage $V_8$ will be in phase oposition with the voltage source. A bout the difference of phase in the capacitor, we noticed before that the system is the equivalent of a symple RC system, so the delay of the capacitor compared to the voltage source should be -atan(wRC), s, when w is big enough, the difference of phase shall be $\frac{\pi}{2}$.
+\begin{figure}[H]
+  \footnotesize
+  \begin{subfigure}{0.5\linewidth}
+    \footnotesize
+    \centering
+    % include first image
+    \includegraphics[width=1.05\linewidth]{dBoct.eps}
+    \footnotesize
+    \caption{Magnitudes of $v_s(f)$, $v_6(f)$ and $v_c(f)$.}
+    \label{fig:final_magnitude}
+  \end{subfigure}
+  \begin{subfigure}{0.5\linewidth}
+    \centering
+    % include second image
+    \includegraphics[width=1.05\linewidth]{phaseoct.eps}  
+    \caption{Phases of $v_s(f)$, $v_6(f)$ and $v_c(f)$.}
+    \label{fig:final_phase}
+  \end{subfigure}
+\end{figure}
 
 
-
+The results obtained in Figures (\ref{fig:final_magnitude}) and (\ref{fig:final_phase}) seem to behave as predicted. The magnitude and phase of $v_s$ are constant, as they are given by the sine function shown in Figure \ref{fig:CircuitDraw}. Again, it is worth mentioning that we are considering the phases of $sin$ functions, not $cos$ functions - this does not change the overall solutions, but it does shift the phases by -$\frac{\pi}{2}$. The impedance of the capacitor, given by $Z_c=\frac{1}{j\omega C}$, with $\omega=2\pi f$, decreases as the frequency increases. Therefore, the magnitude of the voltage in the capacitor will tend to zero - because the graph is plotted in dB, it tends to $-\infty$. In fact, this magnitude is given by $V_c=\frac{V_s}{\sqrt{1+\omega^{2}R^{2}C^{2}}}$, thus its decrease. We can also see that the magnitude of $V_6$ tends to change to a particular value as the frequency increases; we know that this must be happening in a way that makes it so that the magnitude of $V_6-V_8(=V_c)$ tends to zero.
+\par
+As for the phase of $v_c$, we can see that it tends to $-\frac{\pi}{2}$ rad $=$ $-90^{o}$ as the frequency increases. This was to be expected, because the phase delay of the voltage in the capacitor is given by $\phi_{v_{c}}=\phi_{v_{s}}-atan(\omega RC)=-atan(2\pi fRC)$. On the other hand, the phase of $v_6$ seems to tend to $-\pi$ rad, i.e., the voltage in node 6 tends to be in phase opposition with $v_s$ for high frequencies. Something like this had been observed in Figure \ref{fig:final}, in which the final solution for $v_6(t)$ and $v_s(t)$ had been plotted for $f=1$ kHz.
