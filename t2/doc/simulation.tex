@@ -66,7 +66,7 @@ From Table~\ref{tab:Exercise2Both} we want the values of potential in nodes v6 a
 
 \subsection{Exercise 3} \label{sec:Ex3Sim}
 
-Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6, when $V_s$ is still at 0V. This represents the discharge of the condenser threw the system, meaning the natural solution.
+Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6, when $V_s$ is still at 0V. This represents the discharge of the capacitor threw the system, meaning the natural solution.
 \vspace{-30mm}
 \begin{figure}[H]
   \centering
@@ -94,6 +94,8 @@ In Figure \ref{fig:Ex4_Image} we can see two nodes represented. Node 6 where we 
 As expected the graph obtained is the sum of an exponential and ans cos() function which correlates with theoretical results and the graph obtained in Figure~\ref{fig:final} as they are identical.
 
 \subsection{Exercise 5} \label{sec:Ex5Sim}
+
+In this last section the frequency analysis was performed on the circuit of figure \ref{fig:CircuitDraw} from f=0.1Hz to f=1MHz. In figures \ref{fig:Ex5_Image_Magnitude} and \ref{fig:Ex5_Image_Phase} we present the results obtained for the relevant nodes (and their diferences obtaining $V_c$ and $V_s$).
  \begin{figure}[H]
  \footnotesize
 \begin{subfigure}{.49\linewidth}
@@ -115,4 +117,4 @@ As expected the graph obtained is the sum of an exponential and ans cos() functi
 \end{subfigure}
 \end{figure} 
 
-
+Firstly in figure \ref{fig:Ex5_Image_Magnitude} we observe what was predicted by the theoretical solutions in class, since $V_c$ is inversely proportional to the frequency and so when it increases, $V_c$  tends to 0 meaning $-\infty$ dB.The phase is also explained by limit of a atan() function meaning 90º. We can see as predicted that $V_s$(V1) is constant and it differs from V6 since this node is not frequency independent. We obtain this result since $V_s$ is not dependent on the capacitor and so it's magnitude and phase do not differ over an increase of frequency. In contrast, V6 depends on the capacitor and thus it behaves accordingly which in turn means that it is frequency dependent. As observed for lower frequencies meaning high impedance on the capacitor it behaves similarly as in a DC circuit, which results in a constant amplitude and phase. When $\omega^2R_{eq}^2C^2$ gets bigger and closer to values comparable to 1, we observe a shift in behaviour, as we start noticing V6's dependence on the capacitor and so the frequency. When we aproach high frequencies meaning low impeadence in the capacitor it starts behaving as a short circuit and so V6 tends to the amplitude of V8 and it's phase shifts accordingly, 180º.   

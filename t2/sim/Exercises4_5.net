@@ -39,7 +39,7 @@ echo "********************************************"
 
 ac dec 10 0.1 1MEG
 
-hardcopy ex5_image_magnitude.ps db(v(6)) db(v(1)) db(v(6) - v(8))
+hardcopy ex5_image_magnitude.ps db(v(6)) db(v(1)) db(v(6) - v(8)) db(v(8))
 echo ex5_image_magnitude_FIG
 
 set units=degrees
