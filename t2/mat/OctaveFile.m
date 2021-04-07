@@ -171,10 +171,10 @@ fclose (fid21);
 %Equivalent resistance
 Req=Vx/(I2-I5);
 %Initial condition
-A=Data([6]);
+Vxn=Data([6]);
 
 t=0:2e-5:20e-3;
-vn=A*exp(-t/(Req*C));
+vn=Vxn*exp(-t/(Req*C));
 
 hf = figure ("Visible", "off");
 plot (t*1000, vn, "r");
@@ -182,8 +182,8 @@ hold on;
 
 xlabel ("t [ms]");
 ylabel ("v_{6n} [V]");
-txt = "v_{6n}(t) = A exp[-t/(RC)]";
-text(7.5,A,txt,"FontSize",14)
+txt = "v_{6n}(t) = v_{6n}(0) exp[-t/(RC)]";
+text(7.5,Vxn,txt,"FontSize",14)
 print (hf, "natural.eps", "-depsc");
 
 
@@ -299,11 +299,8 @@ print (hf2, "final.eps", "-depsc");
 
 
 %Theoretical: Exercise 6
-%In order to get he voltage in 6 is easier to solve as symbolic
-%in order to f, but as it is very difficult to convert symbolic to a function
-%we solved the expression before and simply applied it
 
-%Frequency
+%Frequencies
 f=logspace(-1, 6, 7*5);
 
 %Voltage and phase in source
@@ -311,13 +308,14 @@ Vs=f.*0;
 fases=f.*0;
 
 %Voltage and phase in capacitor
+
 Vl=sqrt(1+4*pi*pi*Req*Req*C*C*f.^2);
 Vl=Vl.^(-1);
 VC=20*log10(Vl);
 
 faseC=-atan(2*pi*f*Req*C)/pi*180;
 
-%Voltage and phase in V6 (solved before to get expression)
+%Voltage and phase in V6 (solved before, in order to get an expression)
 fz=f./f;
 V666=(-j*Kd*R4+j*Kb*Kd*R3*R4+j*Kb*Kd*R3*R5-j*Kb*R3*R4*R5+j*R4*R6-
       j*Kb*R3*R4*R6-j*Kb*R3*R5*R6-2*C*f.*pi*R4*R5*R6+ 
@@ -331,7 +329,7 @@ V6M=20*log10(VM);
 fase6=angle(V666)/pi*180
 
  
-%Magnitudes
+%Magnitude plots
 hf3 = figure ("Visible", "off");
 semilogx (f*36, Vs, "");
 hold on;
@@ -342,10 +340,11 @@ semilogx (f*36,VC, "");
 xlabel ("f [HZ]");
 ylabel ("V_s, V_6, V_c [dB]");
 hleg1=legend("V_s","V_6","V_c","Location","southwest");
+set(hleg1, "FontSize", 14);
 print (hf3, "dBoct.eps", "-depsc");
 
 
-%Phases
+%Phase plots
 hf4 = figure ("Visible", "off");
 semilogx (f*36, fases, "");
 hold on;

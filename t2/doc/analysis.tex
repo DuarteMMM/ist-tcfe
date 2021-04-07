@@ -131,13 +131,13 @@ This procedure must be done in order to determine $R_{eq}$, which is used to obt
 
 \subsection{Exercise 3} \label{sec:Ex3Theo}
 
-Using the results from the previous exercise, we can infer that the circuit shown in Figure \ref{fig:CircuitDraw} can be simplified into a circuit with the independent voltage source, a resistance $R_{eq}$ and the capacitor. Thus, the general form for the wanted natural solution, as learnt in class, is given by
+Using the results from the previous exercise, we can infer that the circuit shown in Figure \ref{fig:CircuitDraw} can be simplified into a circuit with the independent voltage source, a resistance $R_{eq}$ and the capacitor. We also have that $v_{6n}(+\infty)=0$, because, as seen in Table \ref{tab:Exercise2Theoretical}, $v_8=0$, and it will continue to be that way, and the capacitor will eventually completely discharge. Thus, the general form for the wanted natural solution, as learnt in class, is given by
 
 \begin{equation} \label{eq:NaturalSolution}
-  v_{6n}(t)=A \times e^{-\frac{t}{RC}}
+  v_{6n}(t)=v_{6n}(0)e^{-\frac{t}{RC}}
 \end{equation}
 
-Where $A=v_6(0)$ (obtained in Section \ref{sec:Ex2Theo}), $t$ stands for time and $R$ for the (equivalent) resistance. The graph shown below is obtained by plotting Eq.\ref{eq:NaturalSolution} in Octave.
+Where $t$ stands for time and $R$ for the (equivalent) resistance. The graph shown below is obtained by plotting Eq. \ref{eq:NaturalSolution} in Octave.
 
 \begin{figure}[H]
   \centering
