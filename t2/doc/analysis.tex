@@ -151,8 +151,8 @@ Where $t$ stands for time and $R$ for the (equivalent) resistance. The graph sho
 
 In this exercise, the forced solution for the voltage in node 6, $v_{6f}(t)$, will be determined for the time interval [0,20] ms. Because we are dealing with a forced solution with sinusoidal excitation, given by $v_s(t)=sin(2\pi ft)$, with $f=1$kHz, it becomes much more efficient to use phasors. As suggested, a phasor voltage source $V_s=1$ will be used. The correspondant phase is $\phi_{V_s}=0$; therefore, in this forced solution analysis, the voltages will be considered as given by $sin$ functions, as opposed to $cos$ functions, as was learnt in class. This won't change the overall results, but will be important to take into account when analysing the phases plotted in Sections \ref{sec:Ex6Theo} and \ref{sec:Ex5Sim}. In addition to this, $C$ is replaced by its impedance, $Z_C$. This impedance is given by $Z_C=\frac{1}{j\omega C}$, with $j$ being the imaginary unit and $\omega=2\pi f$.
 \par
-By running nodal analysis as in the previous sections, the following linear system is obtained: 
-
+By running nodal analysis as in the previous sections, the following linear system is obtained:
+\vspace{-2mm}
 \begin{equation}
   \begin{pmatrix}
     1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -188,9 +188,8 @@ By running nodal analysis as in the previous sections, the following linear syst
   \label{eq:Exercise4LinearSystem}
 \end{equation}
 
-
 The complex amplitudes (phasors) in the nodes, obtained by solving the linear system above, are shown below.
-
+\vspace{-3mm}
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
@@ -201,7 +200,7 @@ The complex amplitudes (phasors) in the nodes, obtained by solving the linear sy
   \caption{Complex values of the phasors in the nodes (in volts).}
   \label{tab:Exercise4Theoretical}
 \end{table}
-
+\vspace{-4mm}
 Having the value of the phasor $V_6$, the respective sine function is easily obtained with Octave. The sinusoidal forced solution is plotted in Figure \ref{fig:ForcedSolutionGraph}.
 
 \begin{figure}[H]
