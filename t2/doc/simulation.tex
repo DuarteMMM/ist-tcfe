@@ -5,7 +5,7 @@
 
 Similarly to Exercise 1 in the Theoretical Analysis, the voltages in all nodes and currents in all branches are obtained for $t<0$, situation in which it is considered that these values have been static for a long time. Thus, using Ngspice, an operating point analysis is made. In Table \ref{tab:Exercise1Both}, shown below, the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw} are shown alongside those obtained in the Theoretical Analysis. Again, currents designated below as $I_i$ refer to the currents passing through the respective resistances, $R_i$.
 
-\vspace{-5mm}
+
 \begin{table}[H]
   \centering
   \begin{tabular}{cc}
@@ -35,6 +35,8 @@ Comparing the results, we can notice almost no differences. This was to be expec
 \subsection{Exercise 2} \label{sec:Ex2Sim}
 
 Now, similarly to Exercise 2 in the Theoretical Analysis, we check how the system behaves when $v_s=0$ and the capacitor is replaced by a voltage souce $V_x=V(6)-V(8)$, where the voltages $V(6)$ and $V(8)$ are taken from the values obtained in Section \ref{sec:Ex1Sim}. This procedure must be done in order to determine the initial conditions for the voltages in nodes 6 and 8, $v_6(0)$ and $v_8(0)$, respectively, which will be used to obtain the natural and total responses of the circuit in the following sections.
+
+\vspace{5mm}
 
 \begin{table}[H]
   \centering
@@ -66,24 +68,31 @@ As seen above, there are no differences between the values obtained in the diffe
 
 In this exercise, the natural response of the circuit (i.e., with $v_s=0$) is simulated by using Ngspice's transient analysis mode. The values of the voltages in nodes 6 and 8 obtained before are utilized as boundary conditions, using Ngspice's directive \texttt{.ic}. Figure \ref{fig:Ex3_Image} shows the result obtained for the voltage in node 6 in the time interval [0,20] ms.
 
+\vspace{-34mm}
+
 \begin{figure}[H]
   \centering
   \small
   \includegraphics[width=0.5\linewidth]{../sim/ex3_image.pdf}
+  \vspace{-4mm}
   \caption{Natural solution $v_{6n}(t)$ (in volts) in the time interval [0,20] ms.}
   \label{fig:Ex3_Image}
 \end{figure}
 
+\vspace{-6mm}
+
 As we can see, the solution is incredibly similar to the one obtained in the Theoretical Analysis, i.e, an exponential, with the initial value given by $v_6(0)$ determined by replacing the capacitor with the voltage source $V_x$, that decays with time at an apparently equal rate.
 
-
+\vspace{-4mm}
 \subsection{Exercise 4} \label{sec:Ex4Sim}
-
+\vspace{-2mm}
 Having obtained the inicial conditions, we now consider the voltage given in Figure \ref{fig:CircuitDraw} for $t>0$, $v_s(t)=sin(2\pi ft)$, in order to obtain the total response on node 6 (natural solution + forced solution) by using Ngspice. In Figure \ref{fig:Ex4_Image}, the voltages in two nodes are represented: the voltage v(6) in node 6, i.e., the response, and the voltage in node 1, v(1), which corresponds to the stimulus, because the voltage source connects node 1 to GND, as seen in Figure \ref{fig:CircuitDraw}. These are both plotted below for $f=1$ kHz.
 
+\vspace{-35mm}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.6\linewidth]{../sim/ex4_image.pdf}
+  \includegraphics[width=0.5\linewidth]{../sim/ex4_image.pdf}
+  \vspace{-5mm}
   \caption{Transient analysis - total response on node 6, $v_6(t)$, and stimulus, $v_s(t)=v_1(t)$, both in volts, in time interval [0,20] ms and for $f=1$ kHz.}
   \label{fig:Ex4_Image}
 \end{figure}
@@ -94,6 +103,8 @@ As expected, the plot of the total response corresponds to the sum of an exponen
 \subsection{Exercise 5} \label{sec:Ex5Sim}
 
 In this last section, the frequency analysis was performed on the circuit for frequencies ranging from $f=0.1$ Hz to $f=1$ MHz. In Figure (\ref{fig:Ex5_Image_Magnitude}), the magnitude responses for $v_s$, $v_6$ and $v_c$ are plotted in dB and, in Figure (\ref{fig:Ex5_Image_Phase}), the respective phases in degrees are all represented. Both graphs use a frequency logscale.
+
+\vspace{-30mm}
 
 \begin{figure}[H]
   \begin{subfigure}{.49\linewidth}

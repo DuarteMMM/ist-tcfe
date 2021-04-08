@@ -212,21 +212,27 @@ Having the value of the phasor $V_6$, the respective sine function is easily obt
 
 \subsection{Exercise 5} \label{sec:Ex5Theo}
 
+\vspace{-2mm}
+
 In Figure \ref{fig:final}, the final solution for $v_6 (t)$ is plotted alongside $v_s(t)$, which is given by the branch function presented in Figure \ref{fig:CircuitDraw}. The value of $v_6(t)$ is given by $v_{6n}(t)+v_{6f}(t)$ for $t>0$ (obtained by superimposing the natural and forced solutions, previously determined), by the value obtained in Section \ref{sec:Ex1Theo} for $t<0$ and by the value obtained in Section \ref{sec:Ex2Theo} for $t=0$.
 
+\vspace{-6mm}
 
 \begin{figure}[H] \centering
-  \includegraphics[width=0.8\linewidth]{final.eps}
+  \includegraphics[width=0.7\linewidth]{final.eps}
   \caption{Final solution $v_6(t)$ and $v_s(t)$ in time interval [-5, 20] ms.}
   \label{fig:final}
 \end{figure}
 
+\vspace{-4mm}
 We can notice that neither $v_6$ nor $v_s$ are continuous functions. What must be continuous is $v_c$, the voltage drop in the capacitor's terminals; the voltages in the nodes may have discontinuities in order to make sure this stays true. A capacitor cannot be discharged instantaneously: it does it through its equivalent resistor according to the time constant $\tau$.
-
+\vspace{-4mm}
 
 \subsection{Exercise 6} \label{sec:Ex6Theo}
 
 Finally, the magnitudes and the phases of the frequency responses $v_c(f)=v_6(f)-v_8(f)$, $v_6(f)$ and $v_s(f)$ will be plotted for the frequency range 0.1 Hz to 1 MHz. The magnitude and phase of $v_c(f)$ are easily inferred by its respective branch function, given in Figure \ref{fig:CircuitDraw}. In its turn, using Octave and the linear system given in Section \ref{sec:Ex4Theo}, it was possible to get expressions for $v_6$ and $v_8$ in terms of frequency, from which the wanted plots were obtained.
+
+\vspace{-2mm}
 
 \begin{figure}[H]
   \footnotesize
