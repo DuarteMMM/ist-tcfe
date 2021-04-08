@@ -3,9 +3,9 @@
 
 \subsection{Exercise 1} \label{sec:Ex1Sim}
 
-Table \ref{tab:Exercise1Both} shows the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw}. Again, currents designated below as $I_i$ refer to the currents passing through the respective resistances, $R_i$.
+Similarly to Exercise 1 in the Theoretical Analysis, the voltages in all nodes and currents in all branches are obtained for $t<0$, situation in which it is considered that these values have been static for a long time. Thus, using Ngspice, an operating point analysis is made. In Table \ref{tab:Exercise1Both}, shown below, the simulated operating point results for the circuit presented in Figure \ref{fig:CircuitDraw} are shown alongside those obtained in the Theoretical Analysis. Again, currents designated below as $I_i$ refer to the currents passing through the respective resistances, $R_i$.
 
-
+\vspace{-5mm}
 \begin{table}[H]
   \centering
   \begin{tabular}{cc}
@@ -25,17 +25,16 @@ Table \ref{tab:Exercise1Both} shows the simulated operating point results for th
           \input{../sim/Exercise1_tab.tex}
     \end{tabular}
   \end{tabular}
-  \caption{Exercise 1 - comparison between theoretical analysis and operating point analysis's results. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
+  \caption{Exercise 1 - comparison between theoretical analysis and operating point analysis's results. Currents are in amperes; voltages $V_i$ are in volts.}
   \label{tab:Exercise1Both}
 \end{table}
 
-Comparing the results, we can notice almost no differences. This was to be expected, since the circuit has no time dependency - meaning it's equal at any point in time. There is only a small difference between the two values of $I_c$, although it is negligible.
+Comparing the results, we can notice almost no differences. This was to be expected, since the circuit only contains linear components. There is only a small difference between the two values of $I_c$, although it is negligible. The value that should, in theory, be obtained is zero, because the voltages in the capacitor's terminals should be constant. The small value obtained with Octave must be due to computacional errors in approximations done while solving the linear system.
+
 
 \subsection{Exercise 2} \label{sec:Ex2Sim}
 
-Now we can approach the second point of our simulation where we see how the system behaves when $v_s(0)=0$ and the capacitor is replaced by a voltage souce $V_X$=V(6)-V(8), where the voltages are taken from the simulation column of Table~\ref{tab:Exercise1Both}.
-% ALT_J
-We use this method since we want to start by determining the natural solution of the system.
+Now, similarly to Exercise 2 in the Theoretical Analysis, we check how the system behaves when $v_s=0$ and the capacitor is replaced by a voltage souce $V_x=V(6)-V(8)$, where the voltages $V(6)$ and $V(8)$ are taken from the values obtained in Section \ref{sec:Ex1Sim}. This procedure must be done in order to determine the initial conditions for the voltages in nodes 6 and 8, $v_6(0)$ and $v_8(0)$, respectively, which will be used to obtain the natural and total responses of the circuit in the following sections.
 
 \begin{table}[H]
   \centering
@@ -57,62 +56,64 @@ We use this method since we want to start by determining the natural solution of
     \end{tabular}
 
   \end{tabular}
-  \caption{Exercise 2 comparison. Operating point analysis table. Currents $I_i$ are in amperes; voltages $V_i$ are in volts.}
+  \caption{Exercise 2 - comparison between theoretical analysis and operating point analysis's results. Currents are in amperes; voltages $V_i$ are in volts.}
   \label{tab:Exercise2Both}
 \end{table}
 
-From Table~\ref{tab:Exercise2Both} we want the values of potential in nodes v6 and v8 which are their values when t=0. This means that we now have everything we need (initial conditions) to determine the natural solution of the system for $t>0$, which is what we will do next.
-
+As seen above, there are no differences between the values obtained in the different analysis (even though the values might not be presented with the same number of decimal points), as expected, due to the linearity of the components. Having the values of the voltages in nodes 6 and 8, we may now determine the natural solution of the system for $t>0$, which is what will be done next.
 
 \subsection{Exercise 3} \label{sec:Ex3Sim}
 
-Now we do a transient analisis of the values. Figure~\ref{fig:Ex3_Image} shows the simulated transient analysis results obtained for the voltage in node 6, when $V_s$ is still at 0V. This represents the discharge of the condenser threw the system, meaning the natural solution.
-\vspace{-30mm}
+In this exercise, the natural response of the circuit (i.e., with $v_s=0$) is simulated by using Ngspice's transient analysis mode. The values of the voltages in nodes 6 and 8 obtained before are utilized as boundary conditions, using Ngspice's directive \texttt{.ic}. Figure \ref{fig:Ex3_Image} shows the result obtained for the voltage in node 6 in the time interval [0,20] ms.
+
 \begin{figure}[H]
   \centering
   \small
   \includegraphics[width=0.5\linewidth]{../sim/ex3_image.pdf}
-  \caption{Natural response - value of $v_6(t)$ in the time interval [0,20] ms.}
+  \caption{Natural solution $v_{6n}(t)$ (in volts) in the time interval [0,20] ms.}
   \label{fig:Ex3_Image}
 \end{figure}
 
-As we can see the solution is an exponential as theory tells us and very similar to the solution in the Theoretical section. We can also clearly see the inicial voltage in the beggining of the graph, which is the one calculated in Exercise 2 confirming that simulation is indeed correct.
+As we can see, the solution is incredibly similar to the one obtained in the Theoretical Analysis, i.e, an exponential, with the initial value given by $v_6(0)$ determined by replacing the capacitor with the voltage source $V_x$, that decays with time at an apparently equal rate.
+
 
 \subsection{Exercise 4} \label{sec:Ex4Sim}
 
-Having known the inicial conditions and how the system behaves naturally we now add the equation $v_s(t)=sin(2 \pi f t)$ (true for $t>0$) for $v_s$. We now analise the circuit exactly as represented in Figure \ref{fig:CircuitDraw}, having the natural solution added to the forced solution.\par
-In Figure \ref{fig:Ex4_Image} we can see two nodes represented. Node 6 where we observe the natural and forced solutions together and how that afects it's potential over time ( the response) and the stimulus in node 1 since $V_s$ is the one responsible for the forced solution. For this particular analisis f=1kHz and all the other values used where taken from the previous sections. 
+Having obtained the inicial conditions, we now consider the voltage given in Figure \ref{fig:CircuitDraw} for $t>0$, $v_s(t)=sin(2\pi ft)$, in order to obtain the total response on node 6 (natural solution + forced solution) by using Ngspice. In Figure \ref{fig:Ex4_Image}, the voltages in two nodes are represented: the voltage v(6) in node 6, i.e., the response, and the voltage in node 1, v(1), which corresponds to the stimulus, because the voltage source connects node 1 to GND, as seen in Figure \ref{fig:CircuitDraw}. These are both plotted below for $f=1$ kHz.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\linewidth]{../sim/ex4_image.pdf}
-  \caption{Forced sinusoidal response and stimulus on node 6 in time interval [0,20] ms.}
+  \caption{Transient analysis - total response on node 6, $v_6(t)$, and stimulus, $v_s(t)=v_1(t)$, both in volts, in time interval [0,20] ms and for $f=1$ kHz.}
   \label{fig:Ex4_Image}
 \end{figure}
 
 
-As expected the graph obtained is the sum of an exponential and ans cos() function which correlates with theoretical results and the graph obtained in Figure~\ref{fig:final} as they are identical.
+As expected, the plot of the total response corresponds to the sum of an exponential and a sinusoidal function. Both graphs look exactly the same as the one obtained in the theoretical results.
 
 \subsection{Exercise 5} \label{sec:Ex5Sim}
- \begin{figure}[H]
- \footnotesize
-\begin{subfigure}{.49\linewidth}
- \footnotesize
-  \centering
-  % include first image
-  \includegraphics[width=1.\linewidth]{../sim/ex5_image_magnitude.pdf}
-   \footnotesize
-\caption{Frequency analysis - magnitudes of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in dB.}
-\label{fig:Ex5_Image_Magnitude}
-\end{subfigure}
-\hspace{5mm}
-\begin{subfigure}{.49\linewidth}
-  \centering
-  % include second image
-  \includegraphics[width=1.\linewidth]{../sim/ex5_image_phase.pdf}  
-\caption{Frequency analysis - phases of $v_6(f)$, $v_s(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in interval f=[0.1,10e+6] Hz and in degrees.}
-\label{fig:Ex5_Image_Phase}
-\end{subfigure}
-\end{figure} 
 
+In this last section, the frequency analysis was performed on the circuit for frequencies ranging from $f=0.1$ Hz to $f=1$ MHz. In Figure (\ref{fig:Ex5_Image_Magnitude}), the magnitude responses for $v_s$, $v_6$ and $v_c$ are plotted in dB and, in Figure (\ref{fig:Ex5_Image_Phase}), the respective phases in degrees are all represented. Both graphs use a frequency logscale.
 
+\begin{figure}[H]
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    % include first image
+    \includegraphics[width=1.\linewidth]{../sim/ex5_image_magnitude.pdf}
+    \footnotesize
+    \caption{Frequency analysis - magnitudes of $v_s(f)=v_1(f)$, $v_6(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in frequency interval [$0.1$,$10^{6}$] Hz and in dB.}
+    \label{fig:Ex5_Image_Magnitude}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    % include second image
+    \includegraphics[width=1.\linewidth]{../sim/ex5_image_phase.pdf}  
+    \caption{Frequency analysis - phases of $v_s(f)$, $v_6(f)$ and $v_c(f)=v_6(f)-v_8(f)$ in frequency interval [$0.1$,$10^{6}$] Hz and in degrees.}
+    \label{fig:Ex5_Image_Phase}
+  \end{subfigure}
+\end{figure}
+
+Having obtained graphs incredibly similar to those obtained in Section \ref{sec:Ex6Theo} of the Theoretical Analysis, the conclusions regarding these solutions are the same. Firstly, in Figure (\ref{fig:Ex5_Image_Magnitude}), we can verify what was learnt in class, since $v_c$ is inversely proportional to the frequency and so, when $f$ increases, $v_c$  tends to zero, thus it tends to $-\infty$ in dB. The phase is also explained by the limit of the $-atan$ when $f$ tends to $\infty$, as discussed before - it tends to $-90^{o}$.  As expected, the magnitude and phase of $v_s(=v_1)$ are constant. In contrast, those of $v_6$ change and depend on the frequency.
+\par
+For lower frequencies, meaning high impedance on the capacitor, it behaves similarly to a DC circuit, which results in almost constant amplitudes and phases. When $\omega^{2}R_{eq}^{2}C^{2}$ gets bigger, we observe a shift in behaviour, as we start noticing $v_6$'s dependence on the frequency. When we aproach high frequencies, meaning low impeadence in the capacitor, it starts behaving as a short circuit and so the amplitude of $v_6$ should tend to the amplitude of $v_8$ and its phase tends to $-180^{o}$.   
