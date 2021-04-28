@@ -66,8 +66,10 @@ set color6=rgb:4/0/0
 
 
 tran 0.1M 200M
-hardcopy outsgignals.ps v(out2) V(out1)
+hardcopy outsignals.ps v(out2) V(out1)
+echo outsignals_FIG
 hardcopy deviation.ps v(out2)-12
+echo deviation_FIG
 
 quit
 .endc

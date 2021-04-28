@@ -1,3 +1,26 @@
 \section{Simulation Analysis}
 
-Similarly to 
+Simulating the ciruit indicated we have obtained the following graphic that contemplates the voltage after the envelope circuit (out1) and the voltage that actually leaves the system, supposedly 12 V.
+
+\begin{figure}[H]
+  \centering
+  \small
+  \includegraphics[width=0.5\linewidth]{../sim/outsignals.pdf}
+  \caption{Voltage after envelope circuit(out1) and after voltage ripple circuit (out2)}
+  \label{fig:out1_out2}
+\end{figure}
+
+
+In the next graph we tried observing the fluctuations of the output around 0 for that we plotted the output voltage obtained at any instant subtracted by the desired voltage 12 V.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{../sim/deviation.pdf}
+  \vspace{-5mm}
+  \caption{Transient analysis - total response on node 6, $v_6(t)$, and stimulus, $v_s(t)=v_1(t)$, both in volts, in time interval [0,20] ms and for $f=1$ kHz.}
+  \label{fig:Ex4_Image}
+\end{figure}
+
+
+
+
