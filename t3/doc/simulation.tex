@@ -17,9 +17,22 @@ In the next graph we tried observing the fluctuations of the output around 0 for
   \centering
   \includegraphics[width=0.5\linewidth]{../sim/deviation.pdf}
   \vspace{-5mm}
-  \caption{Transient analysis - total response on node 6, $v_6(t)$, and stimulus, $v_s(t)=v_1(t)$, both in volts, in time interval [0,20] ms and for $f=1$ kHz.}
-  \label{fig:Ex4_Image}
+  \caption{Deviation of output signal from the target voltage 12 V }
+  \label{fig:deviation}
 \end{figure}
+
+Doing all of the analisys we where able to obtain a stable 12V DC  with some fluctuation as seen in \ref{fig:deviation} the values obtained for the average of voltage and ripple are the following:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/rip_tab.tex}
+  \end{tabular}
+  \caption{Voltage ripple and average out voltage} 
+  \label{tab:rip}
+\end{table}
 
 
 
