@@ -12,7 +12,7 @@ RS 2 1 10
 L1 1 01 2000
 L2 3 01 61
 K L1 L2 0.99999
-*RL 3 01 10
+
 
 D13  3 out1  diode
 D23  01 out1  diode
@@ -44,11 +44,7 @@ Dv18 17d 0 diode
 
 .MODEL  diode d
 
-.measure tran 2max MAX v(2) from=0m to=10m
-.measure tran 3max MAX v(3) from=0m to=10m
-.measure tran out2max MAX v(out2) from=50m to=200m
-.measure tran out2min MIN v(out2) from=50m to=200m 
-.measure tran out2avg AVG v(out2) from=50m to=200m 
+
 
 
 
@@ -65,11 +61,22 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
 
-tran 0.1M 200M
+tran 0.01M 300M 40m
 hardcopy outsignals.ps v(out2) V(out1)
 echo outsignals_FIG
-hardcopy deviation.ps v(out2)-12
+hardcopy deviation.ps (v(out2)-12)
 echo deviation_FIG
+
+meas tran maxout MAX v(out2) from=50m to=300m
+meas tran minout MIN v(out2) from=50m to=300m 
+meas tran avgout AVG v(out2) from=50m to=300m
+
+echo "rip_TAB"
+print maxout
+print minout
+print (maxout-minout)
+print avgout
+echo "rip_END"
 
 quit
 .endc
