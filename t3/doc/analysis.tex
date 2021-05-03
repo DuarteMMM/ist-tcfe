@@ -1,3 +1,62 @@
 \section{Theoretical Analysis}
 
-As for the
+The values of the resistances $R_1$, $R_2$ and $C$ have been chosen arbitrarily, in order to obtain the best results and the best merit $M$ possible. These values are shown below.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/ChosenValues.tex}
+  \end{tabular}
+  \caption{Values used for the resistances $R_1$ and $R_2$ and for the capacitance $C$.}
+  \label{tab:ChosenValues}
+\end{table}
+
+Assuming that the transformers' wires are coiled according to the conventional way, that is, in order to generate a downwards current through the left transformer (transformer 1) and an upwards current through transformer 2 (on the right), we have that $v_{t1}$=$n$ $v_{t2}$, with $n$ being the number of turns in transformer 1. Because the objective is to obtain a DC voltage of $12$V in the ouput, a sinusoidal signal of amplitude $50$V was used for transformer 2, thus the value of $n$ was given by $n=\frac{V_{t1}}{V_{t2}}=\frac{230}{5}$, with $V_{t1}=230$V and $V_{t2}=50$V being the amplitudes of the sinusoidal signals in the respective transformers.
+\par
+Because of the 4 diodes in the full-wave bridge rectifier circuit, the voltage through the resistance $R_1$ is given by
+
+\begin{equation} \label{eq:rectified_voltage}
+  v_{O_{rectified}}(t)=|v_{t2}|=v_3-v_5
+\end{equation}
+
+Where an ideal diode model has been considered. Now, the capacitor is used to keep the voltage approximately constant and close to $12$V. As was learnt in class, the time it takes for the diode circuit to go OFF and for the capacitor to strat discharging through the resistance $R_1$ is given by
+
+\begin{equation} \label{eq:rectified_voltage}
+  t_{OFF}=\frac{1}{\omega}atan\left(\frac{1}{\omega R_1C}\right)
+\end{equation}
+
+Where $\omega=2\pi f$, with $f=50$Hz as shown in Figure \ref{fig:CircuitDraw}. After $t_{OFF}$, the voltage in the output of the envelope detector is not $v_{O_{rectified}}(t)$, but
+
+\begin{equation} \label{eq:exponential_voltage}
+  v_{O_{envelope}}(t)=V_{t2}cos(\omega t_{OFF})e^{-\frac{t-t_{OFF}}{R_1C}}
+\end{equation}
+
+When the time instant $t_{ON}$ is reached, the voltage is again given by equation \ref{eq:rectified_voltage}. To determine $t_{ON}$, the following non-linear equation must be solved:
+
+\begin{equation} \label{eq:non_linear_equation_tON}
+  V_{t2}cos(\omega t_{ON})=V_{t2}cos(\omega t_{OFF})e^{-\frac{t_{ON}-t_{OFF}}{R_1 C}}
+\end{equation}
+
+The value of $t_{ON}$ was obtained by Octave and by using Newton-Raphson's iterative nethod. The following values were obtained:
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/ChosenValues.tex}
+  \end{tabular}
+  \caption{Values obtained for $t_{ON}$ and $t_{OFF}$.}
+  \label{tab:tON_tOFF}
+\end{table}
+
+Using this information, the rectified voltages and the final voltage out of the envelope detector were plotted below.
+
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.7\linewidth]{envelope.eps}
+  \caption{Voltages in the envelope detector circuit.}
+  \label{fig:envelope_voltages}
+\end{figure}
