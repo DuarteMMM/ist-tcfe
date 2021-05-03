@@ -11,12 +11,12 @@ global tOFF;
 
 %To be chosen
 R1 = 1.e3;
-R2 = 5.e3;
+R2 = 1.e3;
 C = 0.0005;
 
 %Write values to file
 file_chosen_values = fopen("ChosenValues.tex","w");
-fprintf(file_chosen_values,"$R_1$ & %.0f [$\\Omega$] \\\\ \\hline\n$R_2$ & %.0f [$\\Omega$] \\\\ \\hline\n$C$ & %.4f [$F$] \\\\ \\hline", R1, R2, C);
+fprintf(file_chosen_values,"$R_1$ & %.0f $\\Omega$ \\\\ \\hline\n$R_2$ & %.0f $\\Omega$ \\\\ \\hline\n$C$ & %.4f $F$ \\\\ \\hline", R1, R2, C);
 fclose (file_chosen_values);
 
 %Given values
@@ -102,6 +102,11 @@ for i=1:length(t)
         endif
 endfor
 %}
+
+%Write tON and tOFF values to file
+file_toff_ton = fopen("tOFF_tON.tex","w");
+fprintf(file_chosen_values,"$t_{OFF}$ & %f $s$ \\\\ \\hline\n$t_{ON}$ & %f $s$ \\\\ \\hline", tOFF, tON);
+fclose (file_toff_ton);
 
 for i=1:length(t)
 	if t(i) < tOFF

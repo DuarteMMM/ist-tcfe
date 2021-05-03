@@ -1,6 +1,6 @@
 \section{Theoretical Analysis}
 
-The values of the resistances $R_1$, $R_2$ and $C$ have been chosen arbitrarily, in order to obtain the best results and the best merit $M$ possible. These values are shown below.
+The values of the resistances $R_1$ and $R_2$ and of the capacitance $C$ have been chosen arbitrarily, in order to obtain the best results and the best merit $M$ possible. These values are shown below.
 
 \begin{table}[H]
   \centering
@@ -13,17 +13,17 @@ The values of the resistances $R_1$, $R_2$ and $C$ have been chosen arbitrarily,
   \label{tab:ChosenValues}
 \end{table}
 
-Assuming that the transformers' wires are coiled according to the conventional way, that is, in order to generate a downwards current through the left transformer (transformer 1) and an upwards current through transformer 2 (on the right), we have that $v_{t1}$=$n$ $v_{t2}$, with $n$ being the number of turns in transformer 1. Because the objective is to obtain a DC voltage of $12$V in the ouput, a sinusoidal signal of amplitude $50$V was used for transformer 2, thus the value of $n$ was given by $n=\frac{V_{t1}}{V_{t2}}=\frac{230}{5}$, with $V_{t1}=230$V and $V_{t2}=50$V being the amplitudes of the sinusoidal signals in the respective transformers.
+Assuming that the transformers' wires are coiled according to the conventional way, that is, in order to generate a downwards current through the left transformer (transformer 1) and an upwards current through transformer 2 (on the right), we have that $v_{t1}$=$n$ $v_{t2}$, with $n$ being the number of turns in transformer 1, $v_{t1}$ the AC signal in transformer 1 and $v_{t2}$ in transformer 2. Because the objective is to obtain a DC voltage of $12$V in the output, a sinusoidal signal of amplitude $50$V was used for transformer 2, thus the value of $n$ was given by $n=\frac{V_{t1}}{V_{t2}}=\frac{230}{5}$, with $V_{t1}=230$V and $V_{t2}=50$V being the amplitudes of the sinusoidal signals in the respective transformers.
 \par
 Because of the 4 diodes in the full-wave bridge rectifier circuit, the voltage through the resistance $R_1$ is given by
 
 \begin{equation} \label{eq:rectified_voltage}
-  v_{O_{rectified}}(t)=|v_{t2}|=v_3-v_5
+  v_{O_{rectified}}(t)=|v_{t2}|
 \end{equation}
 
-Where an ideal diode model has been considered. Now, the capacitor is used to keep the voltage approximately constant and close to $12$V. As was learnt in class, the time it takes for the diode circuit to go OFF and for the capacitor to strat discharging through the resistance $R_1$ is given by
+Where an ideal diode model has been considered. Now, the capacitor is used to keep the voltage approximately constant and close to $12$V. As was learnt in class, the time it takes for the diode circuit to go OFF and for the capacitor to start discharging through the resistance $R_1$ is given by
 
-\begin{equation} \label{eq:rectified_voltage}
+\begin{equation} \label{eq:toff}
   t_{OFF}=\frac{1}{\omega}atan\left(\frac{1}{\omega R_1C}\right)
 \end{equation}
 
@@ -46,13 +46,13 @@ The value of $t_{ON}$ was obtained by Octave and by using Newton-Raphson's itera
   \begin{tabular}{|c|c|}
     \hline    
     {\bf Name} & {\bf Value} \\ \hline
-    \input{../mat/ChosenValues.tex}
+    \input{../mat/tOFF_tON.tex}
   \end{tabular}
   \caption{Values obtained for $t_{ON}$ and $t_{OFF}$.}
   \label{tab:tON_tOFF}
 \end{table}
 
-Using this information, the rectified voltages and the final voltage out of the envelope detector were plotted below.
+Using this information, the rectified and final voltage out of the envelope detector were plotted together, as shown below.
 
 
 \begin{figure}[H] \centering

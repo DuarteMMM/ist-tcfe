@@ -28,7 +28,7 @@ $(FILE).pdf: $(wildcard *.tex) $(LODFIGS)
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.eps
-	@rm -rf ChosenValues.tex
+	@rm -rf ChosenValues.tex tOFF_tON.tex
 
 .PHONY: all clean
 
