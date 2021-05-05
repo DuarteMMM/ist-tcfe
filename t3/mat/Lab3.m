@@ -16,7 +16,7 @@ C = 0.0005;
 
 %Write values to file
 file_chosen_values = fopen("ChosenValues.tex","w");
-fprintf(file_chosen_values,"$R_1$ & %.0f $\\Omega$ \\\\ \\hline\n$R_2$ & %.0f $\\Omega$ \\\\ \\hline\n$C$ & %.4f $F$ \\\\ \\hline", R1, R2, C);
+fprintf(file_chosen_values,"$R_1$ & %f $\\Omega$ \\\\ \\hline\n$R_2$ & %f $\\Omega$ \\\\ \\hline\n$C$ & %f $F$ \\\\ \\hline", R1, R2, C);
 fclose (file_chosen_values);
 
 %Given values
@@ -24,6 +24,7 @@ f=50;
 V1 = 230.;
 V2 = 12.;
 n=V1/V2;
+
 	
 %Envelope detector
 
@@ -85,7 +86,7 @@ function f_t_on_solve = f_t_on_solve ()
   f_t_on_solve=x_next;
 endfunction
 
-tON=f_t_on_solve()
+%tON=f_t_on_solve()
 tON=1/(2*f)
 
   %{
@@ -103,11 +104,13 @@ for i=1:length(t)
 endfor
 %}
 
+
 %Write tON and tOFF values to file
 file_toff_ton = fopen("tOFF_tON.tex","w");
 fprintf(file_chosen_values,"$t_{OFF}$ & %f $s$ \\\\ \\hline\n$t_{ON}$ & %f $s$ \\\\ \\hline", tOFF, tON);
 fclose (file_toff_ton);
 
+  
 for i=1:length(t)
 	if t(i) < tOFF
 	  vOenv(i) = vrec(i);
@@ -121,16 +124,56 @@ for i=1:length(t)
 endfor
 
 
-    
+%Values for voltage regulator
+eta=1.;
+IS=1.0e-14;
+k=1.38064852e-23;
+T=298.15;
+q=1.60217662e-19;
+VT=(k*T)/q;
+n_diodes=18;
+VD=mean(vOenv)/n_diodes;
+rd=(eta*VT)/(IS*exp(VD/(eta*VT)))
+
+
+vOUT = zeros(1, length(t));
+vOUT_variations = zeros(1, length(t));
+vo = zeros(1, length(t));
+
+for i=1:length(t)
+	vs=V2-vOenv(i);
+        vo(i)=((n_diodes*rd)/(n_diodes*rd+R2))*vs;
+        vOUT(i)=V2-vo(i);
+        vOUT_variations(i)=vo(i);
+endfor
 
 %Plot
 
-fig_envelope = figure ("Visible", "off");
-title("Voltages in Envelope Detector")
-plot (t*1000, vrec, ";v_2 (rectified) (t);", t*1000, vOenv, ";v_O (envelope) (t);");
+fig_voltages = figure ("Visible", "off");
+title("Voltages in Envelope Detector and Voltage Regulator")
+plot (t*1000, vrec, ";v_2 (rectified) (t);", t*1000, vOenv, ";v_O (envelope) (t);", t*1000, vOUT, ";v_{OUT} (t);");
 xlabel ("t [ms]")
 ylabel ("v [V]")
 legend("Location", "southwest");
-print (fig_envelope, "envelope.eps", "-depsc");
+print (fig_voltages, "envelope.eps", "-depsc");
+
+min_var=min(vOUT_variations);
+max_var=max(vOUT_variations);
+
+fig_variation = figure ("Visible", "off");
+title("Deviation of final output voltage from 12V")
+plot (t*1000, vOUT_variations, "r");
+hleg=legend("v_{OUT}-12V (t)","Location","southwest");
+ylim([min_var+0.5*(min_var-0.1) max_var+0.5*(max_var+0.1)]);
+xlabel ("t [ms]")
+ylabel ("v [V]")
+print (fig_variation, "variations.eps", "-depsc");
+
+%Merit
+cost=R1*0.001+R2*0.001+C*10e-6+0.1*(n_diodes+4);
+merit=1/(cost*(mean(vo)+mean(vo)+10e-6));
+file_merit = fopen("Merit.tex","w");
+fprintf(file_merit,"Cost & %f \\\\ \\hline\nMerit ($M$) & %f\\\\ \\hline", cost, merit);
+fclose (file_merit);
 
 close all;
