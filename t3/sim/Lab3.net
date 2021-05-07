@@ -6,13 +6,10 @@
 .options savecurrents
 
 ******************************************
-Vin 2 5 sin(0 230 50 0 0)
+Vin 2 0 0 sin(0 230 50 0 0)
 *This defines a sinusoid of 230 V amplitude and 50 Hz. 
-RS 2 1 10
-L1 1 5 26450
-L2 3 5 113
-K L1 L2 0.9999
-
+RS 0 2 10
+Ex 3 5 0 2 0.2173913
 *Vin 3 1 sin(0 12 50 0 0)mak
 
 D13  3 out1  diode
@@ -22,7 +19,7 @@ D42  0 5 diode
 
 CL  out1 0  400u
 RL  out1 0  1k
-RV out1 out2 6.6k
+RV out1 out2 22.9k
 Dv1  out2 1d  diode
 Dv2 1d 2d  diode
 Dv3 2d 3d  diode
@@ -37,12 +34,12 @@ Dv11 10d 11d  diode
 Dv12 11d 12d  diode
 Dv13 12d 13d  diode
 Dv14 13d 14d  diode
-Dv15 14d 15d  diode
+Dv15 14d 15d diode
 Dv16 15d 16d diode
 Dv17 16d 17d diode
-Dv18 17d 18d diode
-Dv19 18d 19d diode
-Dv20 19d 0 diode
+Dv18 17d 0 diode
+*Dv19 18d 19d diode
+*Dv20 19d 0 diode
 *Dv21 17d 0 diode
 
 .MODEL  diode d
@@ -64,7 +61,7 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
 
-tran 0.5M 400M 200M
+tran 0.1M 400M 200M 
 hardcopy outsignals.ps v(out2) V(out1)
 echo outsignals_FIG
 hardcopy deviation.ps (v(out2)-12)
@@ -74,12 +71,23 @@ meas tran maxout MAX v(out2) from=220m to=400m
 meas tran minout MIN v(out2) from=220m to=400m 
 meas tran avgout AVG v(out2) from=220m to=400m
 
+*CALCULO DOS COST E DO MERIT
+let cost=400+22.9+0.1*(18+4)
+let merit=1/(cost*((maxout-minout)+avgout+0.000001))
+
 echo "rip_TAB"
 print maxout
 print minout
 print (maxout-minout)
 print avgout
 echo "rip_END"
+
+echo "cost_TAB"
+print cost
+print merit
+echo "cost_END"
+
+
 
 quit
 .endc
