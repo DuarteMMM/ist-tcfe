@@ -10,7 +10,7 @@ Simulating the ciruit indicated we have obtained the following graphic that cont
   \label{fig:out1_out2}
 \end{figure}
 
-
+As we can see the graph doesn't start at 0 since the system needs to stabilize so all the averages and ouputs measured were only done in the interval represented in \ref{fig:out1_out2}, this happens so we can ignore the transient voltages that appear due to the initial conditions.
 In the next graph we tried observing the fluctuations of the output around 0 for that we plotted the output voltage obtained at any instant subtracted by the desired voltage 12 V.
 
 \begin{figure}[H]
@@ -34,6 +34,17 @@ Doing all of the analisys we where able to obtain a stable 12V DC  with some flu
   \label{tab:rip}
 \end{table}
 
+Using the formula dor merit $\frac{1}{cost \times (ripple +average+10^{-6})}$ we can now obtain the cost and merit of the system.
 
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/cost_tab.tex}
+  \end{tabular}
+  \caption{Cost and merit} 
+  \label{tab:rip}
+\end{table}
 
