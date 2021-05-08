@@ -1,40 +1,87 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-Simulating the ciruit indicated we have obtained the following graphic that contemplates the voltage after the envelope circuit (out1) and the voltage that actually leaves the system, supposedly 12 V.
+In order to simulate this circuit with Ngspice, the ideal transformer model was used. Because the voltage in the primary, $v_{T1}$, is known, the primary was replaced by a dependant current source and the secondary by a dependant voltage source, in order to have a voltage $v_{T2}=\frac{v_{T2}}{n}$ in the secondary. The values used for $V_{T2}$, $R_1$, $R_2$ and $C$ are those shown in Table \ref{tab:ChosenValues} of Section \ref{sec:analysis}.
+\par
+The plot containing the Envelope Detector's output voltage (voltage in node out1) and the Voltage Regulator's output voltage (in node out2) is shown below, for 10 periods.
 
 \begin{figure}[H]
-  \centering
-  \small
-  \includegraphics[width=0.5\linewidth]{../sim/outsignals.pdf}
-  \caption{Voltage after envelope circuit(out1) and after voltage ripple circuit (out2)}
-  \label{fig:out1_out2}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{../sim/outsignals.pdf}
+    \footnotesize
+  \caption{Envelope Detector's output voltage (v(out1)) and Voltage Regulator's output voltage (v(out2)) for the first 10 periods.}
+   \label{fig:out1_out2}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+  \includegraphics[width=0.95\linewidth]{../sim/outsignals_new.pdf}
+  \caption{Envelope Detector's output voltage (v(out1)) and Voltage Regulator's output voltage (v(out2)) for 10 later periods.}
+  \label{fig:out1_out2_new}
+  \end{subfigure}
 \end{figure}
 
-As we can see the graph doesn't start at 0 since the system needs to stabilize so all the averages and ouputs measured were only done in the interval represented in \ref{fig:out1_out2}, this happens so we can ignore the transient voltages that appear due to the initial conditions.
-In the next graph we tried observing the fluctuations of the output around 0 for that we plotted the output voltage obtained at any instant subtracted by the desired voltage 12 V.
+As we can see, in the graphs in Figure \ref{fig:out1_out2} the initial transitory behaviour of the voltages is still clearly present. Therefore, all the values measured in this section were only done in the time interval in which v(out1) and v(out2) are represented in Figure \ref{fig:out1_out2_new} (from 300 ms to 400 ms). Again, as was the case in the Section \ref{sec:analysis}, the behaviour of these voltages is not entirely clear from these plots, because the oscillations are very small compared to the y-axis scale. Therefore, separate plots have been made for each voltage, as shown below.
+
+\begin{figure}[H]
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{../sim/out1signal.pdf}
+    \footnotesize
+  \caption{Envelope Detector's output voltage (v(out1)) for the time interval [300,400]ms.}
+   \label{fig:out1}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+  \includegraphics[width=0.95\linewidth]{../sim/out2signal.pdf}
+  \caption{Voltage Regulator's output voltage (v(out2)) for the time interval [300,400]ms.}
+  \label{fig:out2}
+  \end{subfigure}
+\end{figure}
+
+In Figure \ref{fig:deviation}, the fluctuations of the Voltage Regulator's output around $12$ V (i.e., v(out2)-12) have been plotted.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{../sim/deviation.pdf}
-  \vspace{-5mm}
-  \caption{Deviation of output signal from the target voltage 12 V }
+  \caption{Deviation of output signal from the target DC voltage $12$ V in over the time interval [300,400]ms.}
   \label{fig:deviation}
 \end{figure}
 
-Doing all of the analisys we where able to obtain a stable 12V DC  with some fluctuation as seen in \ref{fig:deviation} the values obtained for the average of voltage and ripple are the following:
+As we can see, a rather stable $12$ V voltage as been obtained.
+\par
+Now, as in the Theoretical Analysis, the final output's average voltage as been calculated, as well as its ripple, given by, $ripple(v_{OUT})=ripple(v(out2))=max(v_{OUT})-min(v_{OUT})=max(v(out2))-min(v(out2))$. In Table \ref{tab:comparison}, the results obtained in both cases are shown side by side.
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|}
-    \hline
-        {\bf Designation} & {\bf Value [V]} \\ \hline
-        \input{../sim/rip_tab.tex}
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [V]} \\ \hline
+          \input{FinalVoltage_Average_Ripple.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [V]} \\ \hline
+          \input{../sim/rip_tab.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Voltage ripple and average out voltage} 
-  \label{tab:rip}
+  \caption{Comparison between theoretical and simulation analysis' results.}
+  \label{tab:comparison}
 \end{table}
 
-Using the formula dor merit $\frac{1}{cost \times (ripple +average+10^{-6})}$ we can now obtain the cost and merit of the system.
+
+Finalyy, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. The cost is given by $cost=cost of resistors + cost of capacitor + cost of diodes$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each diode is 0.1 MU. On the other hand, the  merit M is given by
+
+\begin{equation} \label{eq:merit}
+  M=\frac{1}{cost\times (ripple(v_{OUT})+\overline{v_{OUT}-12}+10^{-6}} 
+\end{equation}
 
 
 \begin{table}[H]
@@ -42,7 +89,7 @@ Using the formula dor merit $\frac{1}{cost \times (ripple +average+10^{-6})}$ we
   \begin{tabular}{|c|c|}
     \hline
         {\bf Designation} & {\bf Value [V]} \\ \hline
-        \input{../sim/cost_tab.tex}
+        \input{../sim/cost_merit_tab.tex}
   \end{tabular}
   \caption{Cost and merit} 
   \label{tab:rip}

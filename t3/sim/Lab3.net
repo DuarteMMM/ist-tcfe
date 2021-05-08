@@ -1,25 +1,31 @@
-*
 * AC/DC
-*
 
 * forces current values to be saved
 .options savecurrents
+.param ninverse=50/230
 
 ******************************************
-Vin 2 0 0 sin(0 230 50 0 0)
-*This defines a sinusoid of 230 V amplitude and 50 Hz. 
-RS 0 2 10
-Ex 3 4 0 2 0.2173913
-*Vin 3 1 sin(0 12 50 0 0)mak
+*Independant voltage source (230 V amplitude; 50 Hz frequency) 
+Vin 1 0 0 sin(0 230 50 0 0)
 
+*Dependant voltage source
+E2 3 4 1 0 ninverse
+
+*Dependant current source
+F2 1 0 E2 ninverse
+
+*Full-wave rectifier
 D13  3 out1  diode
 D23  4 out1  diode
 D41  0 3  diode
 D42  0 4 diode
 
-CL  out1 0  500u
-RL  out1 0  0.10275k
-RV out1 out2 4.6218k
+RL out1 0 10.75k
+CL  out1 0  5000u
+
+*Voltage regulator
+RV out1 out2 5.10979k
+
 Dv1  out2 1d  diode
 Dv2 1d 2d  diode
 Dv3 2d 3d  diode
@@ -37,20 +43,12 @@ Dv14 13d 14d  diode
 Dv15 14d 15d diode
 Dv16 15d 16d diode
 Dv17 16d 0 diode
-*Dv18 17d 0 diode
-*Dv19 18d 19d diode
-*Dv20 19d 0 diode
-*Dv21 17d 0 diode
 
 .MODEL  diode d
 
-
-
-
-
 .control
 
-*makes plots in color
+*Color options
 set hcopypscolor=0
 set color0=white
 set color1=black
@@ -60,33 +58,41 @@ set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
-
-tran 0.1M 400M 200M 
-hardcopy outsignals.ps v(out2) V(out1)
+*Plots
+tran 0.1M 100M 0M 
+hardcopy outsignals.ps v(out2) v(out1)
 echo outsignals_FIG
+
+tran 0.1M 400M 300M 
+hardcopy outsignals_new.ps v(out2) v(out1)
+echo outsignals_new_FIG
+hardcopy out1signal.ps v(out1)
+echo out1signal_FIG
+hardcopy out2signal.ps v(out2)
+echo out2signal_FIG
 hardcopy deviation.ps (v(out2)-12)
 echo deviation_FIG
 
-meas tran maxout MAX v(out2) from=220m to=400m
-meas tran minout MIN v(out2) from=220m to=400m 
-meas tran avgout AVG v(out2) from=220m to=400m
+*Tables
+meas tran avgout AVG v(out2) from=300m to=400m
+meas tran maxout MAX v(out2) from=300m to=400m
+meas tran minout MIN v(out2) from=300m to=400m 
 
-*CALCULO DOS COST E DO MERIT
-let cost=400+22.9+0.1*(18+4)
-let merit=1/(cost*((maxout-minout)+avgout+0.000001))
+*Calculate cost and merit
+let cost=10.75+5.10979+5000+0.1*(17+4)
+let merit=1/(cost*(maxout-minout+avgout+0.000001))
 
 echo "rip_TAB"
+print avgout
 print maxout
 print minout
 print (maxout-minout)
-print avgout
 echo "rip_END"
 
-echo "cost_TAB"
+echo "cost_merit_TAB"
 print cost
 print merit
-echo "cost_END"
-
+echo "cost_merit_END"
 
 
 quit
