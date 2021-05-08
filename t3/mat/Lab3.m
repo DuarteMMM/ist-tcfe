@@ -160,6 +160,9 @@ subVector_v_OUT = v_OUT(1:600);
 fig_voltages = figure ("Visible", "off");
 title("Voltages in Envelope Detector and Voltage Regulator")
 plot (t*1000, vrec, ";v_{O_{rectified}} (t);", t*1000, vOenv, ";v_{O_{env}} (t);", t*1000, v_OUT, ";v_{OUT} (t);");
+hleg0=legend();
+set(hleg0, "FontSize", 11);
+ylim([0 1.05*V2]);
 xlabel ("t [ms]")
 ylabel ("v [V]")
 legend("Location", "southwest");
@@ -168,6 +171,8 @@ print (fig_voltages, "rec_env_reg.eps", "-depsc");
 fig_rectified_envelope = figure ("Visible", "off");
 title("Voltage in Envelope Detector")
 plot (subVector_t*1000, subVector_vrec, ";v_{O_{rectified}} (t);", subVector_t*1000, subVector_vOenv, ";v_{O_{env}} (t);");
+hleg1=legend();
+set(hleg1, "FontSize", 14);
 ylim([0.995*min(subVector_vOenv) 1.0001*max(subVector_vOenv)]);
 xlabel ("t [ms]")
 ylabel ("v [V]")
@@ -177,6 +182,8 @@ print (fig_rectified_envelope, "rec_env.eps", "-depsc");
 fig_regulator = figure ("Visible", "off");
 title("Voltage in Voltage Regulator")
 p2=plot (subVector_t*1000, subVector_v_OUT, ";v_{OUT} (t);");
+hleg2=legend();
+set(hleg2, "FontSize", 14);
 ylim([0.99999*min(subVector_v_OUT) 1.00001*max(subVector_v_OUT)]);
 set(p2, "Color", [0.9290 0.6940 0.1250])
 xlabel ("t [ms]")
