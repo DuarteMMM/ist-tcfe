@@ -80,7 +80,7 @@ Now, as in the Theoretical Analysis, the final output's average voltage as been 
 Finalyy, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. The cost is given by $cost=cost of resistors + cost of capacitor + cost of diodes$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each diode is 0.1 MU. On the other hand, the  merit M is given by
 
 \begin{equation} \label{eq:merit}
-  M=\frac{1}{cost\times (ripple(v_{OUT})+\overline{v_{OUT}-12}+10^{-6}} 
+  M=\frac{1}{cost\times (ripple(v_{OUT})+|\overline{v}_{OUT}-12|+10^{-6})} 
 \end{equation}
 
 
@@ -91,7 +91,7 @@ Finalyy, the total monetary cost and the merit $M$ of the circuit used have been
         {\bf Designation} & {\bf Value [V]} \\ \hline
         \input{../sim/cost_merit_tab.tex}
   \end{tabular}
-  \caption{Cost and merit} 
+  \caption{Cost and merit obtained.} 
   \label{tab:rip}
 \end{table}
 
