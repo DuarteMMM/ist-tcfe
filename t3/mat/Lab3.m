@@ -4,7 +4,8 @@ clear all
 pkg load symbolic;
 
 %To be chosen
-R1 = 5.e3;
+%R1 = 5.e3;
+R1 = 0.10275e3;
 C = 5.e-4;
 
 %Write values to file
@@ -40,9 +41,10 @@ vOenv = zeros(1, length(t));
 %tOFF and exponencial due to capacitor
 
 tOFF = (1/w) * atan(1/(w*R1*C))
+tOFF_copy=tOFF;
 vOexp = V2*cos(w*tOFF)*exp(-(t-tOFF)/(R1*C));
 
-tON=1/(2*f);
+Half_period=1/(2*f);
 
 %Write tOFF value to file
 file_toff = fopen("tOFF.tex","w");
@@ -67,8 +69,8 @@ for i=1:length(t)
 	  elseif vOexp(i) > vrec(i)
 	    vOenv(i) = vOexp(i);
 	  else
-	    tOFF = tOFF + tON;
-            vOexp = V2*abs(cos(w*tOFF))*exp(-(t-tOFF)/(R1*C));
+	    tOFF = tOFF + Half_period;
+            vOexp = V2*abs(cos(w*tOFF_copy))*exp(-(t-tOFF)/(R1*C));
 	    vOenv(i) = vrec(i);
 	 endif
 endfor

@@ -1,6 +1,39 @@
-\section{Theoretical Analysis}
+\section{Theoretical Analysis} \label{sec:analysis}
 
-The values of the resistances $R_1$ and $R_2$ and of the capacitance $C$ have been chosen arbitrarily, in order to obtain the best results and the best merit $M$ possible. These values are shown below.
+The full-wave bridge rectifier circuit, assuming ideal diodes, computes the absolute value of the sinusoidal AC voltage in the second transfomer. Therefore, the voltage in resistor $R_1$'s terminals is given by
+
+\begin{equation} \label{eq:rectified_voltage}
+  v_{O_{rectified}}(t)=|v_{t2}|
+\end{equation}
+
+Where $|v_{t2}|$ is the AC voltage in the secondary, given by $v_{t2}=\frac{v_{t1}}{n}$, assuming that the transformers' wires are coiled according to the conventional way, that is, in order to generate a downwards current through the primary and an upwards current through the secondary. The value of $n$ corresponds to the proportion of turns between the primary and the secondary, as shown in Figure \ref{fig:CircuitDraw}. Moreover, the capacitor, connected to the rectifier, transforms the rectified wave by attenuating the oscillations. Again, assuming the ideal diode model, after a time $t_{OFF}$, when the rectified signal's voltage value starts to decrease more abruptly, the current in the capacitor, given by $i_C=C\frac{dv_c}{dt}$, becomes very large, the diode eventually goes OFF and the capacitor starts decharging. This value can be computed by:
+
+\begin{equation} \label{eq:toff}
+  t_{OFF}=\frac{1}{\omega}atan\left(\frac{1}{\omega R_1C}\right)
+\end{equation}
+
+Where $\omega=2\pi f$ and $f=50$ Hz. The diode starts conducting again after $t_{ON}$, in which the rectified signal's voltage equals that of the discharging capacitor. While the capacitor is charging and the diodes are conducting, the voltage out of the envelope detector is given by $v_{O_{env}}(t)=v_{O_{rectified}}(t)$. On the other hand, while the capacitor is discharging, it is given by:
+
+\begin{equation} \label{eq:exponential_voltage}
+  v_{O_{env}}(t)=V_{t2}cos(\omega t_{OFF})e^{-\frac{t-t_{OFF}}{R_1C}}
+\end{equation}
+
+The value $V_{t2}$ is the amplitude of the voltage $v_{t2}$ in the secondary. It is worth noticing that $t_{OFF}$ in the exponential above must be summed half a period, $\frac{T}{2}=\frac{1}{2f}$, every time equation \ref{eq:exponential_voltage} is used again.
+
+\par
+
+Finally, the voltage regulator is used to attenuate the oscillations in the rectified signal. In this case, the ideal diode model is not used; instead, the diode model with a voltage source and a resistor is taken into account and a DC and an incremental analysis are made. The diode equation, given by
+
+\begin{equation} \label{eq:diode_equation}
+  i_D=I_S\left(e^{\frac{v_D}{\eta V_T}}-1\right)
+\end{equation}
+
+Returns the value of the current that passes in a diode. The saturation current's value used in this laboratory assignment is $I_S=1.0e10^{-14}$ A, which is the the value used by Ngspice in its default diode model. This model was utilized in Section \ref{sec:simulation}. On the other hand, the thermal voltage is given approximately by $V_T=\frac{kT}{q}\approx 25$ mV at room temperature. It was also considered that $\eta=1$, because that is the value used by Ngspice. Finally, $v_D$ is the voltage in the diode's terminals. Because there are 17 equal diodes in the voltage regulator, the voltage through each one, in terms of the DC components, is given by
+
+
+
+
+
 
 \begin{table}[H]
   \centering
@@ -13,33 +46,8 @@ The values of the resistances $R_1$ and $R_2$ and of the capacitance $C$ have be
   \label{tab:ChosenValues}
 \end{table}
 
-Assuming that the transformers' wires are coiled according to the conventional way, that is, in order to generate a downwards current through the left transformer (transformer 1) and an upwards current through transformer 2 (on the right), we have that $v_{t1}$=$n$ $v_{t2}$, with $n$ being the number of turns in transformer 1, $v_{t1}$ the AC signal in transformer 1 and $v_{t2}$ in transformer 2. Because the objective is to obtain a DC voltage of $12$V in the output, a sinusoidal signal of amplitude $50$V was used for transformer 2, thus the value of $n$ was given by $n=\frac{V_{t1}}{V_{t2}}=\frac{230}{5}$, with $V_{t1}=230$V and $V_{t2}=50$V being the amplitudes of the sinusoidal signals in the respective transformers.
-\par
-Because of the 4 diodes in the full-wave bridge rectifier circuit, the voltage through the resistance $R_1$ is given by
 
-\begin{equation} \label{eq:rectified_voltage}
-  v_{O_{rectified}}(t)=|v_{t2}|
-\end{equation}
 
-Where an ideal diode model has been considered. Now, the capacitor is used to keep the voltage approximately constant and close to $12$V. As was learnt in class, the time it takes for the diode circuit to go OFF and for the capacitor to start discharging through the resistance $R_1$ is given by
-
-\begin{equation} \label{eq:toff}
-  t_{OFF}=\frac{1}{\omega}atan\left(\frac{1}{\omega R_1C}\right)
-\end{equation}
-
-Where $\omega=2\pi f$, with $f=50$Hz as shown in Figure \ref{fig:CircuitDraw}. After $t_{OFF}$, the voltage in the output of the envelope detector is not $v_{O_{rectified}}(t)$, but
-
-\begin{equation} \label{eq:exponential_voltage}
-  v_{O_{envelope}}(t)=V_{t2}cos(\omega t_{OFF})e^{-\frac{t-t_{OFF}}{R_1C}}
-\end{equation}
-
-When the time instant $t_{ON}$ is reached, the voltage is again given by equation \ref{eq:rectified_voltage}. To determine $t_{ON}$, the following non-linear equation must be solved:
-
-\begin{equation} \label{eq:non_linear_equation_tON}
-  V_{t2}cos(\omega t_{ON})=V_{t2}cos(\omega t_{OFF})e^{-\frac{t_{ON}-t_{OFF}}{R_1 C}}
-\end{equation}
-
-The value of $t_{ON}$ was obtained by Octave and by using Newton-Raphson's iterative nethod. The following values were obtained:
 
 \begin{table}[H]
   \centering
@@ -51,8 +59,6 @@ The value of $t_{ON}$ was obtained by Octave and by using Newton-Raphson's itera
   \caption{Value obtained for $t_{OFF}$.}
   \label{tab:tOFF}
 \end{table}
-
-Using this information, the rectified and final voltage out of the envelope detector were plotted together, as shown below.
 
 
 \begin{figure}[H] \centering
