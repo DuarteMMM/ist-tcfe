@@ -40,7 +40,9 @@ As we can see in the graphs in Figure \ref{fig:out1_out2}, the initial transitor
   \end{subfigure}
 \end{figure}
 
-In Figure \ref{fig:deviation}, the fluctuations of the Voltage Regulator's output around $12$ V (i.e., v(out2)-12) have been plotted.
+We can see that these graphs are very similar to the ones obtained in the Theoretical Analysis. However, it can be seen that, in this case, the maximum values of these output voltages are smaller than those obtained from the theoretical model. In Figure \ref{fig:out1}, it can be seen that the maximum is approximately 48.383 V, but, in Section \ref{sec:analysis}, it is approximately 50 V. This may be due to the fact that the diodes were considered ideal in the Envelope Detector. However, Ngspice uses a much more complex diode model. The existence of transitory behaviour may also explain this disparity, as well as the fact that, even though in Figures \ref{fig:rectified_envelope_voltage} and \ref{fig:regulator_voltage} the voltages appear to be maximum at every integer multiple of the period, this is not the case in Figures \ref{fig:out1} and \ref{fig:out2}.
+\par
+In Figure \ref{fig:deviation}, the fluctuations of the Voltage Regulator's output around $12$ V (i.e., v(out2)-12V) have been plotted. Comparing these to those in the Theoretical Analysis, there is a clear difference. In the previous section, this final voltage always oscillated above $12$V. However, in this case, the signal is clearly much more centered around $12$V and the values of $v_{OUT}-12$V vary between positive and negative values. It is also clear that the ripple (the difference bewteen the maximum and minimum values of the signal) in the simulation's results is about double of the theoretical analysis' ripple. This may also be explained by the factors talked about above. Additionally, it is also worth mentioning that it was considered, in order to obtain the voltage output from the Envelope Detector, that it was equal to the rectified signal's voltage when this curve's value equaled that of the discharging capacitor's, i.e, no $t_{ON}$ was calculated. Even though this is a very good approximation, slighlty more accurate results could be obtained by calculating an actual value for $t_{ON}$. On the other hand, for the Voltage Regulator analysis, the DC and incremental components of $v_{O_{env}}$ were considered separately and the non-linear equation \ref{eq:non_linear_equation} was solved for the DC component, considering the average of the Envelope Detector's voltage. Different results could have been obtained by solving the nonlinear equation for every time instant. However, that might not have been the case, because the solutions of nonlinear equations are almost never entirely accurate and might depend on the stop condition, the function's behaviour and the initial values. 
 
 \begin{figure}[H]
   \centering
@@ -49,8 +51,6 @@ In Figure \ref{fig:deviation}, the fluctuations of the Voltage Regulator's outpu
   \label{fig:deviation}
 \end{figure}
 
-As we can see, a rather stable $12$ V voltage has been obtained.
-\par
 Now, as in the Theoretical Analysis, the final output's average voltage has been calculated, as well as its ripple, given by $ripple(v_{OUT})=ripple(v(out2))=max(v_{OUT})-min(v_{OUT})=max(v(out2))-min(v(out2))$. In Table \ref{tab:comparison}, the results obtained in both cases are shown side by side.
 
 \begin{table}[H]
@@ -76,8 +76,11 @@ Now, as in the Theoretical Analysis, the final output's average voltage has been
   \label{tab:comparison}
 \end{table}
 
+As we can see, a rather stable $12$ V voltage has been obtained in both cases. However, as it already has been discussed, the final voltage in the theoretical model is always bigger than $12$V. The simulation analysis' $\overline{v}_{OUT}$ has 7 digits equal to those of the desired output voltage, $12$V. However, the value on the left side of Table \ref{tab:comparison} only has 3 digits in this condition. This is because, as it was discussed in Section \ref{sec:analysis}, different values of $R_1$, $R_2$, $C$ and $n$ were tried out, in order to get a smaller ripple as possible and an average output voltage as close as possible to $12$V in Ngspice, as well as a smaller monetary cost as possible, as already mentioned in the above section. The fact that the theoretical value of $\overline{v}_{OUT}$ is further away from $12$V shows us that the theoretical model considered is clearly different than the one used by Ngspice. It is also subjected to some approximations, as it has been discussed. On the other hand, the ripple obtained in the Theoretical Analysis is about half of the one obtained from the simulation, even though they have the same order of magnitude.
 
-Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; diodes$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each diode is 0.1 MU. On the other hand, the  merit M is given by
+\par
+
+Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; diodes$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each diode is 0.1 MU. On the other hand, the  merit M is given by
 
 \begin{equation} \label{eq:merit}
   M=\frac{1}{cost\times (ripple(v_{OUT})+|\overline{v}_{OUT}-12|+10^{-6})} 
