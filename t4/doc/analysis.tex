@@ -1,0 +1,119 @@
+\section{Theoretical Analysis} \label{sec:analysis}
+
+The full-wave bridge rectifier circuit, assuming ideal diodes, computes the absolute value of the sinusoidal AC voltage of the second transformer. Therefore, the voltage in resistor $R_1$'s terminals is given by
+
+\begin{equation} \label{eq:rectified_voltage}
+  v_{O_{rectified}}(t)=|v_{t2}|
+\end{equation}
+
+Where $v_{t2}$ is the AC voltage in the secondary, given by $v_{t2}=\frac{v_{t1}}{n}$, assuming that the transformers' wires are coiled according to the conventional way, that is, in order to have a downwards current through the primary and an upwards current through the secondary. The value of $n$ corresponds to the proportion of turns between the primary and the secondary, as shown in Figure \ref{fig:CircuitDraw}. Moreover, the capacitor, connected to the rectifier, transforms the rectified wave by attenuating the oscillations. Again, assuming the ideal diode model, after a time $t_{OFF}$, when the rectified signal's voltage value starts to decrease more abruptly, the current in the capacitor, given by $i_C=C\frac{dv_c}{dt}$, becomes very large, the diode eventually goes off and the capacitor starts discharging. This value can be computed by:
+
+\begin{equation} \label{eq:toff}
+  t_{OFF}=\frac{1}{\omega}atan\left(\frac{1}{\omega R_1C}\right)
+\end{equation}
+
+Where $\omega=2\pi f$ is the angular frequency and $f=50$ Hz is given. The diode starts conducting again after $t_{ON}$, in which the rectified signal's voltage equals the discharging capacitor's. While the capacitor is charging and the diodes are conducting, the voltage out of the envelope detector is given by $v_{O_{env}}(t)=v_{O_{rectified}}(t)~\refstepcounter{equation}(\theequation)\label{eq:envelopesameasrectified}$. On the other hand, while the capacitor is discharging, it is given by:
+
+\begin{equation} \label{eq:exponential_voltage}
+  v_{O_{env}}(t)=V_{t2}cos(\omega t_{OFF})e^{-\frac{t-t_{OFF}}{R_1C}}
+\end{equation}
+
+The value $V_{t2}$ is the amplitude of the voltage $v_{t2}$ in the secondary. It is worth noting that $t_{OFF}$ in the exponential above must be summed half a period, $\frac{T}{2}=\frac{1}{2f}$, every time equation \ref{eq:exponential_voltage} is used again (i.e., every ``cycle'' of charging-discharging in the capacitor).
+
+\par
+
+Finally, the voltage regulator is used to attenuate the oscillations in the Envelope Detector's output voltage. In this case, the ideal diode model is not used; instead, the diode model with a voltage source and a resistor is taken into account; a DC analysis and an incremental analysis are made. The diode equation, given by
+
+\begin{equation} \label{eq:diode_equation}
+  i_D=I_S\left(e^{\frac{v_D}{\eta V_T}}-1\right)=I_S\left(e^{\frac{v_{OUT}}{N\eta V_T}}-1\right)
+\end{equation}
+
+Returns the value of the current that passes in each diode. The saturation current's value used in this laboratory assignment is $I_S=1.0\times10^{-14}$ A, which is the value used by Ngspice in its default diode model. This model was utilized in Section \ref{sec:simulation}. On the other hand, the thermal voltage is given by $V_T=\frac{kT}{q}\approx 26$ mV at room temperature (considering $k=1.38064852\times10^{-23}$ $m^2$ $kg$ $s^{-2}$ $K$, $q=1.60217662\times10^{-19}$ C and $T=300.15$ K, which is the temperature considered by Ngspice). It was also considered that $\eta=1$, because that is the value used by Ngspice. Because there are $N=17$ equal diodes in series, the voltage drop through each of them is given by $v_D=\frac{v_{OUT}}{N}$, where $v_{OUT}=v_{out2}$, thus the relation given in \ref{eq:diode_equation}.
+\par
+By applying the Kirchhoff Voltage Law to the rightmost mesh, the following non-linear equation is obtained:
+
+\begin{equation} \label{eq:non_linear_equation}
+  v_{OUT}+R_2I_S\left(e^{\frac{v_{OUT}}{N\eta V_T}}-1\right)-v_{O_{env}}=0
+\end{equation}
+
+The equation shown above was solved by using Octave and Newton Raphson's iterative method, in which the iterations are given by $x_{n+1}=x_{n}-\frac{f(x_n)}{f'(x_n)}$, with $f(x_n)\equiv f(v_{OUT})=0$ given by equation \ref{eq:non_linear_equation}. It was decided to solve this system not for every instant, but only for the DC components of the voltages. Therefore, $V_{O_{env}}$ was given by the average of the voltage $v_{O_{env}}$, obtained previously. In this way, the DC component $V_{OUT}$ was obtained. Next, the incremental analysis was taken into account. The incremental resistance of each diode is given by
+
+\begin{equation} \label{eq:incremental_resistance}
+  r_d=\frac{\eta V_T}{I_Se^{\frac{V_{OUT}}{N\eta V_T}}}
+\end{equation}
+
+Additionally, the incremental component of the output voltage is given by
+
+\begin{equation} \label{eq:incremental_voltage}
+  v_{out}(t)=\frac{Nr_d+R_2}{Nr_d}v_{o_{env}}(t)
+\end{equation}
+
+Where $v_{o_{env}}(t)=v_{O_{env}}(t)-V_{O_{env}}$ was calculated for every instant. The final output voltage, between nodes out2 and 0 of Figure \ref{fig:CircuitDraw}, is given by:
+
+\begin{equation} \label{eq:final_output_voltage}
+  v_{OUT}(t)=V_{OUT}+v_{out}(t)
+\end{equation}
+
+Having presented the theoretical aspects at hand, it is worth mentioning the values used for the resistances and the capacitance, as well as the value of $n$, i.e., the quotient between the voltages in the primary and secondary, respectively. These are presented in Table \ref{tab:ChosenValues}, shown below.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value} \\ \hline
+    \input{../mat/ChosenValues.tex}
+  \end{tabular}
+  \caption{Values used for the resistances $R_1$ and $R_2$, the capacitance $C$, the amplitude $V_{T2}$ of the secondary's AC voltage and the quotient $n$.}
+  \label{tab:ChosenValues}
+\end{table}
+
+ These were the same values used in the Ngspice simulation, presented in Section \ref{sec:simulation}, in order to properly compare the results obtain by both methods. They were chosen in order to minimize the ripple and to obtain a final average output voltage as close to $12$ V as possible, through the Ngspice simulation (these results will be shown in Tables \ref{tab:comparison} and \ref{tab:rip}). At the same time, the values of $R_1$, $R_2$ and $C$ were kept as low as possible, in order to reduce the cost and increase the merit of the work as much as possible (these values are calculated at the end of Section \ref{sec:simulation}). Moreover, we also chose the number of diodes and the voltage in the transfomer's secondary in a way that kept this voltage sufficiently smaller than the primary's (so that the transformer decreases the voltage, not increase it). Conjugating all these different factors, the values presented in Table \ref{tab:ChosenValues} were chosen.
+\par
+By using equations \ref{eq:envelopesameasrectified} and \ref{eq:exponential_voltage}, the output voltage of the Envelope Detector circuit is plotted below, for 10 periods (with each period given by $T=\frac{1}{2f}$, because the rectified signal has double the frequency of the original sinusoidal voltage). In the same figure, the voltage at the output of the Voltage Regulator circuit is shown. Even though it wasn't requested, the rectified signal is also shown.
+
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.7\linewidth]{rec_env_reg.eps}
+  \caption{Rectified wave and voltages at the output of the Envelope Detector and Voltage Regulator circuits.}
+  \label{fig:rectified_envelope_regulator_voltages}
+\end{figure}
+
+Because the oscillations in the output voltages are very small, it was decided to plot them separately, but for only 6 periods, in order to visualize the signals in more detail. These plots are shown in Figures \ref{fig:rectified_envelope_voltage} and \ref{fig:regulator_voltage}. In Figure \ref{fig:difference_from_12V}, the value of $v_{OUT}-12$V over the 10 initial periods has been plotted.
+
+\begin{figure}[H]
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    % include first image
+    \includegraphics[width=1.\linewidth]{rec_env.eps}
+    \footnotesize
+    \caption{Detailed plot of the Envelope Detector circuit's output voltage with the rectified signal for 6 periods.}
+    \label{fig:rectified_envelope_voltage}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    % include second image
+    \includegraphics[width=1.\linewidth]{reg.eps}  
+    \caption{Detailed plot of the Voltage Regulator circuit's output voltage for 6 periods.}
+    \label{fig:regulator_voltage}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.7\linewidth]{difference.eps}
+  \caption{Difference between the final output voltage obtained and the ideal DC signal of $12$ V.}
+  \label{fig:difference_from_12V}
+\end{figure}
+
+Finally, the average final output voltage (output of the Voltage Regulator circuit) was determined, as well as the ripple, given by $ripple(v_{OUT})=max(v_{OUT})-min(v_{OUT})$. The values obtained are shown in Table \ref{tab:theoretical_finalvoltage_ripple}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/FinalVoltage_Average_Ripple.tex}
+  \end{tabular}
+  \caption{Output voltage's average and ripple.}
+  \label{tab:theoretical_finalvoltage_ripple}
+\end{table}
