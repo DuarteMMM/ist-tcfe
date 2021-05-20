@@ -5,8 +5,7 @@
 .MODEL BC547A NPN(IS=1.533E-14 ISE=7.932E-16 ISC=8.305E-14 XTI=3 BF=178.7 BR=8.628 IKF=0.1216 IKR=0.1121 XTB=1.5 VAF=69.7 VAR=44.7 VJE=0.4209 VJC=0.2 RE=0.6395 RC=0.6508 RB=1 RBM=1 IRB=1E-06 CJE=1.61E-11 CJC=4.388p XCJC=0.6193 FC=0.7762 NF=1.002 NR=1.004 NE=1.436 NC=1.207 MJE=0.3071 MJC=0.2793 TF=4.995E-10 TR=1m2 ITF=0.7021 VTF=3.523 XTF=139 EG=1.11)
 
 Vcc vcc 0 12.0
-Vin in 0 0 ac 1.0 sin(0 10m 1k)
-Rin in in2 100
+Rin 0 in2 100
 
 * input coupling capacitor
 Ci in2 base 1m
@@ -26,13 +25,13 @@ Cb emit 0 1m
 
 * output stage
 Q2 0 coll emit2 BC557A
+**alt(100->400)**
 Rout emit2 vcc 400
 
 * output coupling capacitor
 Co emit2 out 1u
 
-* load
-RL out 0 8
+VL out 0 0 ac 1.0 sin(0 1 1k)
 
 .op
 .end
@@ -50,26 +49,14 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
 
-* time analysis
-tran 1e-5 1e-2
-hardcopy vo1.ps vdb(coll)
-*hardcopy vo2.ps v(out)
-
 * frequency analysis
 ac dec 10 10 100MEG
-hardcopy vo1f.ps vdb(coll)
-
-
-hardcopy vo2f.ps vdb(out)
-hardcopy gain.ps vdb(out)/-vdb(in2)
-*input impedance in kohm
+*output impedance in kohm
 *print all
 
-hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
-print v(in2)[40]/vin#branch[40]/(-1000)
+hardcopy output.ps abs(1/vL#branch[40]/(-1))
+print 1/vL#branch[40]/(-1)
 
-
-*need a different setup to measure output impedance
 
 .endc 
 
