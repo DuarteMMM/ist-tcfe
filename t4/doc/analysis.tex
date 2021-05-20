@@ -61,7 +61,6 @@ Having presented the theoretical aspects at hand, it is worth mentioning the val
   \begin{tabular}{|c|c|}
     \hline    
     {\bf Name} & {\bf Value} \\ \hline
-    \input{../mat/ChosenValues.tex}
   \end{tabular}
   \caption{Values used for the resistances $R_1$ and $R_2$, the capacitance $C$, the amplitude $V_{T2}$ of the secondary's AC voltage and the quotient $n$.}
   \label{tab:ChosenValues}
@@ -72,48 +71,4 @@ Having presented the theoretical aspects at hand, it is worth mentioning the val
 By using equations \ref{eq:envelopesameasrectified} and \ref{eq:exponential_voltage}, the output voltage of the Envelope Detector circuit is plotted below, for 10 periods (with each period given by $T=\frac{1}{2f}$, because the rectified signal has double the frequency of the original sinusoidal voltage). In the same figure, the voltage at the output of the Voltage Regulator circuit is shown. Even though it wasn't requested, the rectified signal is also shown.
 
 
-\begin{figure}[H] \centering
-  \includegraphics[width=0.7\linewidth]{rec_env_reg.eps}
-  \caption{Rectified wave and voltages at the output of the Envelope Detector and Voltage Regulator circuits.}
-  \label{fig:rectified_envelope_regulator_voltages}
-\end{figure}
-
 Because the oscillations in the output voltages are very small, it was decided to plot them separately, but for only 6 periods, in order to visualize the signals in more detail. These plots are shown in Figures \ref{fig:rectified_envelope_voltage} and \ref{fig:regulator_voltage}. In Figure \ref{fig:difference_from_12V}, the value of $v_{OUT}-12$V over the 10 initial periods has been plotted.
-
-\begin{figure}[H]
-  \begin{subfigure}{.49\linewidth}
-    \centering
-    % include first image
-    \includegraphics[width=1.\linewidth]{rec_env.eps}
-    \footnotesize
-    \caption{Detailed plot of the Envelope Detector circuit's output voltage with the rectified signal for 6 periods.}
-    \label{fig:rectified_envelope_voltage}
-  \end{subfigure}
-  \hspace{5mm}
-  \begin{subfigure}{.49\linewidth}
-    \centering
-    % include second image
-    \includegraphics[width=1.\linewidth]{reg.eps}  
-    \caption{Detailed plot of the Voltage Regulator circuit's output voltage for 6 periods.}
-    \label{fig:regulator_voltage}
-  \end{subfigure}
-\end{figure}
-
-\begin{figure}[H] \centering
-  \includegraphics[width=0.7\linewidth]{difference.eps}
-  \caption{Difference between the final output voltage obtained and the ideal DC signal of $12$ V.}
-  \label{fig:difference_from_12V}
-\end{figure}
-
-Finally, the average final output voltage (output of the Voltage Regulator circuit) was determined, as well as the ripple, given by $ripple(v_{OUT})=max(v_{OUT})-min(v_{OUT})$. The values obtained are shown in Table \ref{tab:theoretical_finalvoltage_ripple}.
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline    
-    {\bf Name} & {\bf Value [V]} \\ \hline
-    \input{../mat/FinalVoltage_Average_Ripple.tex}
-  \end{tabular}
-  \caption{Output voltage's average and ripple.}
-  \label{tab:theoretical_finalvoltage_ripple}
-\end{table}
