@@ -21,15 +21,15 @@ Rc vcc coll 1k
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 1m
+Cb emit 0 500u
 
-
+*Cx coll emit2 1m
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+Rout emit2 vcc 400
 
 * output coupling capacitor
-Co emit2 out 1u
+Co emit2 out 10u
 
 * load
 RL out 0 8
@@ -39,29 +39,66 @@ RL out 0 8
 
 .control
 
-print all
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
 
 * time analysis
 tran 1e-5 1e-2
-plot v(coll)
 hardcopy vo1.ps vdb(coll)
-
+*hardcopy vo2.ps v(out)
 
 * frequency analysis
 ac dec 10 10 100MEG
-plot vdb(coll)
-plot vp(coll)
 hardcopy vo1f.ps vdb(coll)
 
+hardcopy vo2f.ps vdb(out)
+echo vo2f_FIG
+let gain = vdb(out)/-vdb(in2)
+hardcopy gain.ps gain
+echo gain_FIG
 
-
-plot vdb(out)
-plot vp(out)
-hardcopy vo2f.ps vdb(coll)
-
+hardcopy gain2.ps vdb(in2)
 *input impedance in kohm
-print v(in2)[40]/(v(in)[40]-v(in2)[40])/100*1000
+*print all
 
+hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
+let inzimpeadance = v(in2)[40]/vin#branch[40]/(-1)
+print v(in2)[40]/vin#branch[40]/(-1)
+
+meas ac maxout MAX vdb(out) from=1000 to=100000
+let allin=maxout-3
+let fall=vdb(out)/-vdb(in2)
+meas ac lowfrequence WHEN vdb(out)=allin RISE=1
+meas ac highfrequence WHEN vdb(out)=allin FALL=1
+meas ac gainfinal MAX fall from=1000 to=100000
+let bandwidth=highfrequence-lowfrequence
+
+echo "valsim_TAB"
+print lowfrequence
+print highfrequence
+print bandwidth
+print gainfinal
+echo "valsim_END"
+
+let valcap = 1000+500+10
+let valresis = 0.1+80+20+1+0.1+0.4 
+let cost = 2*0.1+valcap+valresis
+let merit = gainfinal*bandwidth/(cost*lowfrequence)
+
+echo "merit_TAB"
+print cost
+print merit
+echo "merit_END"
+
+print inzimpeadance > impedances.tex
 *need a different setup to measure output impedance
 
 .endc 

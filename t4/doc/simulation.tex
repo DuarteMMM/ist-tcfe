@@ -1,0 +1,69 @@
+\section{Simulation Analysis} \label{sec:simulation}
+
+In order to simulate this circuit with Ngspice, real models of npn and pnp transistors where used. We realised that this models are very complex in reagards to the thheoretical models used previously. Because of this we expect there to be signifivcant difference between the results.
+\par
+Initially we started by determining the input and output impeadances os the system as a hole (gain stage + output stage). The output impeadance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1 V in the output. The results obtained are the following in table \ref{tab:impe}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/impedances.tex}
+  \end{tabular}
+  \caption{Output and Input impeadances} 
+  \label{tab:impe}
+\end{table}
+
+As we wanted the input impeadance is high and the output is small. \par
+We can now analise the graphics of the output signal and the gain.
+
+\begin{figure}[H]
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{../sim/vo2f.pdf}
+    \footnotesize
+  \caption{Output signal}
+   \label{fig:out1}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+  \includegraphics[width=0.95\linewidth]{../sim/gain.pdf}
+  \caption{Gain}
+  \label{fig:out2}
+  \end{subfigure}
+\end{figure}
+
+We taking the graphs presented previouly we are able to calculate every other measurement of interest listed in the table below. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/valsim_tab.tex}
+  \end{tabular}
+  \caption{Lower frequency, high frequency, bandwidth and gain} 
+  \label{tab:rip}
+\end{table}
+
+
+
+Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the  merit M is given by
+
+\begin{equation} \label{eq:merit}
+  M=\frac{voltageGain \times bandwidth}{cost\times lowerCutoffFreq} 
+\end{equation}
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/merit_tab.tex}
+  \end{tabular}
+  \caption{Cost and merit obtained for this circuit.} 
+  \label{tab:rip}
+\end{table}
