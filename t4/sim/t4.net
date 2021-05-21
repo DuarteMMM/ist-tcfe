@@ -21,12 +21,12 @@ Rc vcc coll 1k
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 1m
+Cb emit 0 200u
 
-
+*Cx coll emit2 1m
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 100
+Rout emit2 vcc 400
 
 * output coupling capacitor
 Co emit2 out 1u
@@ -39,30 +39,44 @@ RL out 0 8
 
 .control
 
+*makes plots in color
+set hcopypscolor=0
+set color0=white
+set color1=black
+set color2=red
+set color3=blue
+set color4=violet
+set color5=rgb:3/8/0
+set color6=rgb:4/0/0
+
 
 * time analysis
 tran 1e-5 1e-2
-plot v(coll)
 hardcopy vo1.ps vdb(coll)
-
+*hardcopy vo2.ps v(out)
 
 * frequency analysis
 ac dec 10 10 100MEG
-plot vdb(coll)
-plot vp(coll)
 hardcopy vo1f.ps vdb(coll)
 
 
-
-plot vdb(out)
-plot vp(out)
-hardcopy vo2f.ps vdb(coll)
-
+hardcopy vo2f.ps vdb(out)
+hardcopy gain.ps vdb(out)/-vdb(in2)
 *input impedance in kohm
 *print all
 
-plot abs(v(in2)[40]/vin#branch[40]/(-1000))
+hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
 print v(in2)[40]/vin#branch[40]/(-1000)
+
+meas ac maxout MAX vdb(out) from=1000 to=100000
+let allin=maxout-3
+let fall=vdb(out)/-vdb(in2)
+meas ac lowf WHEN vdb(out)=allin RISE=1
+meas ac highf WHEN vdb(out)=allin FALL=1
+meas ac gain MAX fall from=1000 to=100000
+let bandwith=highf-lowf
+
+
 
 *need a different setup to measure output impedance
 
