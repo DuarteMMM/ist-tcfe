@@ -21,9 +21,9 @@ Rc vcc coll 1k
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 1m
+Cb emit 0 200u
 
-
+*Cx coll emit2 1m
 * output stage
 Q2 0 coll emit2 BC557A
 Rout emit2 vcc 400
@@ -67,6 +67,15 @@ hardcopy gain.ps vdb(out)/-vdb(in2)
 
 hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
 print v(in2)[40]/vin#branch[40]/(-1000)
+
+meas ac maxout MAX vdb(out) from=1000 to=100000
+let allin=maxout-3
+let fall=vdb(out)/-vdb(in2)
+meas ac lowf WHEN vdb(out)=allin RISE=1
+meas ac highf WHEN vdb(out)=allin FALL=1
+meas ac gain MAX fall from=1000 to=100000
+let bandwith=highf-lowf
+
 
 
 *need a different setup to measure output impedance
