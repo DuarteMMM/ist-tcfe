@@ -1,4 +1,4 @@
-.options savecurrents
+options savecurrents
 
 * PHILIPS BJT'S
 .MODEL BC557A PNP(IS=2.059E-14 ISE=2.971f ISC=1.339E-14 XTI=3 BF=227.3 BR=7.69 IKF=0.08719 IKR=0.07646 XTB=1.5 VAF=37.2 VAR=11.42 VJE=0.5912 VJC=0.1 RE=0.688 RC=0.6437 RB=1 RBM=1 IRB=1E-06 CJE=1.4E-11 CJC=1.113E-11 XCJC=0.6288 FC=0.7947 NF=1.003 NR=1.007 NE=1.316 NC=1.15 MJE=0.3572 MJC=0.3414 TF=7.046E-10 TR=1m2 ITF=0.1947 VTF=5.367 XTF=4.217 EG=1.11)
@@ -12,25 +12,25 @@ Rin in in2 100
 Ci in2 base 1m
 
 * bias circuit
-R1 vcc base 80k
-R2 base 0 20k
+R1 vcc base 70k
+R2 base 0 10k
 
 * gain stage
 Q1 coll base emit BC547A
 Rc vcc coll 1k
+*Rextra emito emit 10
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 500u
+Cb emit 0 1.6m
 
-*Cx coll emit2 1m
+
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 400
+Rout emit2 vcc 50
 
 * output coupling capacitor
-Co emit2 out 10u
-
+Co emit2 out 1.2m
 * load
 RL out 0 8
 
@@ -51,31 +51,33 @@ set color6=rgb:4/0/0
 
 
 * time analysis
-tran 1e-5 1e-2
-hardcopy vo1.ps vdb(coll)
-*hardcopy vo2.ps v(out)
+tran 1e-5 10e-2 9e-2
+*hardcopy vo1.ps vdb(coll)
+hardcopy vo2.ps v(out) 
+echo vo2_FIG
 
 * frequency analysis
 ac dec 10 10 100MEG
-hardcopy vo1f.ps vdb(coll)
+*hardcopy vo1f.ps vdb(coll)
+
 
 hardcopy vo2f.ps vdb(out)
 echo vo2f_FIG
-let gain = vdb(out)/-vdb(in2)
+let gain = vdb(out)+vdb(in2)
 hardcopy gain.ps gain
 echo gain_FIG
 
-hardcopy gain2.ps vdb(in2)
-*input impedance in kohm
+*hardcopy gain2.ps vdb(in2)
+*input impedance in ohm
 *print all
 
-hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
+*hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
 let inzimpeadance = v(in2)[40]/vin#branch[40]/(-1)
 print v(in2)[40]/vin#branch[40]/(-1)
 
 meas ac maxout MAX vdb(out) from=1000 to=100000
 let allin=maxout-3
-let fall=vdb(out)/-vdb(in2)
+let fall=vdb(out)+vdb(in2)
 meas ac lowfrequence WHEN vdb(out)=allin RISE=1
 meas ac highfrequence WHEN vdb(out)=allin FALL=1
 meas ac gainfinal MAX fall from=1000 to=100000
@@ -88,8 +90,8 @@ print bandwidth
 print gainfinal
 echo "valsim_END"
 
-let valcap = 1000+500+10
-let valresis = 0.1+80+20+1+0.1+0.4 
+let valcap = 1000+1200+1600
+let valresis = 0.1+70+10+0.1+0.1+1
 let cost = 2*0.1+valcap+valresis
 let merit = gainfinal*bandwidth/(cost*lowfrequence)
 
