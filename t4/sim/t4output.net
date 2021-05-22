@@ -11,26 +11,27 @@ Rin 0 in2 100
 Ci in2 base 1m
 
 * bias circuit
-R1 vcc base 80k
-R2 base 0 20k
+R1 vcc base 70k
+R2 base 0 10k
 
 * gain stage
 Q1 coll base emit BC547A
 Rc vcc coll 1k
+*Rextra emito emit 10
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 500u
+Cb emit 0 1.6m
 
-*Cx coll emit2 1m
+
 * output stage
 Q2 0 coll emit2 BC557A
-Rout emit2 vcc 400
+Rout emit2 vcc 20
 
 * output coupling capacitor
-Co emit2 out 10u
+Co emit2 out 1.2m
 
-VL out 0 0 ac 1.0 sin(0 1 1k)
+VL out 0 1 ac 1.0 sin(0 1 1k)
 
 .op
 .end
@@ -53,7 +54,7 @@ ac dec 10 10 100MEG
 *output impedance in kohm
 *print all
 
-hardcopy output.ps abs(1/vL#branch[40]/(-1))
+*hardcopy output.ps abs(1/vL#branch[40]/(-1))
 let outzimpeadance = 1/vL#branch[40]/(-1)
 
 print outzimpeadance >> impedances.tex
