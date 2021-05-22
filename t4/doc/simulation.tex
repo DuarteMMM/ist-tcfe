@@ -24,7 +24,7 @@ We can now analise the graphics of the output signal and the gain.
     \centering
     \includegraphics[width=0.95\linewidth]{../sim/vo2f.pdf}
     \footnotesize
-  \caption{Output signal}
+  \caption{Output signal response to frequency}
    \label{fig:out1}
   \end{subfigure}
   \hspace{5mm}
@@ -35,6 +35,17 @@ We can now analise the graphics of the output signal and the gain.
   \label{fig:out2}
   \end{subfigure}
 \end{figure}
+
+We can also see in a transient analysis for f=1kHz, how is the output of the signal in regards of time, as presented in figure \ref{fig:outtime}. It is observable that there are no losses of the original signal (still sinusoidal wave)  The plot after the inicial seconds in order to represent the system without transitory interferences.
+ \begin{figure}[H]
+    \centering
+  \includegraphics[width=0.45\linewidth]{../sim/vo2.pdf}
+  \caption{Output signal variance with time for f=1kHz}
+ \vspace{-10mm}
+  \label{fig:outtime}
+\end{figure}
+
+ 
 
 Analysing now the graphs obtained we are able to determine all the important information about the output. Looking initially at figure \ref{fig:out1}, we start by obtaining the lower(lowfrequence) and higher(highfrequence) cutoff frequencies which are determined by taking the maximum output signal and seeing where this drops 3 dB. With this two values we subtract them and obtained bandwidth. Finaly looking now at figure \ref{fig:out2} we obtain the maximum value of the gain. All the results are presented in table \ref{tab:rip}
 \begin{table}[H]

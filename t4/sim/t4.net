@@ -53,11 +53,13 @@ set color6=rgb:4/0/0
 * time analysis
 tran 1e-5 10e-2 9e-2
 *hardcopy vo1.ps vdb(coll)
-*hardcopy vo2.ps v(out) 
+hardcopy vo2.ps v(out) 
+echo vo2_FIG
 
 * frequency analysis
 ac dec 10 10 100MEG
 *hardcopy vo1f.ps vdb(coll)
+
 
 hardcopy vo2f.ps vdb(out)
 echo vo2f_FIG
@@ -69,7 +71,7 @@ echo gain_FIG
 *input impedance in ohm
 *print all
 
-hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
+*hardcopy input.ps abs(v(in2)[40]/vin#branch[40]/(-1000))
 let inzimpeadance = v(in2)[40]/vin#branch[40]/(-1)
 print v(in2)[40]/vin#branch[40]/(-1)
 
