@@ -20,16 +20,15 @@ Rc vcc coll 1k
 Re emit 0 100
 
 * bypass capacitor
-Cb emit 0 1m
+Cb emit 0 500u
 
-
+*Cx coll emit2 1m
 * output stage
 Q2 0 coll emit2 BC557A
-**alt(100->400)**
 Rout emit2 vcc 400
 
 * output coupling capacitor
-Co emit2 out 1u
+Co emit2 out 10u
 
 VL out 0 0 ac 1.0 sin(0 1 1k)
 

@@ -1,21 +1,22 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-In order to simulate this circuit with Ngspice, real models of npn and pnp transistors where used. We realised that this models are very complex in reagards to the thheoretical models used previously. Because of this we expect there to be signifivcant difference between the results.
+In order to simulate this circuit with Ngspice, real models of npn and pnp transistors where used. We realised that this models are very complex in reagards to the thheoretical models used previously. Because of this we expect there to be significant difference between the results.
 \par
+The simulation was done by taking the base script and tinkering with the values in order to improve the model. We strived to improve the bandwidth mainly since this was, observing the output graphs and value, the component that was lacking the most given that this was a audio amplifier and should worrk for a wide range of frequencies.
 Initially we started by determining the input and output impeadances os the system as a hole (gain stage + output stage). The output impeadance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1 V in the output. The results obtained are the following in table \ref{tab:impe}.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline
-        {\bf Designation} & {\bf Value [V]} \\ \hline
+        {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
         \input{../sim/impedances.tex}
   \end{tabular}
   \caption{Output and Input impeadances} 
   \label{tab:impe}
 \end{table}
 
-As we wanted the input impeadance is high and the output is small. \par
+As we wanted the input impeadance is high and the output is small. Although improvements where made to take the out impeadance as low as we could this value is, perhaps, still a bit high and if it was better maybe it would make a better amplifier. \par
 We can now analise the graphics of the output signal and the gain.
 
 \begin{figure}[H]
@@ -35,22 +36,21 @@ We can now analise the graphics of the output signal and the gain.
   \end{subfigure}
 \end{figure}
 
-We taking the graphs presented previouly we are able to calculate every other measurement of interest listed in the table below. 
-
+Analysing now the graphs obtained we are able to determine all the important information about the output. Looking initially at figure \ref{fig:out1}, we start by obtaining the lower(lowfrequence) and higher(highfrequence) cutoff frequencies which are determined by taking the maximum output signal and seeing where this drops 3 dB. With this two values we subtract them and obtained bandwidth. Finaly looking now at figure \ref{fig:out2} we obtain the maximum value of the gain. All the results are presented in table \ref{tab:rip}
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline
-        {\bf Designation} & {\bf Value [V]} \\ \hline
+        {\bf Designation} & {\bf Value [Hz and dB]} \\ \hline
         \input{../sim/valsim_tab.tex}
   \end{tabular}
-  \caption{Lower frequency, high frequency, bandwidth and gain} 
+  \caption{Lower frequency(Hz), high frequency(Hz), bandwidth(Hz) and gain(dB)} 
   \label{tab:rip}
 \end{table}
 
 
 
-Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the  merit M is given by
+Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip1}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the  merit M is given by
 
 \begin{equation} \label{eq:merit}
   M=\frac{voltageGain \times bandwidth}{cost\times lowerCutoffFreq} 
@@ -61,9 +61,9 @@ Finally, the total monetary cost and the merit $M$ of the circuit used have been
   \centering
   \begin{tabular}{|c|c|}
     \hline
-        {\bf Designation} & {\bf Value [V]} \\ \hline
+        {\bf Designation} & {\bf Value} \\ \hline
         \input{../sim/merit_tab.tex}
   \end{tabular}
   \caption{Cost and merit obtained for this circuit.} 
-  \label{tab:rip}
+  \label{tab:rip1}
 \end{table}
