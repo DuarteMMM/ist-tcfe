@@ -131,12 +131,24 @@ ZI=ZI1;
   
 ZO=1/(go2+(gm2/gpi2)*gB+ge2+gB);
 
+Vbase=VEQ-RB*IB;
+Vcoll=VO1;
+Vemit=VE1;
+Vin = 0;
+Vin2 = 0;
+Vout = 0;
+Vemit2=VCC-Rout*IE2;
+Vvcc = 12;
 
 %Escrever em ficheiros
 
 file_chosen_values = fopen("ChosenValues.tex","w");
-fprintf(file_chosen_values, "$R_1$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_2$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_C$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_E$ & %.0f $\\Omega$ \\\\ \\hline\n$R_{out}$ & %.0f $\\Omega$ \\\\ \\hline\n$C_i$ & %.0f mF \\\\ \\hline\n$C_b$ & %.0f mF \\\\ \\hline\n$C_o$ & %.0f mF \\\\ \\hline", R1/1000, R2/1000, RC/1000, RE_copy, Rout, Ci*1000, Cb*1000, Co*1000);
+fprintf(file_chosen_values, "$R_1$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_2$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_C$ & %.0f k$\\Omega$ \\\\ \\hline\n$R_E$ & %.0f $\\Omega$ \\\\ \\hline\n$R_{out}$ & %.0f $\\Omega$ \\\\ \\hline\n$C_i$ & %.1f mF \\\\ \\hline\n$C_b$ & %.1f mF \\\\ \\hline\n$C_o$ & %.1f mF \\\\ \\hline", R1/1000, R2/1000, RC/1000, RE_copy, Rout, Ci*1000, Cb*1000, Co*1000);
 fclose (file_chosen_values);
+
+file_op_point = fopen("OP_Theo.tex","w");
+fprintf(file_op_point, "$V_{base}$ & %.6e \\\\ \\hline\n$V_{coll}$ & %.6e \\\\ \\hline\n$V_{emit}$ & %.6e \\\\ \\hline\n$V_{emit2}$ & %.6e \\\\ \\hline\n$V_{in}$ & %.6e \\\\ \\hline\n$V_{in2}$ & %.6e \\\\ \\hline\n$V_{out}$ & %.6e \\\\ \\hline\n$V_{vcc}$ & %.6e \\\\ \\hline", Vbase, Vcoll, Vemit, Vemit2, Vin, Vin2, Vout, Vvcc);
+fclose (file_op_point);
 
 file_vce_vbeon = fopen("VCE_VBEON.tex","w");
 fprintf(file_vce_vbeon, "$V_{CE}$ & %.4f\\\\ \\hline\n$V_{BE_{ON}}$ & %.1f \\\\ \\hline", VCE, VON);
@@ -162,19 +174,27 @@ file_gains = fopen("Gains.tex","w");
 fprintf(file_gains,"$AV_1$ & %.6f \\\\\n$AV_1$ [dB] & %.6f \\\\ \\hline\n$AV_2$ & %.6f \\\\\n$AV_2$ [dB] & %.6f \\\\ \\hline\n$AV$ & %.6f \\\\\n$AV$ [dB] & %.6f\\\\ \\hline\n", 0.5*(AV1_aux+AV1), 20*log10(0.5*(AV1_aux+AV1)), AV2, 20*log10(AV2), 0.5*(AV_aux+AV), 20*log10(0.5*(AV_aux+AV)));
 fclose (file_gains);
 
+file_impedances_compare = fopen("ImpedancesCompare.tex","w");
+fprintf(file_impedances_compare,"$Z_I$ & %.6e \\\\ \\hline\n$Z_O$ & %.6e \\\\ \\hline", ZI, ZO);
+fclose (file_impedances_compare);
+
 %Lower cut-off frequency
 
 RE=RE_copy;
 
-Aux =(rpi1+R_BS)/(rpi1*gm1);
-Aux = Aux*RE/(Aux+RE);
+Req_b = (R_BS+rpi1)/(1+gm1*rpi1);
+Req_b = (Req_b*RE)/(Req_b+RE);
 
-w_L= 1/(Cb*Aux)+1/((ZI+RS)*Ci)+1/((ZO+RL)*Co);
+w_L= 1/((ZI+RS)*Ci)+1/(Cb*Req_b)+1/((ZO+RL)*Co);
 f_L=w_L/(2*pi);
 
 file_cutoff = fopen("CutOff.tex","w");
-fprintf(file_cutoff,"Lower cut-off frequency & %.6f \\\\ \\hline", f_L);
+fprintf(file_cutoff,"$f_L$ & %.6f \\\\ \\hline", f_L);
 fclose (file_cutoff);
+
+file_cutoff_gain = fopen("CutOffGain.tex","w");
+fprintf(file_cutoff_gain,"$f_L$ [Hz] & %.6e \\\\ \\hline\n$AV$ [dB] & %.6e\\\\ \\hline", f_L, 20*log10(0.5*(AV_aux+AV)));
+fclose (file_cutoff_gain);
 
 %High cut-off frequency, retirada diretamente do Ngspice
 f_H = 1.928995e+6;
