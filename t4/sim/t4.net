@@ -49,6 +49,16 @@ set color4=violet
 set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
+op
+
+echo "********************************************"
+echo  "Operating point"
+echo "********************************************"
+
+echo  "op_TAB"
+print all
+echo  "op_END"
+
 
 * time analysis
 tran 1e-5 10e-2 9e-2

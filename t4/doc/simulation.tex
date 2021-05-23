@@ -3,7 +3,26 @@
 In order to simulate this circuit with Ngspice, real models of npn and pnp transistors where used. We realised that this models are very complex in reagards to the thheoretical models used previously. Because of this we expect there to be significant difference between the results.
 \par
 The simulation was done by taking the base script and tinkering with the values in order to improve the model. We strived to improve the bandwidth mainly since this was, observing the output graphs and value, the component that was lacking the most given that this was a audio amplifier and should worrk for a wide range of frequencies.
-Initially we started by determining the input and output impeadances os the system as a hole (gain stage + output stage). The output impeadance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1 V in the output. The results obtained are the following in table \ref{tab:impe}.
+
+We start by an inicial operating point analysis.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value [V]} \\ \hline
+        \input{../sim/op_tab.tex}
+  \end{tabular}
+  \caption{Operating point analysis} 
+  \label{tab:rip}
+\end{table}
+
+As we can see  the values correspond to the transistors being in a forward active reagion. This means for the NPN, that $V_{CE}>V_{BE}$, and that for de PNP $V_{EC}>V_{EB}$. As we observe the values of the theoretical and simulation analysis are not to far off eachother and that is to be expected since although the models used for the operating point analysis are good approximations they are still aproximations not the real model.
+\par
+
+
+
+Afterwards the input and output impeadances of the system as a hole (gain stage + output stage) were determined. The output impeadance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1 V in the output. The results obtained are the following in table \ref{tab:impe}.
 
 \begin{table}[H]
   \centering
@@ -41,7 +60,6 @@ We can also see in a transient analysis for f=1kHz, how is the output of the sig
     \centering
   \includegraphics[width=0.45\linewidth]{../sim/vo2.pdf}
   \caption{Output signal variance with time for f=1kHz}
- \vspace{-10mm}
   \label{fig:outtime}
 \end{figure}
 
