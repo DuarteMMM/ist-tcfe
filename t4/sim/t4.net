@@ -90,6 +90,7 @@ print bandwidth
 print gainfinal
 echo "valsim_END"
 
+
 let valcap = 1000+1200+1600
 let valresis = 0.1+70+10+0.1+0.1+1
 let cost = 2*0.1+valcap+valresis
