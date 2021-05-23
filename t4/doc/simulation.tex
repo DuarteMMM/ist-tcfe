@@ -1,42 +1,66 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-In order to simulate this circuit with Ngspice, real models of npn and pnp transistors where used. We realised that this models are very complex in reagards to the thheoretical models used previously. Because of this we expect there to be significant difference between the results.
+In order to simulate this circuit with Ngspice, real models of NPN and PNP transistors were used, as it was discussed before. These models are very complex compared to the theoretical model used previously. Because of this, it is expected for there to be significant differences between the results from the two sections.
 \par
-The simulation was done by taking the base script and tinkering with the values in order to improve the model. We strived to improve the bandwidth mainly since this was, observing the output graphs and value, the component that was lacking the most given that this was a audio amplifier and should worrk for a wide range of frequencies.
-
-We start by an inicial operating point analysis.
+The simulation was done by taking the base script and tinkering with the values in order to improve the model. The bandwidth was improved as much as possible, since an audio amplifier should worrk for a wide range of frequencies, in particular those that the human ear can process (i.e., from 20 Hz to 20 kHz, approximately). Firstly, the most relevant Operating Point values from Sections \ref{sec:analysis} and \ref{sec:simulation} will be compared.
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|}
-    \hline
-        {\bf Designation} & {\bf Value [V]} \\ \hline
-        \input{../sim/op_tab.tex}
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [V]} \\ \hline
+          \input{OP_Theo.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Node} & {\bf Voltage value [V]} \\ \hline
+          \input{../sim/op_tab.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Operating point analysis} 
-  \label{tab:rip}
+  \caption{Comparison between theoretical and simulation OP analysis' results.}
+  \label{tab:op_comparison}
 \end{table}
 
-As we can see  the values correspond to the transistors being in a forward active reagion. This means for the NPN, that $V_{CE}>V_{BE}$, and that for de PNP $V_{EC}>V_{EB}$. As we observe the values of the theoretical and simulation analysis are not to far off eachother and that is to be expected since although the models used for the operating point analysis are good approximations they are still aproximations not the real model.
+As we can see, the values confirm that the transistors are working in a forward active region, as it was seen for the theoretical analysis. This means that, for the NPN transistor, $V_{CE}>V_{BE}$, and that, for the PNP transistor, $V_{EC}>V_{EB}$. The values of the theoretical and simulation analysis are not too far off eachother. This means that the model used in the previous section is a quite good approximation. However, it does lack in some aspects. For instance, a medium frequencies incremental model was considered, which allowed us to not consider the capacitor. Moreover, an approximation was used for $V_{ON}$, and that is not the case in Ngspice, which, in its turn, uses very complex models for the transistors, thus very likely more accurate. The null voltages in nodes in, in2 and out were to be expected, since the input signal does not have a DC component.
+
 \par
 
-
-
-Afterwards the input and output impeadances of the system as a hole (gain stage + output stage) were determined. The output impeadance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1 V in the output. The results obtained are the following in table \ref{tab:impe}.
+As shown next, the input and output impedances of the system as a whole (Gain Stage+Output Stage) were determined. The output impedance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1V in the output. The results obtained are shown in Table \ref{tab:impe}, together with the theoretical analysis'.
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|}
-    \hline
-        {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
-        \input{../sim/impedances.tex}
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
+          \input{../mat/ImpedancesCompare.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
+          \input{../sim/impedances.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Output and Input impeadances} 
+  \caption{Comparison between theoretical and simulation's input and output impedances considering the whole circuit.}
   \label{tab:impe}
 \end{table}
 
-As we wanted the input impeadance is high and the output is small. Although improvements where made to take the out impeadance as low as we could this value is, perhaps, still a bit high and if it was better maybe it would make a better amplifier. \par
-We can now analise the graphics of the output signal and the gain.
+As it was intended, the input impedance is high and the output impedance is small. Although improvements where made to make the output impeadance as low as possible, this value is, perhaps, still a bit high. From Table \ref{tab:impe} the disparities between the theoretical model and the simulation's results are quite apparent, having obtained a very good output impedance with the first and a higher (and less desirable) one with the simulation. However, it is also worth noting that the values of the circuit's resistances and capacitances were chosen in order to simultaneously obtain good results and to keep the cost as low as possible.
+\par
+Now, the plots of the output signal and the gain are presented. For a transient analysis of frequency f=1kHz for the input signal, the output has been plotted in Figure \ref{fig:outtime}. We can notice that there are no observable losses from the original signal, that is, the wave is still sinusoidal. The plot was made after the inicial period of time in order to represent the system without transitory solutions.
+\par
+Regarding the plot of the gain, it is clearly very similar to the one obtained in Section \ref{sec:analysis}. Between the lower cutoff frequency and the higher cutoff frequency, the gain shows no noticible variations. Moreover, for frequencies lower than the lower cutoff frequency, we can see that the plot is approximately a line of constant positive slope, and it is very similar to a line of constant negative slope for higher frequencies. 
 
 \begin{figure}[H]
   \begin{subfigure}{.49\linewidth}
@@ -55,31 +79,40 @@ We can now analise the graphics of the output signal and the gain.
   \end{subfigure}
 \end{figure}
 
-We can also see in a transient analysis for f=1kHz, how is the output of the signal in regards of time, as presented in figure \ref{fig:outtime}. It is observable that there are no losses of the original signal (still sinusoidal wave)  The plot after the inicial seconds in order to represent the system without transitory interferences.
  \begin{figure}[H]
     \centering
   \includegraphics[width=0.45\linewidth]{../sim/vo2.pdf}
   \caption{Output signal variance with time for f=1kHz}
   \label{fig:outtime}
-\end{figure}
+ \end{figure}
 
- 
+ Having the values showed and plotted before, we are able to determine all the recquired information about the output. The lower cutoff frequency (\textit{lowfrequence} in the table shown below) and the higher cutoff frequency (\textit{highfrequence}) are determined by taking the maximum output signal and computing where it drops by 3dB. By subtracting these two values, the bandwidth is obtained. Finally, the  maximum value of the gain plotted in Figure \ref{fig:out2} is obtained. All these results are presented in Table \ref{tab:rip}. The highcutoff frequency and the bandwidth for the theoretical analysis are not shown because, in order to plot the gain in Section \ref{sec:analysis}, the value \textit{highfrequence} obtained in Ngspice was used. As seen in Table \ref{tab:rip}, there is a clear difference between the values obtained in Sections \ref{sec:analysis} and \ref{sec:simulation}. Firstly, it is worth noting that equation \ref{eq:cutoff_frequency_law} corresponds to an approximate value of the actual cutoff frequency, which might help explain the difference observed. For the Ngspice simulation, the values of the resistances and capacitances were chosen in order to obtain a good \textit{lowfrequence} (amongst other quantities, like the gain). Thus, this discrepancy shows once again the limitations of the theoretical model used. Not only does equation \ref{eq:cutoff_frequency_law} give an approximate value, it also depends on values of impedances which are themselves approximate values that come from the theoretical analysis. Once again, it is clear that Ngspice uses a quite different model for the transistors. On the other hand, we can see that the gain of the circuit (AV and \textit{gainfinal} shown below) are quite similar, which shows that the theoretical model, even though relatively far from ideal, still produces good approximations.
 
-Analysing now the graphs obtained we are able to determine all the important information about the output. Looking initially at figure \ref{fig:out1}, we start by obtaining the lower(lowfrequence) and higher(highfrequence) cutoff frequencies which are determined by taking the maximum output signal and seeing where this drops 3 dB. With this two values we subtract them and obtained bandwidth. Finaly looking now at figure \ref{fig:out2} we obtain the maximum value of the gain. All the results are presented in table \ref{tab:rip}
-\begin{table}[H]
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline
-        {\bf Designation} & {\bf Value [Hz and dB]} \\ \hline
-        \input{../sim/valsim_tab.tex}
+ \begin{table}[H]
+   \centering
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value} \\ \hline
+          \input{../mat/CutOffGain.tex}
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [Hz or dB]} \\ \hline
+          \input{../sim/valsim_tab.tex}
+    \end{tabular}
   \end{tabular}
-  \caption{Lower frequency(Hz), high frequency(Hz), bandwidth(Hz) and gain(dB)} 
+  \caption{Values obtained for the lower and higher cutoff frequencies (in Hz) and the final gain (in dB), for both the simulation and the theoretical analysis; bandwidth (in Hz) for the simulation.}
   \label{tab:rip}
 \end{table}
 
 
-
-Finally, the total monetary cost and the merit $M$ of the circuit used have been calculated and are shown below in Table \ref{tab:rip1}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the  merit M is given by
+Finally, the total monetary cost and the merit $M$ of the circuit have been calculated and are shown below in Table \ref{tab:rip1}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the merit M is given by
 
 \begin{equation} \label{eq:merit}
   M=\frac{voltageGain \times bandwidth}{cost\times lowerCutoffFreq} 

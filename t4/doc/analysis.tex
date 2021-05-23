@@ -17,7 +17,7 @@ The values used for the circuit's resistances and capacitances were determined w
 As it was learnt in class, the Gain Stage can be simplified into the circuit shown below, by using the Thévenin's equivalent of the bias circuit.
 
 \begin{figure}[H] \centering
-  \includegraphics[width=0.8\linewidth]{CircuitDrawGainStage.pdf}
+  \includegraphics[width=0.6\linewidth]{CircuitDrawGainStage.pdf}
   \caption{Gain Stage circuit.}
   \label{fig:CircuitDrawGainStage}
 \end{figure}
@@ -72,7 +72,7 @@ The impedances obtained are shown in Table \ref{tab:theoretical_impedances} and 
 Now, let us consider the Output Stage circuit, which is shown below.
 
 \begin{figure}[H] \centering
-  \includegraphics[width=0.8\linewidth]{CircuitDrawOutputStage.pdf}
+  \includegraphics[width=0.6\linewidth]{CircuitDrawOutputStage.pdf}
   \caption{Output Stage circuit.}
   \label{fig:CircuitDrawOutputStage}
 \end{figure}
@@ -124,6 +124,19 @@ Where $g_m=\frac{I_C}{V_T}$, $g_o=\frac{I_C}{V_A}$, $g_{\pi}=\frac{g_m}{\beta_f}
 
 In the above expressions, the index 1 refers to values calculated for the Gain Stage and the index 2 corresponds to values determined for the Output Stage.
 \par
+In Table \ref{tab:theoretical_op}, shown below, are the values, obtained through the OP analysis discussed below, which will be compared with the OP results of the Ngspice simulation. The DC (operating point) components of $V_{in}$, $V_{in2}$ and $V_{out}$ are zero because it was established, since the start, that the input voltage had no DC component. 
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline    
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/OP_Theo.tex}
+  \end{tabular}
+  \caption{Operating point voltages to be compared with the simulation's results.}
+  \label{tab:theoretical_op}
+\end{table}
+
 The values obtained for all the input and output impedances were the following:
 
 \begin{table}[H]
@@ -150,8 +163,32 @@ The values obtained for the gains were the following:
   \label{tab:theoretical_gains}
 \end{table}
 
+As we can see by both tables above, the input impedance $Z_{I2}$ is of the same order of magnitude and relatively similar to $Z_{O1}$ from the Gain Stage, thus it is quite compatible. This is one of the reasons why the two stages can be connected without significant signal loss. Moreover, the final output impedance $Z_O$ is smaller than 8$\Omega$, the speaker's resistance. Thus, the circuit obtained in this laboratory assignment is very good to connect to the 8$\Omega$ load. This means that the output stage is an essential part of this circuit, because we were able to drastically decrease the output voltage from the Gain Stage, which could (should) not be connected to the speaker.
+\par
+As for the gains, we can see that the final gain AV is quite large in absolute value. This means that the audio amplifier is doing its desired job and is increasing the input signal's amplitude. It is worth noting that the minus sign means that the output signal has a phase difference (of approximately $\pi$ rad) from the input; however, that is not a problem, because the sound the listener will ear is not qualitatively affected, that is, the human ear is indifferent to this phase difference. On the other hand, the gain $AV_2$, from the Output Stage, is very close to 1, as expected.
+\par
+Finally, a plot with the gain of the total circuit must be plotted. In order to do this, it is necessary to determine the lower cutoff frequency, from which the gain will begin to have the value $AV$ obtained above. For frequencies smaller than the cutoff frequency $f_L$, the plot of the gain in DB has a slope of +20 dB. The lower cutoff (angular) frequency for the circuit is given by
 
-The value obtained for the cut-off frequency was the following:
+\begin{equation} \label{eq:cutoff_frequency_law}
+  \omega_L\approx\sum_{j} \frac{1}{R_{eq_j}C_j}=\frac{1}{R_{eq_i}C_i}+\frac{1}{R_{eq_b}C_b}+\frac{1}{R_{eq_2}C_2}
+\end{equation}
+
+Where $R_{eq_j}$ is the resistance at the terminals of the j-th capacitor $C_j$ with all other capacitors replaced by short-circuits. The product $R_{eq_j}C_j$ is called the short-circuit time constant associated with $C_j$. By analysing the circuit in this way, it was possible to conclude that these equivalent resistances are given by:
+
+\begin{equation} \label{eq:equivalent_resistance_i}
+  R_{eq_i}=R_S+Z_{I1}
+\end{equation}
+
+\begin{equation} \label{eq:equivalent_resistance_b}
+  R_{eq_b}=R_E\;||\;\frac{R_S||R_B+r_{\pi1}}{1+g_{m1}r_{\pi1}}
+\end{equation}
+
+\begin{equation} \label{eq:equivalent_resistance_2}
+  R_{eq_2}=R_L+Z_O
+\end{equation}
+
+
+Where the index 1 refers to values determined for the Gain Stage. Having determined $\omega_L$, it is straightforward to obtain the cutoff frequency, which is given by $f_L=\frac{\omega_L}{2\pi}$ and is shown in Table \ref{tab:theoretical_cutoff}. On the other hand, the higher cutoff frequency could be determined by considering the small capacitances of the transistors and not the circuit's capacitors. However, in order to plot the graph in Figure \ref{fig:gain_plot}, the value $f_H$ of this frequency was the one obtained from Ngspice. From this frequency beyond, it is considered that the graph is a line with slope -20 dB.
 
 \begin{table}[H]
   \centering
@@ -160,11 +197,10 @@ The value obtained for the cut-off frequency was the following:
     {\bf Name} & {\bf Value [Hz]} \\ \hline
     \input{../mat/CutOff.tex}
   \end{tabular}
-  \caption{Value obtained for the cut-off frequency by theoretical analysis.}
+  \caption{Value obtained for the cutoff frequency by theoretical analysis.}
   \label{tab:theoretical_cutoff}
 \end{table}
 
-Finally, a plot with tha gain with respect to frequency is plotted below.
 
 \begin{figure}[H] \centering
   \includegraphics[width=0.7\linewidth]{gain_plot.eps}
@@ -172,3 +208,4 @@ Finally, a plot with tha gain with respect to frequency is plotted below.
   \label{fig:gain_plot}
 \end{figure}
 
+The results shown in this section will be further analysed by comparing them side by side with the simulation's values and plots.

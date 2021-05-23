@@ -55,9 +55,9 @@ ac dec 10 10 100MEG
 *print all
 
 *hardcopy output.ps abs(1/vL#branch[40]/(-1))
-let outzimpeadance = 1/vL#branch[40]/(-1)
+let outzimpedance = 1/vL#branch[40]/(-1)
 
-print outzimpeadance >> impedances.tex
+print outzimpedance >> impedances.tex
 
 
 .endc 
