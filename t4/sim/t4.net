@@ -77,7 +77,7 @@ print v(in2)[40]/vin#branch[40]/(-1)
 
 meas ac maxout MAX vdb(out) from=1000 to=100000
 let allin=maxout-3
-let fall=vdb(out)+vdb(in2)
+let fall=v(out)/-v(in2)
 meas ac lowfrequence WHEN vdb(out)=allin RISE=1
 meas ac highfrequence WHEN vdb(out)=allin FALL=1
 meas ac gainfinal MAX fall from=1000 to=100000
@@ -92,7 +92,7 @@ echo "valsim_END"
 
 
 let valcap = 1000+1200+1600
-let valresis = 0.1+70+10+0.1+0.1+1
+let valresis = 0.1+70+10+0.1+0.05+1
 let cost = 2*0.1+valcap+valresis
 let merit = gainfinal*bandwidth/(cost*lowfrequence)
 
