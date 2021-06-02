@@ -54,10 +54,14 @@ ac dec 10 10 100MEG
 *output impedance in kohm
 *print all
 
+
 *hardcopy output.ps abs(1/vL#branch[40]/(-1))
 let outzimpedance = 1/vL#branch[40]/(-1)
 
 print outzimpedance >> impedances.tex
+
+*plot abs(v(in2)/vin#branch/(-1000))
+*print v(in2)[40]/vin#branch[40]/(-1000)
 
 
 .endc 
