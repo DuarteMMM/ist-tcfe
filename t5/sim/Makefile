@@ -7,6 +7,15 @@ all: ngspice.log
 
 ngspice.log: ../sim/t5.net
 	@ngspice -b ../sim/t5.net -o $@
+	@sed 's/\,.*/,/' -i impedances.tex
+	@sed 's/,//' -i impedances.tex
+	@sed 's/\=/\&/g' -i impedances.tex
+	@ngspice -b ../sim/t5out.net >> $@
+	@sed 's/\,.*/,/' -i impedances.tex
+	@sed 's/,//' -i impedances.tex
+	@sed 's/\=/\&/g' -i impedances.tex
+	@sed 's/$$/\\\\ \\hline/g' -i impedances.tex
+	@sed 's/z/\ /g' -i impedances.tex
 
 clean:
 	@rm -f ngspice.log *.tex *.pdf *.ps *.txt *~
