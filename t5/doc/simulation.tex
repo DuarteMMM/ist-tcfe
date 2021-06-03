@@ -1,3 +1,97 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-In order to simulate this circuit with Ngspice,
+The simulation utilized a given op-amp in order to simulate the circuit in Figure 1. 
+
+
+
+The input and output impedances of the system as a whole were determined. The output impedance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1V in the output. The results obtained are shown in Table \ref{tab:impe}, together with the theoretical analysis'.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
+          \input{../sim/impedances.tex}%suposto ser mat
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
+          \input{../sim/impedances.tex}
+    \end{tabular}
+  \end{tabular}
+  \caption{Comparison between theoretical and simulation's input and output impedances considering the whole circuit.}
+  \label{tab:impe}
+\end{table}
+
+As it was intended, the input impedance is high and the output impedance is really small.
+\par
+Now, the plots of the output signal and the gain are presented. For a transient analysis of frequency f=1kHz for the the output has been plotted in Figure \ref{fig:out1}. We can notice that there are no observable losses from the original signal, that is, the wave is still sinusoidal. The plot was made ate a later time (not t=0) when there are no transient variances in the signal.
+
+\begin{figure}[H]
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{../sim/vo1.pdf}
+    \footnotesize
+  \caption{Output signal variance with time for f=1kHz}
+   \label{fig:out1}
+  \end{subfigure}
+  \hspace{5mm}
+  \begin{subfigure}{.49\linewidth}
+    \centering
+  \includegraphics[width=0.95\linewidth]{../sim/gain.pdf}
+  \caption{Gain}
+  \label{fig:out2}
+  \end{subfigure}
+\end{figure}
+
+Regarding the plot of the gain, we can see that the passband effect is achieved being that the gain is only maximum for an intermediate level of frequencys.
+
+ \begin{table}[H]
+   \centering
+  \begin{tabular}{cc}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
+      \hline
+          {\bf Designation} & {\bf Value} \\ \hline
+          \input{../sim/valsim_tab.tex}%suposto ser mat
+    \end{tabular}
+    \qquad
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
+      \hline    
+          {\bf Designation} & {\bf Value [Hz or dB]} \\ \hline
+          \input{../sim/valsim_tab.tex}
+    \end{tabular}
+  \end{tabular}
+  \caption{Values obtained for the lower and higher cutoff frequencies (in Hz) and the final gain (in dB), for both the simulation and the theoretical analysis; bandwidth (in Hz) for the simulation.}
+  \label{tab:rip}
+\end{table}
+
+
+Finally, the total monetary cost and the merit $M$ of the circuit have been calculated and are shown below in Table \ref{tab:rip1}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the merit M is given by
+
+\begin{equation} \label{eq:merit}
+  M=\frac{1}{cost\times GainDeviation \times CentralFrequencydeviation} 
+\end{equation}
+
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+        {\bf Designation} & {\bf Value} \\ \hline
+        \input{../sim/merit_tab.tex}
+  \end{tabular}
+  \caption{Cost and merit obtained for this circuit.} 
+  \label{tab:rip1}
+\end{table}
+
+Cost and merit observations
