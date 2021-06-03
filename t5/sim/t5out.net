@@ -51,14 +51,13 @@
 
 Vcc vcc 0 10.0
 Vee vee 0 -10.0
-Vin in 0 0 ac 1.0 sin(0 10m 1k)
 
 X1 dir7 inv7 vcc vee outx uA741
 
 
 
 *Inverting terminal
-C1 in dir7 220n
+C1 0 dir7 220n
 R1 dir7 0 10k
 
 
@@ -72,7 +71,7 @@ C2 out 0 220n
 
 
 * load
-RL out 0 8
+Vout out 0 0 ac 1.0 sin(0 1.0 1k)
 
 .op
 .end
@@ -90,71 +89,13 @@ set color5=rgb:3/8/0
 set color6=rgb:4/0/0
 
 
-
-
-*input impedance in kohm
-*print v(in)[40]/R1[i]/1000
-
-op
-
-echo "********************************************"
-echo  "Operating point"
-echo "********************************************"
-
-echo  "op_TAB"
-print all
-echo  "op_END"
-
-
-* time analysis
-tran 1e-5 10e-2 9e-2
-hardcopy vo1.ps v(out)
-echo vo1_FIG
-
 * frequency analysis
-ac dec 10 10 1MEG
-*hardcopy vo1f.ps vdb(out) vdb(in)
-*echo vo1f_FIG
+ac dec 10 10 100MEG
+*output impedance in kohm
 
-hardcopy vo2f.ps vdb(out)
-echo vo2f_FIG
-let gain = db(v(out)/v(in))
-hardcopy gain.ps gain
-echo gain_FIG
+let outzimpedance = 1/vout#branch[40]/(-1)
 
-
-
-let inzimpedance = v(in)[40]/vin#branch[40]*(-1)
-
-meas ac maxout MAX vdb(out) from=1000 to=100000
-let allin=maxout-3
-let fall=v(out)/-v(in2)
-meas ac lowfrequence WHEN vdb(out)=allin RISE=1
-meas ac highfrequence WHEN vdb(out)=allin FALL=1
-meas ac gainfinal MAX gain from=1000 to=100000
-let centerfrequency=lowfrequence+(highfrequence-lowfrequence)/2
-
-echo "valsim_TAB"
-print lowfrequence
-print highfrequence
-print centerfrequency
-print gainfinal
-echo "valsim_END"
-
-
-let valcap = 0.220+0.220
-let valresis = 10+300+1+1
-let cost = 2*0.1+valcap+valresis
-let centraldevi=abs(1000-centerfrequency)
-let gaindevi=abs(40-gainfinal)
-let merit = 1/(cost*gaindevi*centraldevi)
-
-echo "merit_TAB"
-print cost
-print merit
-echo "merit_END"
-
-print inzimpedance > impedances.tex
+print outzimpedance >> impedances.tex
 
 .endc 
 
