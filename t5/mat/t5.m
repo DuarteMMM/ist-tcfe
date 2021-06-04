@@ -55,7 +55,8 @@ fO=wO/(2*pi);
 VplusFinal=v/(1+R1*j*wO*C1);
 VzetaFinal=VplusFinal*(1+R3/R4);
 VfinalFinal=VzetaFinal/(1+R2*j*wO*C2);
-GainFinal=20*log10(abs(VfinalFinal)/abs(v));
+zeta=((R1*C1*j*wO)*(1+R3/R4))/((1+R1*C1*j*wO)*(1+R2*C2*j*wO));
+GainFinal=20*log10(abs(zeta))
   
 %Write in files
 
