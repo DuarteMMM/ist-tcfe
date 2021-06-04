@@ -1,5 +1,4 @@
-*-----------------------------------------------------------------------------
-*
+*Bandpass filter using OP-AMP
 * To use a subcircuit, the name must begin with 'X'.  For example:
 * X1 1 2 3 4 5 uA741
 *
@@ -51,28 +50,31 @@
 
 Vcc vcc 0 10.0
 Vee vee 0 -10.0
-Vin in 0 0 ac 1.0 sin(0 10m 1k)
+Vin in 0 0 ac 1.0 sin(0 113m 1k)
+*Vin in 0 0 ac 1.0 sin(0 10m 1k)
 
-X1 dir7 inv7 vcc vee outx uA741
+X1 3 2 vcc vee 6 uA741
 
 
 
 *Inverting terminal
-C1 in dir7 220n
-R1 dir7 0 10k
+C1 in 3 220n
+R1 3 0 1k
 
 
 *Non-Inverting terminal
-R3 inv7 outx 300k
-R4 inv7 0 1k
+R3 2 6 100k
+R4 2 0 1k
+R4p 2 0 1k
 
 *after op-amp
-R2 outx out 1k
+R2 6 out 1k
+R2p 6 out 1k
 C2 out 0 220n
 
 
 * load
-RL out 0 8
+*RL out 0 1
 
 .op
 .end
@@ -112,7 +114,7 @@ hardcopy vo1.ps v(out)
 echo vo1_FIG
 
 * frequency analysis
-ac dec 10 10 1MEG
+ac dec 10 10 100MEG
 *hardcopy vo1f.ps vdb(out) vdb(in)
 *echo vo1f_FIG
 

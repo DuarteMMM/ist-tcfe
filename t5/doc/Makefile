@@ -12,7 +12,7 @@ all: $(FILE).pdf
 	evince $< &
 
 $(FILE).pdf: $(wildcard *.tex) $(LODFIGS)
-#	cp -f ../mat/*.tex  ../mat/*.eps .
+	cp -f ../mat/*.tex  ../mat/*.eps .
 	pdflatex  $(FILE).tex >/dev/null
 	pdflatex  $(FILE).tex >/dev/null
 	pdflatex  $(FILE).tex >/dev/null
@@ -28,7 +28,7 @@ $(FILE).pdf: $(wildcard *.tex) $(LODFIGS)
 clean:
 	@rm -rf *.aux *.bbl *.blg *.glg *.glo *.gls *.ilg *.ist *.lof
 	@rm -rf *.log *.lot *.nlo *.nls *.out *.toc *~ *.*% ./*.pdf ./*.eps
-	@rm -rf ChosenValues.tex
+	@rm -rf ChosenValues.tex Impedances.tex GainFrequencies.tex
 
 .PHONY: all clean
 
