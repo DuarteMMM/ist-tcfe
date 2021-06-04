@@ -23,15 +23,15 @@ v=113.e-3;
 
 
 %Calculanting input impedance and Vplus
-Vplus=v/(1+R1*j*wmain*C1);
+#Vplus=v/(1+R1*j*wmain*C1);
 Zinput=R1+1/(j*wmain*C1);
 
 Zoutput=1/(-1/R2-j*wmain*C2);
 
 %Calculating the final voltage and gain
-Vzeta=Vplus*(1+R3/R4);
-Vfinal=Vzeta/(1+R2*j*wmain*C2);
-Gain=20*log10(abs(Vfinal)/abs(v));
+#Vzeta=Vplus*(1+R3/R4);
+#Vfinal=Vzeta/(1+R2*j*wmain*C2);
+#Gain=20*log10(abs(Vfinal)/abs(v));
 
 %No clue about how to calculate output impedance HELP!!!!!
 
@@ -41,7 +41,8 @@ w=2*pi*f;
 Vplus=v./(1+R1*j*w.*C1);
 Vzeta=Vplus.*(1+R3/R4);
 Vfinal=Vzeta./(1+R2*j*w*C2);
-Gain=20*log10(abs(Vfinal)/abs(v))
+teta=((R1*C1*j*w)*(1+R3/R4))./((1+R1*C1*j*w).*(1+R2*C2*j*w));
+Gain=20*log10(abs(teta));
 
 %Lower and higher cut-off frequencies and central frequency
 
