@@ -124,17 +124,20 @@ let gain = db(v(out)/v(in))
 hardcopy gain.ps gain
 echo gain_FIG
 
-
+let gainlinear = v(out)/v(in)
 
 let inzimpedance = v(in)[40]/vin#branch[40]*(-1)
 
 meas ac maxout MAX vdb(out) from=1000 to=100000
 let allin=maxout-3
-let fall=v(out)/-v(in2)
+*let fall=v(out)/-v(in2)
 meas ac lowfrequence WHEN vdb(out)=allin RISE=1
 meas ac highfrequence WHEN vdb(out)=allin FALL=1
 meas ac gainfinal MAX gain from=1000 to=100000
-let centerfrequency=lowfrequence+(highfrequence-lowfrequence)/2
+*let centerfrequency=lowfrequence+(highfrequence-lowfrequence)/2
+let centerfrequency=sqrt(lowfrequence*highfrequence)
+
+meas ac gainfinallinear MAX gainlinear from=1000 to=100000
 
 echo "valsim_TAB"
 print lowfrequence
@@ -144,12 +147,19 @@ print gainfinal
 echo "valsim_END"
 
 
-let valcap = 0.220+0.220
-let valresis = 10+300+1+1
-let cost = 2*0.1+valcap+valresis
+let valcap = (220+220)/1000
+let valresis = 1+1+1+100+1+1
+let cost = 22*0.1+valcap*1+valresis*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(40-gainfinal)
+*let gaindevi=abs(100-gainfinallinear)
 let merit = 1/(cost*gaindevi*centraldevi)
+
+print cost > info.tex
+print gainfinal >> info.tex
+print gainfinallinear >> info.tex
+print gaindevi >> info.tex
+print centraldevi >> info.tex
 
 echo "merit_TAB"
 print cost

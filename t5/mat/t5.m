@@ -63,7 +63,7 @@ fprintf(file_impedances,"$|Z_I|$ & %.6f \\\\ \\hline\n$|Z_O|$ & %.6f \\\\ \\hlin
 fclose (file_impedances);
 
 file_gain_frequencies = fopen("GainFrequencies.tex","w");
-fprintf(file_gain_frequencies,"$f_L$ & %.6f Hz \\\\ \\hline\n$f_H$ & %.6f Hz \\\\ \\hline\n$f_O$ & %.6f Hz \\\\ \\hline\nGain & %.6f \\\\ \\hline", fL, fH, fO, GainFinal);
+fprintf(file_gain_frequencies,"$f_L$ & %.6f \\\\ \\hline\n$f_H$ & %.6f \\\\ \\hline\n$f_O$ & %.6f \\\\ \\hline\nGain & %.6f \\\\ \\hline", fL, fH, fO, GainFinal);
 fclose (file_gain_frequencies);
 
 %Plotting
