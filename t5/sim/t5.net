@@ -58,19 +58,19 @@ X1 3 2 vcc vee 6 uA741
 
 
 *Inverting terminal
-C1 in 3 220n
+C1 in 3 1u
 R1 3 0 1k
-
-
+R12 3 0 10k
 *Non-Inverting terminal
 R3 2 6 100k
 R4 2 0 1k
-R4p 2 0 1k
+R4p 2 0 10k
+
 
 *after op-amp
-R2 6 out 1k
+R2 6 out 10k
 R2p 6 out 1k
-C2 out 0 220n
+C2 out 0 70n
 
 
 * load
@@ -129,13 +129,14 @@ let gainlinear = v(out)/v(in)
 let inzimpedance = v(in)[40]/vin#branch[40]*(-1)
 
 meas ac maxout MAX vdb(out) from=1000 to=100000
-let allin=maxout-3
 *let fall=v(out)/-v(in2)
-meas ac lowfrequence WHEN vdb(out)=allin RISE=1
-meas ac highfrequence WHEN vdb(out)=allin FALL=1
 meas ac gainfinal MAX gain from=1000 to=100000
-*let centerfrequency=lowfrequence+(highfrequence-lowfrequence)/2
+let allign=gainfinal-3
+meas ac lowfrequence WHEN gain=allign RISE=1
+meas ac highfrequence WHEN gain=allign FALL=1
+let centerfrequency1=lowfrequence+(highfrequence-lowfrequence)/2
 let centerfrequency=sqrt(lowfrequence*highfrequence)
+meas ac fmax WHEN gain=gainfinal
 
 meas ac gainfinallinear MAX gainlinear from=1000 to=100000
 
@@ -147,8 +148,8 @@ print gainfinal
 echo "valsim_END"
 
 
-let valcap = (220+220)/1000
-let valresis = 1+1+1+100+1+1
+let valcap = (220+220+220)/1000 +1
+let valresis = 1+1+1+100+10+10+10
 let cost = 22*0.1+valcap*1+valresis*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(40-gainfinal)
