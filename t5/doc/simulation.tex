@@ -1,25 +1,5 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-\subsection{Laboratory results} \label{subsec:laboratory_results}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-        \hline
-        $R_1$ & $R_2$ & $R_{2p}$ & $R_{4p}$ & $Amp_{v_I}$ [mV] & $Amp_{v_O}$ [V] & Gain [dB]\\
-        \hline
-        1 & 1 & - & - & 113 & 5.5 & 33.7 \\
-        1 & 100 & - & - & 115 & 6.9 & 35.6 \\
-        1 & 1 & - & 1 & 113 & 9.5 & 38.5 \\
-        1 & 1 & 2 & 1 & 111 & 11.6 & 40.4 \\
-        1 & 1 & 1 & 1 & 113 & 13.0 & 41.2 \\
-        \hline
-    \end{tabular}
-    \caption{Values obtained presencially in the laboratory; the resistances are in $k\;\Omega$. The gains are approximate values with one decimal point. The following values remained constant: $C_1=220\;nF$, $C_2=220\;nF$, $R_3=100\;k\Omega$ and $R_4=1\;k\Omega$.}
-    \label{tab:lab_results}
-\end{table}
-
-\subsection{Ngspice results} \label{subsec:ngspice_results}
 
 The simulation utilized a given op-amp in order to simulate the circuit in Figure 1. 
 
@@ -27,28 +7,7 @@ The simulation utilized a given op-amp in order to simulate the circuit in Figur
 
 The input and output impedances of the system as a whole were determined. The output impedance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1V in the output. The results obtained are shown in Table \ref{tab:impe}, together with the theoretical analysis'.
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{cc}
-    \begin{tabular}{|c|c|}
-      \hline
-      \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
-      \hline
-          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
-          \input{../mat/Impedances.tex}
-    \end{tabular}
-    \qquad
-    \begin{tabular}{|c|c|}
-      \hline
-      \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
-      \hline    
-          {\bf Designation} & {\bf Value [$\Omega$]} \\ \hline
-          \input{../sim/impedances.tex}
-    \end{tabular}
-  \end{tabular}
-  \caption{Comparison between theoretical and simulation's input and output impedances considering the whole circuit.}
-  \label{tab:impe}
-\end{table}
+\par
 
 As it was intended, the input impedance is high and the output impedance is really small.
 \par
@@ -80,15 +39,16 @@ Regarding the plot of the gain, we can see that the passband effect is achieved 
       \hline
       \multicolumn{2}{|c|}{\bf \color{blue} Theoretical} \\
       \hline
-          {\bf Designation} & {\bf Value [Hz or dB]} \\ \hline
-          \input{../mat/GainFrequencies.tex}
+          {\bf Designation} & {\bf Value [$\Omega$, Hz or dB]} \\ \hline
+          \input{../mat/FinalValues.tex}
     \end{tabular}
     \qquad
     \begin{tabular}{|c|c|}
       \hline
       \multicolumn{2}{|c|}{\bf \color{blue} Simulation} \\
       \hline    
-          {\bf Designation} & {\bf Value [Hz or dB]} \\ \hline
+          {\bf Designation} & {\bf Value [$\Omega$, Hz or dB]} \\ \hline
+          \input{../sim/impedances.tex}
           \input{../sim/valsim_tab.tex}
     \end{tabular}
   \end{tabular}

@@ -10,6 +10,10 @@ all: ngspice.log
 	@sed 's/gainfinal/Gain/g' -i valsim_tab.tex
 	@sed 's/cost/Cost/g' -i merit_tab.tex
 	@sed 's/merit/Merit/g' -i merit_tab.tex
+	@sed 's/lowfrequence/$$f_L$$/g' -i valsim_exp_tab.tex
+	@sed 's/highfrequence/$$f_H$$/g' -i valsim_exp_tab.tex
+	@sed 's/centerfrequency/$$f_O$$/g' -i valsim_exp_tab.tex
+	@sed 's/gainfinal/Gain/g' -i valsim_exp_tab.tex
 
 ngspice.log: ../sim/t5.net
 	@ngspice -b ../sim/t5.net -o $@
@@ -24,6 +28,19 @@ ngspice.log: ../sim/t5.net
 	@sed 's/z/\ /g' -i impedances.tex
 	@sed 's/in impedance/$$|Z_I|$$/g' -i impedances.tex
 	@sed 's/out impedance/$$|Z_O|$$/g' -i impedances.tex
+	@ngspice -b ../sim/t5_exp.net >> $@
+	@sed 's/\,.*/,/' -i impedances_exp.tex
+	@sed 's/,//' -i impedances_exp.tex
+	@sed 's/\=/\&/g' -i impedances_exp.tex
+	@ngspice -b ../sim/t5out_exp.net >> $@
+	@sed 's/\,.*/,/' -i impedances_exp.tex
+	@sed 's/,//' -i impedances_exp.tex
+	@sed 's/\=/\&/g' -i impedances_exp.tex
+	@sed 's/$$/\\\\ \\hline/g' -i impedances_exp.tex
+	@sed 's/z/\ /g' -i impedances_exp.tex
+	@sed 's/in impedance/$$|Z_I|$$/g' -i impedances_exp.tex
+	@sed 's/out impedance/$$|Z_O|$$/g' -i impedances_exp.tex
+
 
 clean:
 	@rm -f ngspice.log *.tex *.pdf *.ps *.txt *~

@@ -1,4 +1,4 @@
-*Bandpass filter using OP-AMP - output impedance
+*Bandpass filter using OP-AMP - experimental results: output impedance
 * To use a subcircuit, the name must begin with 'X'.  For example:
 * X1 1 2 3 4 5 uA741
 *
@@ -57,13 +57,13 @@ R1 3 0 1k
 
 *Non-Inverting terminal
 R3 2 6 100k
-R4 2 0 10k
+R4 2 0 1k
 R4p 2 0 1k
 
 *after op-amp
 R2 6 out 1k
-*R2p 6 out 1k
-C2 out 0 110n
+R2p 6 out 2k
+C2 out 0 220n
 
 *Apply signal at the output
 Vout out 0 0 ac 10 sin(0 1.0 1k)
@@ -88,10 +88,7 @@ ac dec 10 10 100MEG
 
 *Obtain output impedance at f=1kohm
 let outzimpedance = 10/vout#branch[20]/(-1)
-print outzimpedance >> impedances.tex
-
-*input impedance in kohm
-*print v(in)[40]/R1[i]/1000
+print outzimpedance >> impedances_exp.tex
 
 .endc 
 

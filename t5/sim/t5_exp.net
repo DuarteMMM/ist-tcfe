@@ -1,4 +1,4 @@
-*Bandpass filter using OP-AMP
+*Bandpass filter using OP-AMP - experimental results
 * To use a subcircuit, the name must begin with 'X'.  For example:
 * X1 1 2 3 4 5 uA741
 *
@@ -50,7 +50,7 @@
 
 Vcc vcc 0 10.0
 Vee vee 0 -10.0
-Vin in 0 0 ac 1.0 sin(0 113m 1k)
+Vin in 0 0 ac 1.0 sin(0 111m 1k)
 
 X1 3 2 vcc vee 6 uA741
 
@@ -60,13 +60,13 @@ R1 3 0 1k
 
 *Non-Inverting terminal
 R3 2 6 100k
-R4 2 0 10k
+R4 2 0 1k
 R4p 2 0 1k
 
-*after op-amp (C2 is the equivalent capacitance)
+*after op-amp
 R2 6 out 1k
-C2 out 0 110n
-
+R2p 6 out 2k
+C2 out 0 220n
 
 .op
 .end
@@ -74,7 +74,7 @@ C2 out 0 110n
 .control
 
 *makes plots in color
-set hcopypscolor=0
+set hcopypscolor=1
 set color0=white
 set color1=black
 set color2=red
@@ -90,18 +90,19 @@ echo "********************************************"
 echo  "Operating point"
 echo "********************************************"
 
+
 * time analysis
 tran 1e-5 10e-2 9e-2
-hardcopy vo1.ps v(out) v(in)
-echo vo1_FIG
+hardcopy vo1_exp.ps v(out) v(in)
+echo vo1_exp_FIG
 
 * frequency analysis
 ac dec 10 10 100MEG
 
 *Gain plot
 let gain = db(v(out)/v(in))
-hardcopy gain.ps gain
-echo gain_FIG
+hardcopy gain_exp.ps gain
+echo gain_exp_FIG
 
 let gainlinear = v(out)/v(in)
 
@@ -118,42 +119,29 @@ let centerfrequency=sqrt(lowfrequence*highfrequence)
 
 meas ac gainfinallinear MAX gainlinear from=10 to=100000000
 
-echo "valsim_TAB"
+echo "valsim_exp_TAB"
 print lowfrequence
 print highfrequence
 print centerfrequency
 print gainfinal
-echo "valsim_END"
+echo "valsim_exp_END"
 
 *Cost and merit
 let valcapopamp = (8.661+30.00)/1000000
 let valresisopamp = 100.0+5.305+5.305+1.836+1.836+13190+0.050+0.100+18.16
-let valcap = (220+220+220)/1000
-let valresis = 1+1+100+10+1
+let valcap = (220+220)/1000
+let valresis = 1+1+2+100+1+1
 let cost = 2*0.1+5*0.1+(valcapopamp+valcap)*1+(valresisopamp+valresis)*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(100-gainfinallinear)
 let merit = 1/(cost*gaindevi*centraldevi)
 
-*Capacitors and resistances in the OP-AMP:
-*c1  8.661E-12
-*c2  30.00E-12
-*r2  100.0E3
-*rc1 5.305E3
-*rc2 5.305E3
-*re1 1.836E3
-*re2 1.836E3
-*ree 13.19E6
-*ro1 50
-*ro2 100
-*rp  18.16E3
-
-echo "merit_TAB"
+echo "merit_exp_TAB"
 print cost
 print merit
-echo "merit_END"
+echo "merit_exp_END"
 
-print inzimpedance > impedances.tex
+print inzimpedance > impedances_exp.tex
 
 .endc 
 
