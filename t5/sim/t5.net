@@ -133,7 +133,7 @@ let valresis = 1+1+100+10+1
 let cost = 2*0.1+5*0.1+(valcapopamp+valcap)*1+(valresisopamp+valresis)*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(100-gainfinallinear)
-let merit = 1/(cost*gaindevi*centraldevi)
+let merit = 1/(cost*gaindevi*centraldevi+10e-6)
 
 *Capacitors and resistances in the OP-AMP:
 *c1  8.661E-12
@@ -154,6 +154,11 @@ print merit
 echo "merit_END"
 
 print inzimpedance > impedances.tex
+
+set units=degrees
+hardcopy image_phase.ps vp(out)
+*hardcopy image_phase.ps vp(out) phase(gainlinear)
+echo image_phase_FIG
 
 .endc 
 

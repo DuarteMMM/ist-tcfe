@@ -90,8 +90,6 @@ ac dec 10 10 100MEG
 let outzimpedance = 10/vout#branch[20]/(-1)
 print outzimpedance >> impedances.tex
 
-*input impedance in kohm
-*print v(in)[40]/R1[i]/1000
 
 .endc 
 

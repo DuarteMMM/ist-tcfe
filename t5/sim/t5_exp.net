@@ -134,7 +134,7 @@ let valresis = 1+1+2+100+1+1
 let cost = 2*0.1+5*0.1+(valcapopamp+valcap)*1+(valresisopamp+valresis)*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(100-gainfinallinear)
-let merit = 1/(cost*gaindevi*centraldevi)
+let merit = 1/(cost*gaindevi*centraldevi+10e-6)
 
 echo "merit_exp_TAB"
 print cost
@@ -142,6 +142,11 @@ print merit
 echo "merit_exp_END"
 
 print inzimpedance > impedances_exp.tex
+
+set units=degrees
+hardcopy image_phase_exp.ps vp(out)
+*hardcopy image_phase_exp.ps vp(out) phase(gainlinear)
+echo image_phase_exp_FIG
 
 .endc 
 

@@ -78,9 +78,11 @@ The values shown in Table \ref{tab:chosen_values} were used to obtain the theore
   \label{tab:chosen_equiv_values}
 \end{table}
 
-Finally, by using the equations which have been presented throughout Section \ref{sec:analysis}, the input and output impedances (in absolute value) at the central frequency, the lower and higher cutoff frequencies, the central frequency and the gain at the central frequency have been obtained and are shown in Table \ref{tab:final_values}. Moreover, by using equation \ref{eq:gain} (with $\omega=2\pi f$), the frequency response $\frac{v_O(f)}{v_I(f)}\equiv T(f)$ in absolute value has been plotted for a frequency vector in logarithmic scale with 10 poins per decade, from frequency $f=10$ Hz to $f=100$ MHz. This plot is shown in Figure \ref{fig:gain_plot}.
+Finally, by using the equations which have been presented throughout Section \ref{sec:analysis}, the input and output impedances (in absolute value) at the central frequency, the lower and higher cutoff frequencies, the central frequency and the gain at the central frequency have been obtained and are shown in Table \ref{tab:final_values}. Moreover, by using equation \ref{eq:gain} (with $\omega=2\pi f$), the frequency response $\frac{v_O(f)}{v_I(f)}\equiv T(f)$ in absolute value has been plotted for a frequency vector in logarithmic scale with 10 poins per decade, from frequency $f=10$ Hz to $f=100$ MHz. This plot is shown in Figure \ref{fig:gain_plot}. The last plot shows the phase, in degrees, of the output voltage, which is given by the phase of the transfer function, since the input signal is taken as a sinusoidal wave with phase equal to zero.
 \par
-Rather high values for $|Z_I|$ and $|Z_O|$ have been obtained. The value obtained for the central frequency $f_O$ is very close to the desired result, $f=1$ kHz. Moreover, a gain rather close to 40 dB has been obtained. Regarding to the gain's plot, we can see that the theoretical model accurately depicts the functioning of a bandpass filter. For a small bandwith around $f_O$, the gain has its maximum value and decreases for frequencies below $f_L$ and above $f_H$. These results will be further analysed in Section \ref{sec:simulation} alongside those obtained with Ngspice.
+Rather high values for $|Z_I|$ and $|Z_O|$ have been obtained. The value obtained for the central frequency $f_O$ is very close to the desired result, $f=1$ kHz. Moreover, a gain rather close to 40 dB has been obtained. Regarding to the gain's plot, we can see that the theoretical model accurately depicts the functioning of a bandpass filter. For a small bandwith around $f_O$, the gain has its maximum value and decreases for frequencies below $f_L$ and above $f_H$. In terms of the phase, the graph looks very similar to what was expected for a bandpass filter, starting at $90^{\circ}$ at tending towards $-90^{\circ}$.
+\par
+These results will be further analysed in Section \ref{sec:simulation} alongside those obtained with Ngspice.
 
 \begin{table}[H]
   \centering
@@ -99,3 +101,10 @@ Rather high values for $|Z_I|$ and $|Z_O|$ have been obtained. The value obtaine
   \caption{Plot of the gain with respect to frequency, as obtained by theoretical analysis.}
   \label{fig:gain_plot}
 \end{figure}
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.7\linewidth]{phase_plot.eps}
+  \caption{Plot of the phase with respect to frequency, as obtained by theoretical analysis.}
+  \label{fig:phase_plot}
+\end{figure}
+

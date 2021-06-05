@@ -1,9 +1,6 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-
 The simulation utilized a given op-amp in order to simulate the circuit in Figure 1. 
-
-
 
 The input and output impedances of the system as a whole were determined. The output impedance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1V in the output. The results obtained are shown in Table \ref{tab:impe}, together with the theoretical analysis'.
 
@@ -13,21 +10,23 @@ As it was intended, the input impedance is high and the output impedance is real
 \par
 Now, the plots of the output signal and the gain are presented. For a transient analysis of frequency f=1kHz for the the output has been plotted in Figure \ref{fig:out1}. We can notice that there are no observable losses from the original signal, that is, the wave is still sinusoidal. The plot was made ate a later time (not t=0) when there are no transient variances in the signal.
 
-\begin{figure}[H]
-  \begin{subfigure}{.49\linewidth}
-    \centering
-    \includegraphics[width=0.95\linewidth]{../sim/vo1.pdf}
-    \footnotesize
-  \caption{Output signal variance with time for f=1kHz}
-   \label{fig:out1}
-  \end{subfigure}
-  \hspace{5mm}
-  \begin{subfigure}{.49\linewidth}
-    \centering
-  \includegraphics[width=0.95\linewidth]{../sim/gain.pdf}
+%\begin{figure}[H] \centering
+  %\includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/vo1.pdf}
+  %\caption{Output signal variance with time for f=1kHz}
+   %\label{fig:out1}
+%\end{figure}
+
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/gain.pdf}
   \caption{Gain}
-  \label{fig:out2}
-  \end{subfigure}
+  \label{fig:gain_simulation}
+\end{figure}
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/image_phase.pdf}
+  \caption{Phase}
+  \label{fig:phase_simulation}
 \end{figure}
 
 Regarding the plot of the gain, we can see that the passband effect is achieved being that the gain is only maximum for an intermediate level of frequencys.

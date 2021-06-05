@@ -31,6 +31,7 @@ f=logspace(1,8,70);
 w=2*pi*f;
 teta=((R1*C1*j*w)*(1+R3/R4))./((1+R1*C1*j*w).*(1+R2*C2*j*w));
 Gain=20*log10(abs(teta));
+Phase=angle(teta)/pi*180;
 
 %Lower and higher cut-off and central frequencies and gain at the central frequency
 wL=1/(R1*C1);
@@ -58,5 +59,13 @@ xlabel("f [Hz]");
 ylabel("Gain [dB]");
 title("Theoretical Gain");
 print (fig_gain, "gain_plot.eps", "-depsc");
+
+%Plot the phase
+fig_phase = figure ("Visible", "off");
+semilogx(f, Phase, "b");
+xlabel("f [Hz]");
+ylabel("Phase [degrees]");
+title("Theoretical Phase");
+print (fig_phase, "phase_plot.eps", "-depsc");
 
 close all;

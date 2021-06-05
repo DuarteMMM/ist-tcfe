@@ -44,22 +44,29 @@ In Table \ref{tab:lab_results}, the results obtained for the five tested configu
 
 \subsection{Simulation with the experimental values}
 
-As seen in Table \ref{tab:lab_results}, configuration $\#$4 provided the gain most close to 4 dB. Thus, this configuration was also simulated in Ngspice, by using the same procedure which will be discussed in Section \ref{sec:simulation}. The input and output signals are plotted in Figure \ref{fig:out1_exp} and the gain in Figure \ref{fig:out2_exp}. The input and output signals were represented in order to notice the discrepancies between them and the signals seen in the oscilloscope, in Figure \ref{fig:oscilloscope}: the first as a slight visible difference from a sine or cosine wave function. However, in the oscilloscope, no visible ``distortion'' is clear. This may let us to believe that, even though the Ngspice model is very complex, it can't take into account all of the effects and phenomena that happen in an actual assembled circuit. As for the gain's plot, it's possible to verify that the frequency response clearly shows that the assembled circuit works as a bandpass filter, with the gain being maximum around a central frequency.
+As seen in Table \ref{tab:lab_results}, configuration $\#$4 provided the gain most close to 4 dB. Thus, this configuration was also simulated in Ngspice, by using the same procedure which will be discussed in Section \ref{sec:simulation}. The input and output signals are plotted in Figure \ref{fig:out1_exp} and the gain in Figure \ref{fig:out2_exp}. The input and output signals were represented in order to notice the discrepancies between them and the signals seen in the oscilloscope, in Figure \ref{fig:oscilloscope}: the first as a slight visible difference from a sine or cosine wave function. However, in the oscilloscope, no visible ``distortion'' is clear. This may let us to believe that, even though the Ngspice model is very complex, it can't take into account all of the effects and phenomena that happen in an actual assembled circuit. As for the gain's plot, it's possible to verify that the frequency response clearly shows that the assembled circuit works as a bandpass filter, with the gain being maximum around a central frequency. As for the phase, the plot is very similar to the one that was obtained and will be analysed in Section \ref{sec:simulation}.
 
 \begin{figure}[H]
   \begin{subfigure}{.49\linewidth}
     \centering
     \includegraphics[width=0.95\linewidth,trim=0mm 18mm 0mm 70mm,clip]{../sim/vo1_exp.pdf}
     \footnotesize
-  \caption{Output signal variance with time for f=1kHz}
-   \label{fig:out1_exp}
+    \caption{Output signal variance with time for f=1kHz}
+    \label{fig:out1_exp}
   \end{subfigure}
-  \hspace{5mm}
+ % \hspace{5mm}
   \begin{subfigure}{.49\linewidth}
     \centering
-  \includegraphics[width=0.95\linewidth,,trim=0mm 18mm 0mm 70mm,clip]{../sim/gain_exp.pdf}
-  \caption{Gain}
-  \label{fig:out2_exp}
+    \includegraphics[width=0.95\linewidth,,trim=0mm 18mm 0mm 70mm,clip]{../sim/gain_exp.pdf}
+    \caption{Gain}
+    \label{fig:out2_exp}
+  \end{subfigure}
+  \centering
+  \begin{subfigure}{.49\linewidth}
+    \centering
+    \includegraphics[width=0.95\linewidth,,trim=0mm 18mm 0mm 70mm,clip]{../sim/image_phase_exp.pdf}
+    \caption{Phase}
+    \label{fig:out3_exp}
   \end{subfigure}
 \end{figure}
 
