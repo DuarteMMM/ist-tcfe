@@ -50,7 +50,7 @@
 
 Vcc vcc 0 10.0
 Vee vee 0 -10.0
-Vin in 0 0 ac 1.0 sin(0 113m 1k)
+Vin in 0 0 ac 1.0 sin(0 111m 1k)
 
 X1 3 2 vcc vee 6 uA741
 
@@ -133,20 +133,7 @@ let valresis = 1+1+100+10+1
 let cost = 2*0.1+5*0.1+(valcapopamp+valcap)*1+(valresisopamp+valresis)*1
 let centraldevi=abs(1000-centerfrequency)
 let gaindevi=abs(100-gainfinallinear)
-let merit = 1/(cost*gaindevi*centraldevi+10e-6)
-
-*Capacitors and resistances in the OP-AMP:
-*c1  8.661E-12
-*c2  30.00E-12
-*r2  100.0E3
-*rc1 5.305E3
-*rc2 5.305E3
-*re1 1.836E3
-*re2 1.836E3
-*ree 13.19E6
-*ro1 50
-*ro2 100
-*rp  18.16E3
+let merit = 1/(cost*(gaindevi+centraldevi+10e-6))
 
 echo "merit_TAB"
 print cost

@@ -1,38 +1,13 @@
 \section{Simulation Analysis} \label{sec:simulation}
 
-The simulation utilized a given op-amp in order to simulate the circuit in Figure 1. 
-
-The input and output impedances of the system as a whole were determined. The output impedance was simulated with $V_{in}$ turned off and a voltage source with amplitude of 1V in the output. The results obtained are shown in Table \ref{tab:impe}, together with the theoretical analysis'.
+In order to simulate the circuit with the values given in the Theoretical Analysis, two Ngspice scripts were made. One of the scripts was used in order to obtain the output impedance, by shutting off the input voltage, applying a test voltage source in the output and measuring the current passing through it. The quotient shown in equation \ref{eq:output_impedance} was then used to determine the output impedance at the central frequency. The other Ngspice script was used in order to simulate the whole circuit and to obtain the plots shown in Figures \ref{fig:gain_simulation} and \ref{fig:phase_simulation} and the other required values, shown in Tables \ref{tab:comparison} and \ref{tab:cost_merit}. In the Ngspice scripts, the Texas Instruments $\mu A741$ OP-AMP model was used. It provides a quite complex OP-AMP model, which includes, for instance, two capacitors, nine resistors, two transistors and five diodes; all of these components will be considered when calculating the monetary cost.
 
 \par
 
-As it was intended, the input impedance is high and the output impedance is really small.
-\par
-Now, the plots of the output signal and the gain are presented. For a transient analysis of frequency f=1kHz for the the output has been plotted in Figure \ref{fig:out1}. We can notice that there are no observable losses from the original signal, that is, the wave is still sinusoidal. The plot was made ate a later time (not t=0) when there are no transient variances in the signal.
+By applying an input voltage (in node \textit{in}) of frequency $f=1$ kHz and conducting a frequency analysis from 10 Hz to 100 MHz, the necessary values were determined. To obtain the input impedance at the central frequency, the quotient given by equation \ref{eq:input_impedance} was used. The lower and higher cutoff frequencies were, respectively, considered to be the lower and higher frequencies in which (by convention) the gain was 3 dB below the maximum gain. Having obtained $f_L$ and $f_H$, the central frequency was computed by equation \ref{eq:central_frequency}. All of these values are shown in Table \ref{tab:comparison}, alongside those obtained in the Theoretical Analysis.
 
-%\begin{figure}[H] \centering
-  %\includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/vo1.pdf}
-  %\caption{Output signal variance with time for f=1kHz}
-   %\label{fig:out1}
-%\end{figure}
-
-
-\begin{figure}[H] \centering
-  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/gain.pdf}
-  \caption{Gain}
-  \label{fig:gain_simulation}
-\end{figure}
-
-\begin{figure}[H] \centering
-  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/image_phase.pdf}
-  \caption{Phase}
-  \label{fig:phase_simulation}
-\end{figure}
-
-Regarding the plot of the gain, we can see that the passband effect is achieved being that the gain is only maximum for an intermediate level of frequencys.
-
- \begin{table}[H]
-   \centering
+\begin{table}[H]
+  \centering
   \begin{tabular}{cc}
     \begin{tabular}{|c|c|}
       \hline
@@ -51,15 +26,35 @@ Regarding the plot of the gain, we can see that the passband effect is achieved 
           \input{../sim/valsim_tab.tex}
     \end{tabular}
   \end{tabular}
-  \caption{Values obtained for the lower and higher cutoff frequencies (in Hz) and the final gain (in dB), for both the simulation and the theoretical analysis; bandwidth (in Hz) for the simulation.}
-  \label{tab:rip}
+  \caption{Absolute values of the input and output impedances at the central frequency (in $\Omega$), lower and higher cutoff frequencies and central frequency (in Hz) and gain at the central frequency (in dB), for both analyses}
+  \label{tab:comparison}
 \end{table}
 
+As we can see, very similar values were obtained with both analyses, which shows that the theoretical model considered is quite accurate. The lower and higher cutoff frequencies do differ significantly; however, the central frequencies are very similar, having the same order of magnitude and two equal digits. Moreover, they are extremely close to the desired 1 kHz value. The gains at the central frequency are also extremely close to each other, having three equal digits, even though they differ in about 2.6 dB from the desired 40 dB gain. However, it is worth noting that, because of the limitations imposed on the number and values of the components, it would be quite difficult to obtain better results. Even though the gain could have been made better, that would change the central frequency. Thus, it is safe to say that these results are quite reasonable.
+\par
+By using the Ngspice script, the circuit's gain and the phase of the output voltage (i.e., the voltage at node \textit{out}) - which, in this case, is the same as the gain's phase, because the input signal has phase zero - have been plotted and are shown below. It's in these graphs that the biggest differences from the Theoretical Analysis' results are noticeable. Firstly, although for lower and medium range frequencies the gain plots are almost indistinguishable, there is a clear difference for the higher frequencies, in which the theoretical gain is approximately -55 dB, but the simulation's gain is approximately -175 dB. Regarding the phase plots, in Section \ref{sec:analysis}, where an \textbf{ideal OP-AMP model} was considered, the curve is due to the transfer function's zero at the origin and the two poles in the lower and higher cutoff frequencies, as explained in the Theoretical Analysis. The differences seen in the Simulation Analysis are due to the OP-AMP model considered. In this case, the OP-AMP model is much more complex and includes \textbf{two capacitors}. Because of them, two other poles are added; each pole adds $-45^{\circ}$ to the slope in a +/- 1 decade interval. Thus, as the frequency tends to very high values, the phase will not tend to $90^{\circ}-2\cdot90^{\circ}=-90^{\circ}$ as before, but to $90^{\circ}-4\cdot90^{\circ}=-270^{\circ}$; because the Ngspice plot only considers angles in the interval [$-180^{\circ}$,$180^{\circ}$], at $-180^{\circ}$ the curve ``jumps'' to $180^{\circ}$, tending to $90^{\circ}$ ($\equiv 270^{\circ}$) for very high frequencies.
 
-Finally, the total monetary cost and the merit $M$ of the circuit have been calculated and are shown below in Table \ref{tab:rip1}. These were determined by using the results obtained from Ngspice. The cost is given by $cost=cost\; of\; resistors\; +\; cost\; of\; capacitor\; +\; cost\; of\; transistores$, in which each 1$k\Omega$ in the resistances costs 1 monetary unit (MU), as well as each 1$\mu F$ in the capacitance; the cost of each transistor is 0.1 MU. On the other hand, the merit M is given by
+\begin{figure}[H] \centering
+  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/gain.pdf}
+  \caption{Plot of the gain (in dB) for frequencies (in log scale) from 10 Hz to 100 MHz}
+  \label{fig:gain_simulation}
+\end{figure}
+
+\begin{figure}[H] \centering
+  \includegraphics[width=0.6\linewidth, trim=0mm 18mm 0mm 70mm,clip]{../sim/image_phase.pdf}
+  \caption{Plot of the output voltage's phase (in degrees) for frequencies (in log scale) from 10 Hz to 100 MHz}
+  \label{fig:phase_simulation}
+\end{figure}
+
+
+Finally, the monetary cost of this circuit and the merit figure, given by equations \ref{eq:cost} and \ref{eq:merit}, were computed and are shown in Table \ref{tab:cost_merit}. Firstly, it is important to take into account that the nine resistances (of values 100, 5.305, 5.305, 1.836, 1.836, 13190, 0.05, 0.1 and 18.16 k$\Omega$), two capacitances (of values 8.661 and 30 pF), two transistors and five diodes which are used in the OP-AMP model were considered when calculating the monetary cost. Secondly, the monetary costs for every component were the following: 1 monetary unit (MU) per k$\Omega$, 1 MU per $\mu$F, 0.1 MU per diode and 0.1 MU per transistor. The central frequency deviation is given by $|f_O-1\;kHz|$ and the gain deviation by $|Gain(f_O)-100|$ (in linear units).
+
+\begin{equation} \label{eq:cost}
+  Cost = cost\;of\;resistors\;+\;cost\;of\;capacitors\;+\;cost\;of\;transistors\;+\;cost\;of\;diodes
+\end{equation}
 
 \begin{equation} \label{eq:merit}
-  M=\frac{1}{cost\times GainDeviation \times CentralFrequencydeviation} 
+  M=\frac{1}{Cost\cdot(Gain\;deviation\;+\;Central\;Frequency\;deviation\;+\;10^{-6})} 
 \end{equation}
 
 
@@ -70,8 +65,8 @@ Finally, the total monetary cost and the merit $M$ of the circuit have been calc
         {\bf Designation} & {\bf Value} \\ \hline
         \input{../sim/merit_tab.tex}
   \end{tabular}
-  \caption{Cost and merit obtained for this circuit.} 
-  \label{tab:rip1}
+  \caption{Cost and merit obtained for this circuit} 
+  \label{tab:cost_merit}
 \end{table}
 
-Cost and merit observations
+Although the monetary cost was very high and the merit was very low, it was to be expected, due to the the number of components considered, as well as their values, especially those of the OP-AMP model. Even then, this merit is still one order of magnitude bigger than the one obtained in Section \ref{sec:experimental} for the components used in the laboratory class (which couldn't have been used in the Simulation Analysis anyway, because more than three resistances of 1 k$\Omega$ were utilized in the laboratory). Thus, we may conclude that the merit is still reasonably good.

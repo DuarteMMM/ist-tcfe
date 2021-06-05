@@ -14,6 +14,8 @@ all: ngspice.log
 	@sed 's/highfrequence/$$f_H$$/g' -i valsim_exp_tab.tex
 	@sed 's/centerfrequency/$$f_O$$/g' -i valsim_exp_tab.tex
 	@sed 's/gainfinal/Gain/g' -i valsim_exp_tab.tex
+	@sed 's/cost/Cost/g' -i merit_exp_tab.tex
+	@sed 's/merit/Merit/g' -i merit_exp_tab.tex
 
 ngspice.log: ../sim/t5.net
 	@ngspice -b ../sim/t5.net -o $@

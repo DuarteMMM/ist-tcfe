@@ -1,6 +1,6 @@
 \section{Theoretical Analysis} \label{sec:analysis}
 
-The active bandpass filter is used to let a range of frequencies, which lie within the pass band, through the circuit without meaningful attenuation. This range of frequencies is limited between a lower cutoff frequency ($f_L$) and a higher cutoff frequency ($f_H$). The circuit shown in Figure \ref{fig:CircuitDraw} is formed by a High-Pass Filter Stage (capacitor $C_1$ and resistor $R_1$), an Amplification Stage (the OP-AMP and resistors $R_3$, $R_4$ and $R_{4p}$) and a Low-Pass Filter Stage (capacitors $C_2$ and $C_{2s}$ and resistances $R_2$ and $R_{2p}$). It is worth noting that the reason why some resistances were put in parallel with another and two capacitors were put in series is that, in this laboratory assignment, some restrictions were imposed as to the number of components used, as well as the respective resistances and capacitances' values, as it will be furhter discussed in this section. The equivalent resistances and capacitances to be considered are given by:
+The active bandpass filter is used to let a range of frequencies, which lie within the pass band, through the circuit without meaningful attenuation. This range of frequencies is limited between a lower cutoff frequency ($f_L$) and a higher cutoff frequency ($f_H$). The circuit shown in Figure \ref{fig:CircuitDraw} is formed by a High-Pass Filter Stage (capacitor $C_1$ and resistor $R_1$), an Amplification Stage (the OP-AMP and resistors $R_3$, $R_4$ and $R_{4p}$) and a Low-Pass Filter Stage (capacitors $C_2$ and $C_{2s}$ and resistances $R_2$ and $R_{2p}$). It is worth noting that the reason why some resistances were put in parallel with another and two capacitors were put in series is that, in this laboratory assignment, some restrictions were imposed as to the number of components used, as well as the respective resistances and capacitances' values, as it will be further discussed in this section. The equivalent resistances and capacitances to be considered are given by:
 
 \begin{equation}\label{eq:equivalent_resistances_capacitances}
   C_{2,eq}=\frac{C_2C_{2s}}{C_2+C_{2s}}\;,\;\;R_{2,eq}=\frac{R_2R_{2p}}{R_2+R_{2p}}\;,\;\;R_{4,eq}=\frac{R_4R_{4p}}{R_4+R_{4p}}
@@ -16,7 +16,7 @@ As the names suggest, the High-Pass Filter Stage will significantly attenuate th
   \omega_H=\frac{1}{R_{2,eq}C_{2,eq}}=2\pi f_H
 \end{equation}
 
-On the other hand, the operation amplifier (OP-AMP) is a transistor-base device with a high gain and input impedance, a low output impedance and a differential input. In this circuit, the OP-AMP is used as a non-inverting amplifier, i.e., its gain is positive (because the resistances $R_3$, $R_4$ and $R_{4p}$ are positive). It is a negative feedback amplifier, meaning that the feedback is made through the inverting input.
+On the other hand, the operation amplifier (OP-AMP) is a transistor-based device with a high gain and input impedance, a low output impedance and a differential input. In this circuit, the OP-AMP is used as a non-inverting amplifier, i.e., its gain is positive (because the resistances $R_3$ and $R_{4,eq}$ are positive). It is a negative feedback amplifier, meaning that the feedback is made through the inverting input.
 
 \par
 
@@ -26,13 +26,13 @@ In this theoretical model, an ideal OP-AMP is considered. Therefore, we have tha
   Z_I=R_1+\frac{1}{j\omega C_1}=R_1+\frac{1}{j2\pi fC_1}
 \end{equation}
 
-In order to determine the output impedance, it is necessary to shut-off the input voltage, i.e., to consider $v_I=0$. Because the current $i_+$ that goes into the non inverting input is zero, we have that $i_+=-v_3\left(\frac{1}{R_1}+j\omega C_1\right)=0\Rightarrow v_3=v_+=0$. Because of the OP-AMP's negative feedback, $v_-=v_2=v_+=0$. Therefore, no current passes through $R_{4,eq}$; moreover, because the current that goes into the inverting input is $i_-=0$ (due to the $\infty$ $\Omega$ input impedance), the current that flows through $R_3$ must be null, thus the \textbf{output impedance} is simply given by the parallel of $R_{2,eq}$ and $C_{2,eq}$'s impedances:
+In order to determine the output impedance, it is necessary to shut-off the input voltage, i.e., to consider $v_I=0$ V. Because the current $i_+$ that goes into the non inverting input is zero, we have that $i_+=-v_3\left(\frac{1}{R_1}+j\omega C_1\right)=0\Rightarrow v_3=v_+=0$. Because of the OP-AMP's negative feedback, $v_-=v_2=v_+=0$ V. Therefore, no current passes through $R_{4,eq}$; moreover, because the current that goes into the inverting input is $i_-=0$ A (due to the $\infty$ $\Omega$ input impedance), the current that flows through $R_3$ must be null, thus the \textbf{output impedance} is simply given by the parallel of $R_{2,eq}$ and $C_{2,eq}$'s impedances:
 
 \begin{equation} \label{eq:output_impedance}
   Z_O=\left.\frac{v_O}{i_O}\right|_{v_I=0}=\frac{1}{\frac{1}{R_{2,eq}}+j\omega C_{2,eq}}=\frac{1}{\frac{1}{R_{2,eq}}+j2\pi fC_{2,eq}}
 \end{equation}
 
-In order to obtain the equation for the gain, let us consider each subsequent stage of this circuit. Firstly, by applying the Voltage Divider Law in the High-Pass Filter Stage, one easily gets the equation. Sendo $v_{O,1}(s)=\frac{R_1C_1s}{1+R_1C_1s}v_I(s)~\refstepcounter{equation}(\theequation) \label{eq:gain1}$ in terms of $s=j\omega$. Secondly, for the Amplification Stage, we have that $v_{O,2}(s)=\left(1+\frac{R_3}{R_{4,eq}}\right)v_{O,1}(s)~\refstepcounter{equation}(\theequation) \label{eq:gain2}$. Finally, the Low-Pass Filter Stage gives us the equation $v_O(s)=\frac{1}{1+R_{2,eq}C_{2,eq}s}v_{O,2}(s)~\refstepcounter{equation}(\theequation) \label{eq:gain3}$, by applying the Voltage Divider Law. By substituting equation \ref{eq:gain1} into \ref{eq:gain2} and this result into equation \ref{eq:gain3}, the circuit's transfer function (thus, the output voltage \textbf{gain}) is obtained:
+In order to obtain the equation for the gain, let us consider each subsequent stage of this circuit. Firstly, by applying the Voltage Divider Law in the High-Pass Filter Stage, one easily gets the equation $v_{O,1}(s)=\frac{R_1C_1s}{1+R_1C_1s}v_I(s)~\refstepcounter{equation}(\theequation) \label{eq:gain1}$ in terms of $s=j\omega$ for the output voltage of this sub-circuit. Secondly, for the Amplification Stage, we have that $v_{O,2}(s)=\left(1+\frac{R_3}{R_{4,eq}}\right)v_{O,1}(s)~\refstepcounter{equation}(\theequation) \label{eq:gain2}$. Finally, the Low-Pass Filter Stage gives us the equation $v_O(s)=\frac{1}{1+R_{2,eq}C_{2,eq}s}v_{O,2}(s)~\refstepcounter{equation}(\theequation) \label{eq:gain3}$, by applying the Voltage Divider Law. By substituting equation \ref{eq:gain1} into \ref{eq:gain2} and this result into equation \ref{eq:gain3}, the circuit's transfer function (thus, the output voltage \textbf{gain}) is obtained:
 
 \begin{equation} \label{eq:gain}
   \begin{aligned}
@@ -52,59 +52,56 @@ The \textbf{central frequency} is given by the geometric mean of the values give
   \end{aligned}
 \end{equation}
 
-While implementing this circuit, a few restrictions were imposed, in terms of the number of resistances and capacitors that could be used, as well as their values: at most three 1 k$\Omega$ resistors, three 10 k$\Omega$ resistors, three 100 k$\Omega$ resistors, three 220 nF capacitors and three 1 $\mu$F capacitors. By choosing the appropriate components, the main goal was to obtain a central frequency and a gain at this frequency as close as possible to 1 kHz and 40 dB, respectively. Moreover, the monetary cost of this circuit was made as low as possible. Taken this into account, the resistances and capacitances used in the theoretical and simulation analysis were the following:
+While implementing this circuit, a few restrictions were imposed, in terms of the number of resistances and capacitors that could be used, as well as their values: at most three 1 k$\Omega$ resistors, three 10 k$\Omega$ resistors, three 100 k$\Omega$ resistors, three 220 nF capacitors and three 1 $\mu$F capacitors. By choosing the appropriate components, the main goal was to obtain a central frequency and a gain at this frequency as close as possible to 1 kHz and 40 dB, respectively. Moreover, the monetary cost of this circuit was made as low as possible. Taken this into account, the resistances and capacitances used in the theoretical and simulation analyses were the following:
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline    
-    {\bf Designation} & {\bf Value [nF or k$\Omega$]} \\ \hline
-    \input{../mat/ChosenValues.tex}
+        {\bf Designation} & {\bf Value [nF or k$\Omega$]} \\ \hline
+        \input{../mat/ChosenValues.tex}
   \end{tabular}
-  \caption{Values used for resistances (in k$\Omega$) and capacitances (in nF) in the circuit}
+  \caption{Values used for capacitances (in nF) and resistances (in k$\Omega$) in the circuit}
   \label{tab:chosen_values}
 \end{table}
 
-The values shown in Table \ref{tab:chosen_values} were used to obtain the theoretical results in Table \ref{tab:final_values} and Figure \ref{fig:gain_plot}, shown below. These are the same values used to compute the Simulation Analysis in Section \ref{sec:simulation}. In order to obtain the best possible results and respecting the imposed restrictions, the resistor $R_{2p}$ ended up not being used, thus the $\infty$ $\Omega$ value presented above, thus $R_{2,eq}=R_2$. The other equivalent resistance and the equivalent capacitance are given by the values shown in Table \ref{tab:chosen_equiv_values}.
+The values shown in Table \ref{tab:chosen_values} were used to obtain the theoretical results in Table \ref{tab:final_values} and Figures \ref{fig:gain_plot} and \ref{fig:phase_plot}, shown below. These are the same values used to compute the Simulation Analysis in Section \ref{sec:simulation}. In order to obtain the best possible results, while respecting the imposed restrictions, the resistor $R_{2p}$ ended up not being used, thus the $\infty$ $\Omega$ value presented above, therefore $R_{2,eq}=R_2$. The other equivalent resistance and the equivalent capacitance are given by the values shown in Table \ref{tab:chosen_equiv_values}.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline    
-    {\bf Designation} & {\bf Value [nF or k$\Omega$]} \\ \hline
-    \input{../mat/EquivalentValues.tex}
+        {\bf Designation} & {\bf Value [nF or k$\Omega$]} \\ \hline
+        \input{../mat/EquivalentValues.tex}
   \end{tabular}
   \caption{Values of the equivalent capacitance $C_{2,eq}$ (in nF) and the equivalent resistance $R_{4,eq}$ (in k$\Omega$)}
   \label{tab:chosen_equiv_values}
 \end{table}
 
 Finally, by using the equations which have been presented throughout Section \ref{sec:analysis}, the input and output impedances (in absolute value) at the central frequency, the lower and higher cutoff frequencies, the central frequency and the gain at the central frequency have been obtained and are shown in Table \ref{tab:final_values}. Moreover, by using equation \ref{eq:gain} (with $\omega=2\pi f$), the frequency response $\frac{v_O(f)}{v_I(f)}\equiv T(f)$ in absolute value has been plotted for a frequency vector in logarithmic scale with 10 poins per decade, from frequency $f=10$ Hz to $f=100$ MHz. This plot is shown in Figure \ref{fig:gain_plot}. The last plot shows the phase, in degrees, of the output voltage, which is given by the phase of the transfer function, since the input signal is taken as a sinusoidal wave with phase equal to zero.
-\par
-Rather high values for $|Z_I|$ and $|Z_O|$ have been obtained. The value obtained for the central frequency $f_O$ is very close to the desired result, $f=1$ kHz. Moreover, a gain rather close to 40 dB has been obtained. Regarding to the gain's plot, we can see that the theoretical model accurately depicts the functioning of a bandpass filter. For a small bandwith around $f_O$, the gain has its maximum value and decreases for frequencies below $f_L$ and above $f_H$. In terms of the phase, the graph looks very similar to what was expected for a bandpass filter, starting at $90^{\circ}$ at tending towards $-90^{\circ}$.
-\par
-These results will be further analysed in Section \ref{sec:simulation} alongside those obtained with Ngspice.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|c|c|}
     \hline    
-    {\bf Designation} & {\bf Value [Hz or $\Omega$ or dB]} \\ \hline
-    \input{../mat/FinalValues.tex}
+        {\bf Designation} & {\bf Value [$\Omega$, Hz or dB]} \\ \hline
+        \input{../mat/FinalValues.tex}
   \end{tabular}
-  \caption{Values of the equivalent capacitance $C_{2,eq}$ (in nF) and the equivalent resistance $R_{4,eq}$ (in k$\Omega$)}
+  \caption{Theoretical results for the input and output impedances at the central frequency (in $\Omega$), lower and higher cutoff frequencies and central frequency (in Hz) and gain in the passband (in dB)}
   \label{tab:final_values}
 \end{table}
 
 
 \begin{figure}[H] \centering
-  \includegraphics[width=0.7\linewidth]{gain_plot.eps}
-  \caption{Plot of the gain with respect to frequency, as obtained by theoretical analysis.}
+  \includegraphics[width=0.68\linewidth]{gain_plot.eps}
+  \caption{Plot of the gain with respect to frequency, as obtained by theoretical analysis}
   \label{fig:gain_plot}
 \end{figure}
 
 \begin{figure}[H] \centering
-  \includegraphics[width=0.7\linewidth]{phase_plot.eps}
-  \caption{Plot of the phase with respect to frequency, as obtained by theoretical analysis.}
+  \includegraphics[width=0.68\linewidth]{phase_plot.eps}
+  \caption{Plot of the output voltage's phase with respect to frequency, as obtained by theoretical analysis}
   \label{fig:phase_plot}
 \end{figure}
 
+Rather high values for $|Z_I|$ and $|Z_O|$ have been obtained. The value obtained for the central frequency $f_O$ is very close to the desired result, $f=1$ kHz. Moreover, a gain rather close to 40 dB has been obtained. Regarding the gain's plot, we can see that the theoretical model accurately depicts the functioning of a bandpass filter. For a small bandwith around $f_O$, the gain has its maximum value and decreases for frequencies below $f_L$ and above $f_H$. This happens because, as we can see from equation \ref{eq:gain}, there is a zero at $s=0$, which adds $\approx$ 20 dB per decade to the plot; there is a pole at $f_L$ and another at $f_H$ and each one adds $\approx$ -20 dB per decade to the plot. In terms of the phase, the graph looks very similar to what was expected for a bandpass filter, starting at $90^{\circ}$ at tending towards $-90^{\circ}$ for very high frequencies: the zero at the origin adds $\approx$ $45^{\circ}$ to the phase slope in the decade before and in the decade after; the poles add $\approx$ $-45^{\circ}$ slopes in a similar way. These results will be further analysed in Section \ref{sec:simulation} alongside those obtained with Ngspice.
